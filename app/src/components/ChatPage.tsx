@@ -166,7 +166,7 @@ export default function ChatPage() {
 
       {/* 모달 컨테이너 */}
       <div className="fixed bottom-0 left-0 right-0 z-50 flex justify-center pointer-events-none">
-        <div className="w-full max-w-[375px] pointer-events-auto animate-slide-up-from-bottom">
+        <div className="w-full pointer-events-auto animate-slide-up-from-bottom">
           {/* 메인 채팅 영역 */}
           <div
             className={`bg-neutral-50 flex flex-col rounded-t-[30px] shadow-2xl overflow-hidden transition-all h-[94vh] max-h-[765px]`}
@@ -314,7 +314,7 @@ export default function ChatPage() {
         {/* 가상 키보드 영역 */}
         {showKeyboard && (
           <div className="fixed bottom-0 left-0 right-0 z-[60] flex justify-center bg-gray-100">
-            <div className="w-full max-w-[375px]">
+            <div className="w-full">
               {/* 입력창 (키보드 위) */}
               <div className="w-full px-4 py-3 bg-neutral-50">
                 <div className="flex items-center gap-2 bg-white rounded-full px-4 py-3 shadow-lg border border-gray-200">
