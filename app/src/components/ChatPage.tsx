@@ -292,7 +292,7 @@ export default function ChatPage() {
                     // 모바일 느낌을 살리려면 아래 주석 해제하여 가상키보드 사용
                     // onClick={() => setShowKeyboard(true)}
                     placeholder="메시지를 입력하세요..."
-                    className="flex-1 outline-none text-[14px] bg-transparent text-gray-700"
+                    className="flex-1 outline-none text-[16px] bg-transparent text-gray-700"
                   />
                   <button
                     onClick={() => handleSend()}
