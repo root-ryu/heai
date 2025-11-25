@@ -16,7 +16,7 @@ export function Bottom() {
   const pathname = usePathname();
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 content-stretch flex flex-col gap-[4px] items-center w-[375px] mx-auto bg-transparent z-50">
+    <div className="fixed bottom-0 left-0 right-0 content-stretch flex flex-col gap-[2px] items-center w-[375px] mx-auto bg-transparent z-50">
       <Gnb router={router} pathname={pathname} />
       <HomeIndicator />
     </div>
@@ -267,5 +267,5 @@ function Chat({
 }
 
 function HomeIndicator() {
-  return <div className="h-[34px] relative shrink-0 w-full"></div>;
+  return <div className="h-[8px] relative shrink-0 w-full"></div>;
 }
