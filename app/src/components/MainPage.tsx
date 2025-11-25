@@ -45,7 +45,7 @@ export default function MainPage() {
   };
 
   return (
-    <div className="bg-neutral-50 flex flex-col items-center relative w-[375px] h-[812px] overflow-hidden">
+    <div className="bg-neutral-50 flex flex-col items-center relative w-full h-full overflow-hidden">
       {/* Top Status Bar */}
       <Top />
 

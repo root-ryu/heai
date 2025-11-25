@@ -297,7 +297,7 @@ export default function CommunityDetailPage() {
   ];
 
   return (
-    <div className="bg-[#F8FBFF] flex flex-col items-center w-[375px] h-[812px] overflow-hidden">
+    <div className="bg-[#F8FBFF] flex flex-col items-center w-full h-full overflow-hidden">
       <Top />
 
       {/* Header */}

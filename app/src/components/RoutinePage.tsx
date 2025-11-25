@@ -8,7 +8,7 @@ export default function RoutinePage() {
   const router = useRouter();
 
   return (
-    <div className="bg-neutral-50 flex flex-col items-center w-[375px] h-[812px] overflow-hidden">
+    <div className="bg-neutral-50 flex flex-col items-center w-full h-full overflow-hidden">
       <Top />
 
       <div className="flex-1 overflow-y-auto overflow-x-hidden w-full">
