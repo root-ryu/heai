@@ -4,16 +4,25 @@ import type { Metadata, Viewport } from 'next';
 export const metadata: Metadata = {
   title: 'HeAi',
   description: '나와 함께 성장하는 AI 루틴 파트너',
-  keywords: ['헤이', 'HeAi', '헬스', '운동', 'AI', '건강관리', '피트니스', '다이어트'],
+  keywords: [
+    '헤이',
+    'HeAi',
+    '헬스',
+    '운동',
+    'AI',
+    '건강관리',
+    '피트니스',
+    '다이어트',
+  ],
   authors: [{ name: 'Maximus' }],
   openGraph: {
     title: 'HeAi',
     description: '나와 함께 성장하는 AI 루틴 파트너',
-    images: ['/public/favicon.png'],
+    images: ['/favicon.png'],
   },
   icons: {
-    icon: '/public/favicon.png',           // 파비콘
-    apple: '/public/apple-icon.png',    // iOS 아이콘
+    icon: '/favicon.png',
+    apple: '/favicon.png',
   },
 };
 
