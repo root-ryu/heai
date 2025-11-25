@@ -14,9 +14,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "vercel-build": "rm -rf node_modules/.cache && next build",
-    "postinstall": "node -e \"require('react'); console.log('React OK')\""
+    "lint": "next lint"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
