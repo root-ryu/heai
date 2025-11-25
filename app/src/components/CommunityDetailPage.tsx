@@ -600,7 +600,7 @@ export default function CommunityDetailPage() {
                                   fill="none"
                                   viewBox="0 0 14 14"
                                 >
-                                  <path d={svgPaths.p2a722600} fill="#5E5E5E" />
+                                  <path d={svgPaths.p13d11a80} fill="#5E5E5E" />
                                 </svg>
                               </div>
                             </div>
