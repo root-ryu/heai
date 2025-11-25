@@ -169,7 +169,7 @@ export default function ChatPage() {
         <div className="w-full pointer-events-auto animate-slide-up-from-bottom">
           {/* 메인 채팅 영역 */}
           <div
-            className={`bg-neutral-50 flex flex-col rounded-t-[30px] shadow-2xl overflow-hidden transition-all h-[94vh] max-h-[765px]`}
+            className={`bg-neutral-50 flex flex-col rounded-t-[30px] shadow-2xl overflow-hidden transition-all h-[92svh] w-full`}
           >
             {/* Header */}
             <div className="bg-[#FFFFFF] w-full px-4 py-4 flex items-center justify-between shadow-lg rounded-t-[30px] z-10">
