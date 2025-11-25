@@ -177,7 +177,7 @@ function VideoIcon() {
 }
 
 export default function CommunityWritePage() {
-  const navigate = useNavigate();
+  const router = useRouter();
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
@@ -212,9 +212,9 @@ export default function CommunityWritePage() {
 
     // 해당 카테고리 페이지로 이동
     if (selectedCategory === 'all') {
-      navigate('/community');
+      router.push('/community');
     } else {
-      navigate(`/community/${selectedCategory}`);
+      router.push(`/community/${selectedCategory}`);
     }
   };
 
