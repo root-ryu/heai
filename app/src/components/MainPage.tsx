@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Top, Bottom } from './Layout';
-import svgPaths from '../imports/svg-067ap2oqb0.ts';
+import svgPaths from '../imports/svg-067ap2oqb0';
 
 // 이미지 경로 상수
 const imgPrize = '/33ab7c693a25e5323849382d99358c731c496f60.png';

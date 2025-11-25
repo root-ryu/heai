@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter, usePathname } from 'next/navigation';
-import svgPaths from '../imports/svg-067ap2oqb0.ts';
+import svgPaths from '../imports/svg-067ap2oqb0';
 
 const imgEye12 = '/532303d6c8033a0d1a7fe404f94ac83b8cb9ed53.png';
 
