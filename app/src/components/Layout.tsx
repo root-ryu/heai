@@ -7,7 +7,7 @@ const imgEye12 = '/532303d6c8033a0d1a7fe404f94ac83b8cb9ed53.png';
 
 export function Top() {
   return (
-    <div className="h-[47px] overflow-clip shrink-0 sticky top-0 w-full z-10 bg-[#ffffff]"></div>
+    <div className="h-0 overflow-clip shrink-0 sticky top-0 w-full z-10 bg-[#ffffff]"></div>
   );
 }
 
