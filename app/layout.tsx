@@ -2,7 +2,7 @@ import './globals.css';
 import type { Metadata, Viewport } from 'next';
 
 export const metadata: Metadata = {
-  title: 'HEai',
+  title: 'HeAi',
   description: 'Health & Exercise AI',
 };
 
