@@ -45,19 +45,21 @@ export default function MainPage() {
   };
 
   return (
-    <div className="bg-neutral-50 flex flex-col items-center relative w-full h-full overflow-hidden">
+    <div className="bg-neutral-50 flex flex-col items-center relative w-full h-full">
       {/* Top Status Bar */}
       <Top />
 
-      {/* Inner Content */}
-      <Inner
-        router={router}
-        routines={routines}
-        toggleRoutine={toggleRoutine}
-        selectedDate={selectedDate}
-        setSelectedDate={setSelectedDate}
-        percentage={percentage}
-      />
+      {/* Inner Content - Scrollable Area */}
+      <div className="flex-1 overflow-y-auto w-full">
+        <Inner
+          router={router}
+          routines={routines}
+          toggleRoutine={toggleRoutine}
+          selectedDate={selectedDate}
+          setSelectedDate={setSelectedDate}
+          percentage={percentage}
+        />
+      </div>
 
       {/* Bottom Navigation */}
       <Bottom />
@@ -81,13 +83,8 @@ function Inner({
   percentage: number;
 }) {
   return (
-    <div className="flex flex-col overflow-y-auto w-full scrollbar-hide pb-[120px]">
-      <style>{`
-        .scrollbar-hide::-webkit-scrollbar {
-          display: none;
-        }
-      `}</style>
-      <div className="box-border content-stretch flex flex-col gap-[40px] items-center justify-center overflow-clip px-0 py-[20px] w-full">
+    <div className="flex flex-col w-full pb-[120px]">
+      <div className="box-border content-stretch flex flex-col gap-[40px] items-center justify-center px-0 py-[20px] w-full">
         {/* Date & Character Section */}
         <DateSection
           selectedDate={selectedDate}
