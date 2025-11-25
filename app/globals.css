@@ -66,9 +66,10 @@
   body {
     @apply bg-background text-foreground;
   }
-  
+
   /* 모바일 최적화: 기본 여백 제거, 스크롤바 숨기기 */
-  html, body {
+  html,
+  body {
     margin: 0;
     padding: 0;
     overflow: hidden;
@@ -79,20 +80,20 @@
     height: 100vh;
     height: 100svh;
   }
-  
+
   /* 스크롤바 완전히 숨기기 (WebKit 기반 브라우저) */
   ::-webkit-scrollbar {
     display: none;
     width: 0;
     height: 0;
   }
-  
+
   /* 스크롤바 숨기기 (Firefox) */
   * {
     scrollbar-width: none;
     -ms-overflow-style: none;
   }
-  
+
   /* 모바일 헤더 공간 제거 */
   body {
     -webkit-tap-highlight-color: transparent;

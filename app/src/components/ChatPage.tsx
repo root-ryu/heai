@@ -323,7 +323,7 @@ export default function ChatPage() {
                     value={inputText}
                     readOnly
                     placeholder="메시지를 입력하세요..."
-                    className="flex-1 outline-none text-[14px] bg-transparent"
+                    className="flex-1 outline-none text-[16px] bg-transparent"
                   />
                   <button
                     onClick={() => handleSend()}
