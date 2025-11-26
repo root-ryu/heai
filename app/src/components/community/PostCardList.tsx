@@ -51,7 +51,7 @@ export default function PostCardList({
               className="rounded-[4px] px-[6px] py-[3px]"
               style={{ backgroundColor: getCategoryBgColor() }}
             >
-              <p className="font-['Pretendard:Regular',sans-serif] text-[12px] leading-[16px] text-[#ffffff]">
+              <p className="font-pretendard text-[12px] leading-[16px] text-[#ffffff]">
                 {post.category}
               </p>
             </div>
@@ -63,7 +63,7 @@ export default function PostCardList({
           </div>
 
           {/* Title */}
-          <p className="font-['Pretendard:Regular',sans-serif] text-[16px] leading-[18px] text-black mb-[12px]">
+          <p className="font-pretendard text-[16px] leading-[18px] text-black mb-[12px]">
             {post.title}
           </p>
 
@@ -88,7 +88,7 @@ export default function PostCardList({
                       />
                     )}
                     <p
-                      className={`font-['Pretendard:Regular',sans-serif] text-[16px] relative z-10 ${
+                      className={`font-pretendard text-[16px] relative z-10 ${
                         option.percentage > 0 ? 'text-white' : 'text-black'
                       }`}
                     >
@@ -110,10 +110,10 @@ export default function PostCardList({
 
           {/* Views and Time */}
           <div className="flex items-center justify-between">
-            <p className="font-['Pretendard:Regular',sans-serif] text-[14px] leading-[16px] text-[#8c8c8c]">
+            <p className="font-pretendard text-[14px] leading-[16px] text-[#8c8c8c]">
               조회수 {post.views}
             </p>
-            <p className="font-['Pretendard:Regular',sans-serif] text-[14px] leading-[24px] text-[#8c8c8c]">
+            <p className="font-pretendard text-[14px] leading-[24px] text-[#8c8c8c]">
               {post.timeAgo}
             </p>
           </div>
@@ -125,13 +125,13 @@ export default function PostCardList({
         <div className="w-[335px] mx-auto flex items-center gap-[16px]">
           <div className="flex items-center gap-[4px]">
             <Heart className="w-[16px] h-[16px] text-[#5D5D5D]" />
-            <p className="font-['Pretendard:Regular',sans-serif] text-[14px] leading-[24px] text-[#5e5e5e]">
+            <p className="font-pretendard text-[14px] leading-[24px] text-[#5e5e5e]">
               추천수 {post.likes}
             </p>
           </div>
           <div className="flex items-center gap-[4px]">
             <MessageSquare className="w-[16px] h-[16px] text-[#5E5E5E]" />
-            <p className="font-['Pretendard:Regular',sans-serif] text-[14px] leading-[24px] text-[#5e5e5e]">
+            <p className="font-pretendard text-[14px] leading-[24px] text-[#5e5e5e]">
               댓글 {post.comments}
             </p>
           </div>

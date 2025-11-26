@@ -45,7 +45,7 @@ export default function SearchBar({
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
                 placeholder={placeholder}
-                className="flex-1 bg-transparent outline-none font-['Pretendard:Regular',sans-serif] text-[16px] text-black placeholder:text-[#717182]"
+                className="flex-1 bg-transparent outline-none font-pretendard text-[16px] text-black placeholder:text-[#717182]"
               />
             </div>
           </div>

@@ -53,7 +53,7 @@ function RightSide() {
 function StatusBarTime() {
   return (
     <div className="absolute h-[21px] left-[calc(16.67%-10.5px)] rounded-[24px] top-[14px] translate-x-[-50%] w-[54px]" data-name="_StatusBar-time">
-      <p className="absolute font-['Roboto:SemiBold',sans-serif] font-semibold h-[20px] leading-[22px] left-[27px] text-[#3a3a3a] text-[17px] text-center top-px tracking-[-0.408px] translate-x-[-50%] w-[54px]" style={{ fontVariationSettings: "'wdth' 100" }}>
+      <p className="absolute font-roboto font-semibold font-semibold h-[20px] leading-[22px] left-[27px] text-[#3a3a3a] text-[17px] text-center top-px tracking-[-0.408px] translate-x-[-50%] w-[54px]" style={{ fontVariationSettings: "'wdth' 100" }}>
         9:41
       </p>
     </div>
@@ -81,13 +81,13 @@ function Top() {
 function Frame5() {
   return (
     <div className="content-stretch flex flex-col gap-[4px] items-start relative shrink-0 text-nowrap">
-      <p className="font-['Pretendard:Regular',sans-serif] leading-none relative shrink-0 text-[#2e2e2e] text-[9px] whitespace-pre">이달의 막시무스는 누구?</p>
-      <div className="font-['Pretendard:Bold',sans-serif] leading-[1.2] relative shrink-0 text-[0px] text-[22px] text-white whitespace-pre">
+      <p className="font-pretendard leading-none relative shrink-0 text-[#2e2e2e] text-[9px] whitespace-pre">이달의 막시무스는 누구?</p>
+      <div className="font-pretendard font-bold leading-[1.2] relative shrink-0 text-[0px] text-[22px] text-white whitespace-pre">
         <p className="mb-0">
-          <span className="font-['Pretendard:ExtraBold',sans-serif]">내 캐릭터</span>
-          <span className="font-['Pretendard:SemiBold',sans-serif]">{`를 `}</span>
+          <span className="font-pretendard font-extrabold">내 캐릭터</span>
+          <span className="font-pretendard font-semibold">{`를 `}</span>
         </p>
-        <p className="font-['Pretendard:SemiBold',sans-serif]">꾸미고 리워드 받기</p>
+        <p className="font-pretendard font-semibold">꾸미고 리워드 받기</p>
       </div>
     </div>
   );
@@ -97,7 +97,7 @@ function Frame4() {
   return (
     <div className="absolute content-stretch flex flex-col gap-[4px] items-start left-[24px] not-italic top-[calc(50%+0.5px)] translate-y-[-50%]">
       <Frame5 />
-      <div className="flex flex-col font-['Pretendard:Medium',sans-serif] justify-center leading-[0] min-w-full relative shrink-0 text-[#5a54fa] text-[10px] w-[min-content]">
+      <div className="flex flex-col font-pretendard font-medium justify-center leading-[0] min-w-full relative shrink-0 text-[#5a54fa] text-[10px] w-[min-content]">
         <p className="[text-underline-position:from-font] decoration-solid leading-[16px] underline">지금 당장 리워드 받으러 가기</p>
       </div>
     </div>
@@ -144,7 +144,7 @@ function Name() {
           </svg>
         </div>
       </div>
-      <p className="absolute font-['Pretendard:SemiBold',sans-serif] leading-[32px] left-[calc(50%-10px)] not-italic text-[#02010e] text-[24px] text-center text-nowrap top-0 translate-x-[-50%] whitespace-pre">막시무스</p>
+      <p className="absolute font-pretendard font-semibold leading-[32px] left-[calc(50%-10px)] not-italic text-[#02010e] text-[24px] text-center text-nowrap top-0 translate-x-[-50%] whitespace-pre">막시무스</p>
     </div>
   );
 }
@@ -155,7 +155,7 @@ function TabminiCoin() {
       <div className="relative shrink-0 size-[16px]" data-name="undefined_Change_the_border_to 1">
         <img alt="" className="absolute inset-0 max-w-none object-50%-50% object-cover pointer-events-none size-full" src={imgUndefinedChangeTheBorderTo1} />
       </div>
-      <p className="font-['Roboto:SemiBold',sans-serif] font-semibold leading-[16px] relative shrink-0 text-[12px] text-neutral-50 text-nowrap whitespace-pre" style={{ fontVariationSettings: "'wdth' 100" }}>
+      <p className="font-roboto font-semibold font-semibold leading-[16px] relative shrink-0 text-[12px] text-neutral-50 text-nowrap whitespace-pre" style={{ fontVariationSettings: "'wdth' 100" }}>
         10,000
       </p>
     </div>
@@ -206,11 +206,11 @@ function Chest() {
 function Bar() {
   return (
     <div className="h-[48px] relative shrink-0 w-full" data-name="Bar">
-      <div className="absolute flex flex-col font-['Pretendard:Medium',sans-serif] justify-center leading-[0] left-0 not-italic text-[#877777] text-[0px] text-nowrap top-[9px] translate-y-[-50%]">
+      <div className="absolute flex flex-col font-pretendard font-medium justify-center leading-[0] left-0 not-italic text-[#877777] text-[0px] text-nowrap top-[9px] translate-y-[-50%]">
         <p className="leading-[18px] text-[15px] whitespace-pre">
-          <span className="font-['Pretendard:Medium',sans-serif] not-italic text-[#232323]">1250</span>
-          <span className="font-['Pretendard:Regular',sans-serif] not-italic text-[#3a3a3a]">/2500</span>
-          <span className="font-['Roboto:Regular',sans-serif] font-normal text-[#3a3a3a]" style={{ fontVariationSettings: "'wdth' 100" }}>
+          <span className="font-pretendard font-medium not-italic text-[#232323]">1250</span>
+          <span className="font-pretendard not-italic text-[#3a3a3a]">/2500</span>
+          <span className="font-roboto font-normal text-[#3a3a3a]" style={{ fontVariationSettings: "'wdth' 100" }}>
             xp
           </span>
         </p>
@@ -251,7 +251,7 @@ function Frame1() {
       <div className="absolute left-1/2 shadow-[0px_0px_4px_0px_rgba(0,0,0,0.15)] size-[42px] top-[calc(50%-7px)] translate-x-[-50%] translate-y-[-50%]" data-name="1755830513393-28b855ee-bc38-424c-b725-b7550489330e 1">
         <img alt="" className="absolute inset-0 max-w-none object-50%-50% object-cover pointer-events-none size-full" src={img175583051339328B855EeBc38424CB725B7550489330E1} />
       </div>
-      <p className="absolute font-['Pretendard:SemiBold',sans-serif] h-[16px] leading-[22px] left-[20.5px] not-italic text-[#515151] text-[10px] text-center top-[40px] translate-x-[-50%] w-[47px]">퀘스트/배지</p>
+      <p className="absolute font-pretendard font-semibold h-[16px] leading-[22px] left-[20.5px] not-italic text-[#515151] text-[10px] text-center top-[40px] translate-x-[-50%] w-[47px]">퀘스트/배지</p>
     </div>
   );
 }
@@ -274,7 +274,7 @@ function Icon5() {
       <div className="absolute left-1/2 shadow-[0px_0px_4px_0px_rgba(0,0,0,0.15)] size-[44px] top-[calc(50%-7px)] translate-x-[-50%] translate-y-[-50%]" data-name="undefined_Sofa_#FFC83D_solid_c 1">
         <img alt="" className="absolute inset-0 max-w-none object-50%-50% object-cover pointer-events-none size-full" src={imgUndefinedSofaFfc83DSolidC1} />
       </div>
-      <p className="absolute font-['Pretendard:SemiBold',sans-serif] h-[16px] leading-[22px] left-[21px] not-italic text-[#515151] text-[10px] text-center top-[39px] translate-x-[-50%] w-[28px]">룸</p>
+      <p className="absolute font-pretendard font-semibold h-[16px] leading-[22px] left-[21px] not-italic text-[#515151] text-[10px] text-center top-[39px] translate-x-[-50%] w-[28px]">룸</p>
       <Frame3 />
     </div>
   );
@@ -294,7 +294,7 @@ function Frame2() {
       <div className="absolute left-1/2 shadow-[0px_0px_4px_0px_rgba(0,0,0,0.15)] size-[46px] top-[calc(50%-5.5px)] translate-x-[-50%] translate-y-[-50%]" data-name="image 311">
         <img alt="" className="absolute inset-0 max-w-none object-50%-50% object-cover pointer-events-none size-full" src={imgImage311} />
       </div>
-      <p className="absolute font-['Pretendard:SemiBold',sans-serif] h-[16px] leading-[22px] left-[23px] not-italic text-[#515151] text-[10px] text-center top-[41px] translate-x-[-50%] w-[28px]">패션</p>
+      <p className="absolute font-pretendard font-semibold h-[16px] leading-[22px] left-[23px] not-italic text-[#515151] text-[10px] text-center top-[41px] translate-x-[-50%] w-[28px]">패션</p>
     </div>
   );
 }
@@ -315,7 +315,7 @@ function Icon6() {
   return (
     <div className="absolute h-[58px] left-[2px] top-0 w-[42px]" data-name="Icon">
       <Frame />
-      <p className="absolute font-['Pretendard:SemiBold',sans-serif] h-[16px] leading-[22px] left-[21px] not-italic text-[#515151] text-[10px] text-center top-[41px] translate-x-[-50%] w-[28px]">외모</p>
+      <p className="absolute font-pretendard font-semibold h-[16px] leading-[22px] left-[21px] not-italic text-[#515151] text-[10px] text-center top-[41px] translate-x-[-50%] w-[28px]">외모</p>
     </div>
   );
 }

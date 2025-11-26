@@ -54,7 +54,7 @@ export default function CommunityHeader({ title }: CommunityHeaderProps) {
           </button>
         </div>
       </div>
-      <p className="absolute font-['Pretendard:Medium',sans-serif] leading-[normal] left-1/2 not-italic text-[#02010e] text-[20px] text-center text-nowrap top-[calc(50%-13px)] translate-x-[-50%] whitespace-pre">
+      <p className="absolute font-pretendard font-semibold leading-[24px] left-[50%] not-italic text-[#02010e] text-[20px] text-center text-nowrap top-[50%] translate-x-[-50%] translate-y-[-50%]">
         {title}
       </p>
     </div>

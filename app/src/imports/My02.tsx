@@ -45,7 +45,7 @@ function RightSide() {
 function StatusBarTime() {
   return (
     <div className="absolute h-[21px] left-[calc(16.67%-10.5px)] rounded-[24px] top-[14px] translate-x-[-50%] w-[54px]" data-name="_StatusBar-time">
-      <p className="absolute font-['Roboto:SemiBold',sans-serif] font-semibold h-[20px] leading-[22px] left-[27px] text-[17px] text-black text-center top-px tracking-[-0.408px] translate-x-[-50%] w-[54px]" style={{ fontVariationSettings: "'wdth' 100" }}>
+      <p className="absolute font-roboto font-semibold font-semibold h-[20px] leading-[22px] left-[27px] text-[17px] text-black text-center top-px tracking-[-0.408px] translate-x-[-50%] w-[54px]" style={{ fontVariationSettings: "'wdth' 100" }}>
         9:41
       </p>
     </div>
@@ -203,7 +203,7 @@ function Main() {
     <div className="absolute bg-neutral-50 h-[48px] left-1/2 top-[47px] translate-x-[-50%] w-[375px]" data-name="main">
       <div className="h-[48px] overflow-clip relative rounded-[inherit] w-[375px]">
         <Frame2 />
-        <p className="absolute font-['Pretendard:Bold',sans-serif] leading-[32px] left-[calc(50%-0.5px)] not-italic text-[#02010e] text-[24px] text-center text-nowrap top-[calc(50%-16px)] translate-x-[-50%] whitespace-pre">설정</p>
+        <p className="absolute font-pretendard font-bold leading-[32px] left-[calc(50%-0.5px)] not-italic text-[#02010e] text-[24px] text-center text-nowrap top-[calc(50%-16px)] translate-x-[-50%] whitespace-pre">설정</p>
       </div>
       <div aria-hidden="true" className="absolute border-[0px_0px_1px] border-[gainsboro] border-solid inset-0 pointer-events-none" />
     </div>
@@ -249,7 +249,7 @@ function FaceId() {
           </svg>
         </div>
       </div>
-      <div className="absolute flex flex-col font-['Roboto:SemiBold',sans-serif] font-semibold inset-[45.83%_2.5%_4.17%_51.67%] justify-center leading-[0] text-[#9abaff] text-[12px] tracking-[-0.18px]" style={{ fontVariationSettings: "'wdth' 100" }}>
+      <div className="absolute flex flex-col font-roboto font-semibold font-semibold inset-[45.83%_2.5%_4.17%_51.67%] justify-center leading-[0] text-[#9abaff] text-[12px] tracking-[-0.18px]" style={{ fontVariationSettings: "'wdth' 100" }}>
         <p className="leading-[12px]">AI</p>
       </div>
     </div>
@@ -341,15 +341,15 @@ export default function My() {
             </svg>
           </div>
         </div>
-        <p className="absolute font-['Pretendard:SemiBold',sans-serif] leading-[28px] left-[16px] not-italic text-[20px] text-black text-nowrap top-[calc(50%-275px)] whitespace-pre">프로필 설정</p>
-        <p className="absolute font-['Pretendard:SemiBold',sans-serif] leading-[28px] left-[20px] not-italic text-[20px] text-black text-nowrap top-[calc(50%-223px)] whitespace-pre">개인 / 보안</p>
-        <p className="absolute font-['Pretendard:SemiBold',sans-serif] leading-[28px] left-[21px] not-italic text-[20px] text-black text-nowrap top-[calc(50%-171px)] whitespace-pre">알림 설정</p>
-        <p className="absolute font-['Pretendard:SemiBold',sans-serif] leading-[28px] left-[21px] not-italic text-[20px] text-black text-nowrap top-[calc(50%-67px)] whitespace-pre">데이터 수집 범위 설정</p>
-        <p className="absolute font-['Pretendard:SemiBold',sans-serif] leading-[28px] left-[21px] not-italic text-[20px] text-black text-nowrap top-[calc(50%-119px)] whitespace-pre">언어 설정</p>
-        <p className="absolute font-['Pretendard:SemiBold',sans-serif] leading-[28px] left-[23px] not-italic text-[20px] text-black text-nowrap top-[calc(50%-15px)] whitespace-pre">헤이는요</p>
-        <p className="absolute font-['Pretendard:SemiBold',sans-serif] leading-[28px] left-[21px] not-italic text-[20px] text-black text-nowrap top-[calc(50%+37px)] whitespace-pre">계정 관리</p>
-        <p className="absolute font-['Pretendard:SemiBold',sans-serif] leading-[28px] left-[23px] not-italic text-[20px] text-black text-nowrap top-[calc(50%+89px)] whitespace-pre">고객센터</p>
-        <p className="absolute font-['Pretendard:SemiBold',sans-serif] leading-[28px] left-[23px] not-italic text-[20px] text-black text-nowrap top-[calc(50%+141px)] whitespace-pre">로그아웃</p>
+        <p className="absolute font-pretendard font-semibold leading-[28px] left-[16px] not-italic text-[20px] text-black text-nowrap top-[calc(50%-275px)] whitespace-pre">프로필 설정</p>
+        <p className="absolute font-pretendard font-semibold leading-[28px] left-[20px] not-italic text-[20px] text-black text-nowrap top-[calc(50%-223px)] whitespace-pre">개인 / 보안</p>
+        <p className="absolute font-pretendard font-semibold leading-[28px] left-[21px] not-italic text-[20px] text-black text-nowrap top-[calc(50%-171px)] whitespace-pre">알림 설정</p>
+        <p className="absolute font-pretendard font-semibold leading-[28px] left-[21px] not-italic text-[20px] text-black text-nowrap top-[calc(50%-67px)] whitespace-pre">데이터 수집 범위 설정</p>
+        <p className="absolute font-pretendard font-semibold leading-[28px] left-[21px] not-italic text-[20px] text-black text-nowrap top-[calc(50%-119px)] whitespace-pre">언어 설정</p>
+        <p className="absolute font-pretendard font-semibold leading-[28px] left-[23px] not-italic text-[20px] text-black text-nowrap top-[calc(50%-15px)] whitespace-pre">헤이는요</p>
+        <p className="absolute font-pretendard font-semibold leading-[28px] left-[21px] not-italic text-[20px] text-black text-nowrap top-[calc(50%+37px)] whitespace-pre">계정 관리</p>
+        <p className="absolute font-pretendard font-semibold leading-[28px] left-[23px] not-italic text-[20px] text-black text-nowrap top-[calc(50%+89px)] whitespace-pre">고객센터</p>
+        <p className="absolute font-pretendard font-semibold leading-[28px] left-[23px] not-italic text-[20px] text-black text-nowrap top-[calc(50%+141px)] whitespace-pre">로그아웃</p>
         <Top />
         <ChevronRight />
         <ChevronRight1 />
@@ -360,7 +360,7 @@ export default function My() {
         <ChevronRight6 />
         <ChevronRight7 />
         <ChevronRight8 />
-        <div className="absolute flex flex-col font-['Inter:Regular','Noto_Sans_KR:Regular',sans-serif] font-normal justify-center leading-[0] left-[calc(75%+12.75px)] not-italic text-[#aeaeae] text-[14px] text-nowrap top-[301px] translate-y-[-50%]">
+        <div className="absolute flex flex-col font-inter font-normal justify-center leading-[0] left-[calc(75%+12.75px)] not-italic text-[#aeaeae] text-[14px] text-nowrap top-[301px] translate-y-[-50%]">
           <p className="leading-[18px] whitespace-pre">한국어</p>
         </div>
         <Main />

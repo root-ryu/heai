@@ -178,7 +178,7 @@ function LvIcon({ router }: { router: ReturnType<typeof useRouter> }) {
             />
           </div>
           <p
-            className="font-['Roboto:Medium',sans-serif] font-medium leading-[22px] relative shrink-0 text-[#0c0c0c] text-[16px] text-center text-nowrap whitespace-pre"
+            className="font-roboto font-medium leading-[22px] relative shrink-0 text-[#0c0c0c] text-[16px] text-center text-nowrap whitespace-pre"
             style={{ fontVariationSettings: "'wdth' 100" }}
           >
             Lv.3
@@ -202,7 +202,7 @@ function LvIcon({ router }: { router: ReturnType<typeof useRouter> }) {
               transition={{ duration: 1.5, ease: 'easeOut', delay: 0.3 }}
             />
           </div>
-          <p className="absolute font-['Pretendard:Medium',sans-serif] leading-[16px] left-[calc(50%-0.5px)] not-italic text-[12px] text-[rgba(12,12,12,0.24)] text-center text-nowrap top-[calc(50%-8px)] translate-x-[-50%] whitespace-pre">
+          <p className="absolute font-pretendard font-medium leading-[16px] left-[calc(50%-0.5px)] not-italic text-[12px] text-[rgba(12,12,12,0.24)] text-center text-nowrap top-[calc(50%-8px)] translate-x-[-50%] whitespace-pre">
             8 / 10
           </p>
         </div>
@@ -285,12 +285,12 @@ function Today({
           >
             <div className="content-stretch flex flex-col gap-[4px] items-center relative shrink-0 text-center text-white">
               <p
-                className="font-['Roboto:Regular',sans-serif] font-normal leading-[18px] relative shrink-0 text-[12px] translate-y-[1px]"
+                className="font-roboto font-normal leading-[18px] relative shrink-0 text-[12px] translate-y-[1px]"
                 style={{ fontVariationSettings: "'wdth' 100" }}
               >
                 Today
               </p>
-              <p className="font-['Pretendard:Bold',sans-serif] leading-[22px] not-italic relative shrink-0 text-[18px]">
+              <p className="font-pretendard font-bold leading-[22px] not-italic relative shrink-0 text-[18px]">
                 {date}
               </p>
             </div>
@@ -321,7 +321,7 @@ function DatePill({
         onClick ? 'cursor-pointer hover:bg-white transition-colors' : ''
       }`}
     >
-      <p className="font-['Pretendard:Medium',sans-serif] leading-[16px] not-italic relative shrink-0 text-[#dddddd] text-[14px] text-center text-nowrap whitespace-pre">
+      <p className="font-pretendard font-medium leading-[16px] not-italic relative shrink-0 text-[#dddddd] text-[14px] text-center text-nowrap whitespace-pre">
         {number}
       </p>
     </div>
@@ -443,12 +443,12 @@ function Todolist({
     <div className="bg-white box-border content-stretch flex flex-col gap-[10px] items-center justify-center overflow-clip p-[20px] relative rounded-[10px] shadow-[0px_0px_1px_0px_rgba(0,0,0,0.25)] shrink-0 w-[343px]">
       <div className="content-stretch flex flex-col gap-[16px] items-start relative shrink-0 w-full">
         <div className="content-stretch flex flex-col items-start not-italic relative shrink-0 text-nowrap">
-          <div className="flex flex-col font-['Pretendard:Medium',sans-serif] justify-center leading-[0] relative shrink-0 text-[#a4a4a4] text-[18px]">
+          <div className="flex flex-col font-pretendard font-medium justify-center leading-[0] relative shrink-0 text-[#a4a4a4] text-[18px]">
             <p className="leading-[26px] text-nowrap whitespace-pre">
               Today 완료한 루틴 50개
             </p>
           </div>
-          <p className="font-['Pretendard:Bold',sans-serif] leading-[32px] relative shrink-0 text-[#5fb8e1] text-[30px] whitespace-pre">
+          <p className="font-pretendard font-bold leading-[32px] relative shrink-0 text-[#5fb8e1] text-[30px] whitespace-pre">
             {percentage}%
           </p>
         </div>
@@ -492,7 +492,7 @@ function Todolist({
 
         <button
           onClick={onAddRoutine}
-          className="[text-underline-position:from-font] decoration-solid font-['Pretendard:Regular',sans-serif] leading-none min-w-full not-italic relative shrink-0 text-[12px] text-[rgba(12,12,12,0.53)] text-right underline w-[min-content] cursor-pointer hover:text-[rgba(12,12,12,0.8)] transition-colors"
+          className="[text-underline-position:from-font] decoration-solid font-pretendard leading-none min-w-full not-italic relative shrink-0 text-[12px] text-[rgba(12,12,12,0.53)] text-right underline w-[min-content] cursor-pointer hover:text-[rgba(12,12,12,0.8)] transition-colors"
         >
           + 새 루틴 추가
         </button>
@@ -524,7 +524,7 @@ function RoutineItem({ icon, label, checked, onClick }: RoutineItemProps) {
               src={icon}
             />
           </div>
-          <p className="font-['Pretendard:Regular',sans-serif] leading-[24px] not-italic relative shrink-0 text-[#0c0c0c] text-[16px] text-center text-nowrap whitespace-pre">
+          <p className="font-pretendard leading-[24px] not-italic relative shrink-0 text-[#0c0c0c] text-[16px] text-center text-nowrap whitespace-pre">
             {label}
           </p>
         </div>
@@ -591,7 +591,7 @@ function WeightCard({ onClick }: { onClick: () => void }) {
           </div>
         </div>
       </div>
-      <div className="absolute content-stretch flex font-['Pretendard:Light',sans-serif] gap-[7px] items-end justify-end leading-[normal] left-[17.5px] not-italic text-[#7c7c7c] text-[14px] text-nowrap top-[186px] w-[133px] whitespace-pre">
+      <div className="absolute content-stretch flex font-pretendard font-light gap-[7px] items-end justify-end leading-[normal] left-[17.5px] not-italic text-[#7c7c7c] text-[14px] text-nowrap top-[186px] w-[133px] whitespace-pre">
         <p className="relative shrink-0">목표체중</p>
         <p className="relative shrink-0">50 kg</p>
       </div>
@@ -606,11 +606,11 @@ function InfoRow({ label, value }: { label: string; value: string }) {
         aria-hidden="true"
         className="absolute border-[#acacac] border-[0px_0px_1px] border-solid inset-0 pointer-events-none"
       />
-      <p className="font-['Pretendard:Medium',sans-serif] leading-[22px] not-italic relative shrink-0 text-[#447fb1] text-[13px] text-center text-nowrap whitespace-pre">
+      <p className="font-pretendard font-medium leading-[22px] not-italic relative shrink-0 text-[#447fb1] text-[13px] text-center text-nowrap whitespace-pre">
         {label}
       </p>
       <div className="content-stretch flex gap-[2px] items-center justify-center relative shrink-0">
-        <p className="font-['Pretendard:Regular',sans-serif] leading-[18px] not-italic relative shrink-0 text-[#7fa3c2] text-[9px] text-center text-nowrap whitespace-pre">
+        <p className="font-pretendard leading-[18px] not-italic relative shrink-0 text-[#7fa3c2] text-[9px] text-center text-nowrap whitespace-pre">
           {value}
         </p>
       </div>
@@ -683,10 +683,10 @@ function ItemCard() {
       </div>
       <div className="absolute content-stretch flex flex-col gap-[10px] items-center left-[calc(50%-0.5px)] top-1/2 translate-x-[-50%] translate-y-[-50%] w-[133px]">
         <div className="content-stretch flex flex-col items-start not-italic relative shrink-0 w-full">
-          <div className="flex flex-col font-['Pretendard:Medium',sans-serif] justify-center leading-[0] relative shrink-0 text-[16px] text-[gainsboro] w-full">
+          <div className="flex flex-col font-pretendard font-medium justify-center leading-[0] relative shrink-0 text-[16px] text-[gainsboro] w-full">
             <p className="leading-[16px]">다음 아이템 해금까지</p>
           </div>
-          <p className="font-['Pretendard:Bold',sans-serif] leading-[32px] relative shrink-0 text-[#dfe5ff] text-[24px] w-full">
+          <p className="font-pretendard font-bold leading-[32px] relative shrink-0 text-[#dfe5ff] text-[24px] w-full">
             89%
           </p>
         </div>
@@ -710,29 +710,29 @@ function SleepCard({ onClick }: { onClick: () => void }) {
     >
       <div className="absolute content-stretch flex gap-[40px] items-center left-1/2 top-[2px] translate-x-[-50%]">
         <div className="content-stretch flex flex-col items-start relative shrink-0">
-          <p className="font-['Pretendard:SemiBold',sans-serif] leading-[26px] min-w-full not-italic relative shrink-0 text-[18px] text-white w-[min-content]">
+          <p className="font-pretendard font-semibold leading-[26px] min-w-full not-italic relative shrink-0 text-[18px] text-white w-[min-content]">
             수면 기록
           </p>
-          <div className="flex flex-col font-['Pretendard:Medium',sans-serif] justify-center leading-[0] min-w-full not-italic relative shrink-0 text-[12px] text-white w-[min-content]">
+          <div className="flex flex-col font-pretendard font-medium justify-center leading-[0] min-w-full not-italic relative shrink-0 text-[12px] text-white w-[min-content]">
             <p className="leading-[16px]">평균 수면 </p>
           </div>
           <p
-            className="font-['Roboto:Bold',sans-serif] font-bold leading-[0] not-italic relative shrink-0 text-[#3baa5c] text-[0px] text-nowrap whitespace-pre"
+            className="font-roboto font-bold leading-[0] not-italic relative shrink-0 text-[#3baa5c] text-[0px] text-nowrap whitespace-pre"
             style={{ fontVariationSettings: "'wdth' 100" }}
           >
-            <span className="font-['Pretendard:Bold',sans-serif] leading-[32px] text-[#4c94f0] text-[31px]">
+            <span className="font-pretendard font-bold leading-[32px] text-[#4c94f0] text-[31px]">
               7
             </span>
-            <span className="font-['Pretendard:Medium',sans-serif] leading-[16px] text-[19px] text-white">
+            <span className="font-pretendard font-medium leading-[16px] text-[19px] text-white">
               시간
             </span>
-            <span className="font-['Pretendard:Medium',sans-serif] leading-[16px] text-[19px]">
+            <span className="font-pretendard font-medium leading-[16px] text-[19px]">
               {' '}
             </span>
-            <span className="font-['Pretendard:Bold',sans-serif] leading-[32px] text-[#4c94f0] text-[31px]">
+            <span className="font-pretendard font-bold leading-[32px] text-[#4c94f0] text-[31px]">
               15
             </span>
-            <span className="font-['Pretendard:Medium',sans-serif] leading-[16px] text-[19px] text-white">
+            <span className="font-pretendard font-medium leading-[16px] text-[19px] text-white">
               분
             </span>
           </p>
@@ -786,22 +786,18 @@ function StepsCard({ onClick }: { onClick: () => void }) {
       {/* Frame6 - Title and Stats */}
       <div className="absolute content-stretch flex flex-col items-start left-[21px] top-[21px] w-[120px]">
         <div className="content-stretch flex flex-col gap-[4px] items-start relative shrink-0 w-[79px]">
-          <p className="font-['Pretendard:SemiBold',sans-serif] leading-none not-italic relative shrink-0 text-[#02010e] text-[18px] text-nowrap whitespace-pre">
+          <p className="font-pretendard font-semibold leading-none not-italic relative shrink-0 text-[#02010e] text-[18px] text-nowrap whitespace-pre">
             만보기
           </p>
-          <div className="content-stretch flex font-['Pretendard:Regular',sans-serif] gap-[2px] h-[18px] items-center justify-center leading-[18px] not-italic relative shrink-0 text-[12px] text-[rgba(2,1,14,0.5)] text-center text-nowrap w-full whitespace-pre">
+          <div className="content-stretch flex font-pretendard gap-[2px] h-[18px] items-center justify-center leading-[18px] not-italic relative shrink-0 text-[12px] text-[rgba(2,1,14,0.5)] text-center text-nowrap w-full">
             <p className="relative shrink-0">35Kcal</p>
             <p className="relative shrink-0">2h</p>
             <p className="relative shrink-0">3km</p>
           </div>
         </div>
         <div className="leading-none text-[#447fb1]">
-          <span className="font-['Pretendard:Bold',sans-serif] text-[32px]">
-            7,123
-          </span>
-          <span className="font-['Pretendard:Medium',sans-serif] text-[20px]">
-            걸음
-          </span>
+          <span className="font-pretendard font-bold text-[32px]">7,123</span>
+          <span className="font-pretendard font-medium text-[20px]">걸음</span>
         </div>
       </div>
 
@@ -827,21 +823,21 @@ function StepsCard({ onClick }: { onClick: () => void }) {
         </div>
 
         {/* Time labels */}
-        <p className="absolute font-['Pretendard:Regular',sans-serif] leading-none left-[166px] not-italic text-[#a8a8a8] text-[10px] text-nowrap top-[226px] whitespace-pre">
+        <p className="absolute font-pretendard leading-none left-[166px] not-italic text-[#a8a8a8] text-[10px] text-nowrap top-[226px] whitespace-pre">
           오후 12시
         </p>
-        <p className="absolute font-['Pretendard:Regular',sans-serif] leading-none left-[16px] not-italic text-[#a8a8a8] text-[10px] text-nowrap top-[226px] whitespace-pre">
+        <p className="absolute font-pretendard leading-none left-[16px] not-italic text-[#a8a8a8] text-[10px] text-nowrap top-[226px] whitespace-pre">
           오전 12시
         </p>
 
         {/* Y-axis labels */}
-        <p className="absolute font-['Pretendard:Regular',sans-serif] leading-none left-[313px] not-italic text-[#a8a8a8] text-[6px] text-nowrap top-[173px] whitespace-pre">
+        <p className="absolute font-pretendard leading-none left-[313px] not-italic text-[#a8a8a8] text-[6px] text-nowrap top-[173px] whitespace-pre">
           1,500
         </p>
-        <p className="absolute font-['Pretendard:Regular',sans-serif] leading-none left-[313px] not-italic text-[#a8a8a8] text-[6px] text-nowrap top-[216px] whitespace-pre">
+        <p className="absolute font-pretendard leading-none left-[313px] not-italic text-[#a8a8a8] text-[6px] text-nowrap top-[216px] whitespace-pre">
           0
         </p>
-        <p className="absolute font-['Pretendard:Regular',sans-serif] leading-none left-[313px] not-italic text-[#a8a8a8] text-[6px] text-nowrap top-[114px] whitespace-pre">
+        <p className="absolute font-pretendard leading-none left-[313px] not-italic text-[#a8a8a8] text-[6px] text-nowrap top-[114px] whitespace-pre">
           3,000
         </p>
 
@@ -1077,24 +1073,18 @@ function Banner({ onClick }: { onClick: () => void }) {
       </div>
       <div className="absolute content-stretch flex flex-col gap-[12px] items-start left-[24px] not-italic top-[calc(50%+0.5px)] translate-y-[-50%]">
         <div className="content-stretch flex flex-col gap-[4px] items-start relative shrink-0 text-nowrap">
-          <p className="font-['Pretendard:Regular',sans-serif] leading-none relative shrink-0 text-[#2e2e2e] text-[12px] whitespace-pre">
+          <p className="font-pretendard leading-none relative shrink-0 text-[#2e2e2e] text-[12px] whitespace-pre">
             이달의 막시무스는 누구?
           </p>
-          <div className="font-['Pretendard:Bold',sans-serif] leading-[1.2] relative shrink-0 text-[0px] text-[25px] text-white whitespace-pre">
+          <div className="font-pretendard font-bold leading-[1.2] relative shrink-0 text-[0px] text-[25px] text-white whitespace-pre">
             <p className="mb-0">
-              <span className="font-['Pretendard:ExtraBold',sans-serif]">
-                우승자
-              </span>
-              <span className="font-['Pretendard:SemiBold',sans-serif]">
-                에게
-              </span>
+              <span className="font-extrabold">우승자</span>
+              <span className="font-semibold">에게</span>
             </p>
-            <p className="font-['Pretendard:SemiBold',sans-serif]">
-              리워드를 드립니다!!
-            </p>
+            <p className="font-semibold">리워드를 드립니다!!</p>
           </div>
         </div>
-        <div className="flex flex-col font-['Pretendard:Medium',sans-serif] justify-center leading-[0] min-w-full relative shrink-0 text-[#5a54fa] text-[10px] w-[min-content]">
+        <div className="flex flex-col font-pretendard font-medium justify-center leading-[0] min-w-full relative shrink-0 text-[#5a54fa] text-[10px] w-[min-content]">
           <p className="[text-underline-position:from-font] decoration-solid leading-[16px] underline">
             지금 당장 내 하트수 보러가기
           </p>

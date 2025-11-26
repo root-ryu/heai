@@ -173,7 +173,7 @@ export default function CommunityPage() {
 
   return (
     <div className="bg-[#F8FBFF] flex flex-col items-center w-full h-full overflow-hidden">
-      <div className="max-w-[375px] mx-auto w-full h-full flex flex-col">
+      <div className="max-w-[375px] mx-auto w-full h-full flex flex-col relative">
         <Top />
 
         {/* Header */}

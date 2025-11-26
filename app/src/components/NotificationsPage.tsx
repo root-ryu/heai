@@ -18,16 +18,12 @@ export default function NotificationsPage() {
           >
             ← 뒤로
           </button>
-          <h1 className="font-['Pretendard:Bold',sans-serif] text-[20px] text-[#0c0c0c]">
-            알림
-          </h1>
+          <h1 className="font-bold text-[20px] text-[#0c0c0c]">알림</h1>
           <div className="w-12" />
         </div>
 
         <div className="flex items-center justify-center p-8">
-          <p className="font-['Pretendard:Medium',sans-serif] text-[16px] text-[#a4a4a4]">
-            알림 페이지
-          </p>
+          <p className="font-medium text-[16px] text-[#a4a4a4]">알림 페이지</p>
         </div>
       </div>
 

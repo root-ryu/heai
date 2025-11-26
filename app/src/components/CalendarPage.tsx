@@ -18,14 +18,14 @@ export default function CalendarPage() {
           >
             ← 뒤로
           </button>
-          <h1 className="font-['Pretendard:Bold',sans-serif] text-[20px] text-[#0c0c0c]">
+          <h1 className="font-pretendard font-bold text-[20px] text-[#0c0c0c]">
             달력
           </h1>
           <div className="w-12" />
         </div>
 
         <div className="flex items-center justify-center p-8">
-          <p className="font-['Pretendard:Medium',sans-serif] text-[16px] text-[#a4a4a4]">
+          <p className="font-pretendard font-medium text-[16px] text-[#a4a4a4]">
             달력 페이지
           </p>
         </div>

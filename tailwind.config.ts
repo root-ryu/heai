@@ -18,6 +18,14 @@ const config: Config = {
       },
     },
     extend: {
+      fontFamily: {
+        pretendard: ['Pretendard', 'sans-serif'],
+        roboto: ['Roboto', 'sans-serif'],
+        montserrat: ['Montserrat', 'sans-serif'],
+        noto: ['Noto Sans KR', 'sans-serif'],
+        sfpro: ['SF Pro Text', 'sans-serif'],
+        inter: ['Inter', 'sans-serif'],
+      },
       colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',

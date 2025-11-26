@@ -75,7 +75,7 @@ export default function RankingPage() {
             </div>
           </div>
           <div className="absolute content-stretch flex gap-[4px] items-start left-[calc(50%+0.5px)] top-[11px] translate-x-[-50%]">
-            <p className="font-['Pretendard:SemiBold',sans-serif] leading-[24px] not-italic relative shrink-0 text-[#02010e] text-[20px] text-center text-nowrap whitespace-pre">
+            <p className="font-pretendard font-semibold leading-[24px] not-italic relative shrink-0 text-[#02010e] text-[20px] text-center text-nowrap whitespace-pre">
               이달의 막시무스
             </p>
           </div>
@@ -235,7 +235,7 @@ export default function RankingPage() {
 
           {/* Rank Labels */}
           <p
-            className="absolute bg-clip-text font-['Pretendard:Bold',sans-serif] font-['Pretendard:Medium',sans-serif] leading-[0] left-[180px] not-italic text-[0px] text-nowrap top-[199px] whitespace-pre"
+            className="absolute bg-clip-text font-pretendard font-bold leading-[0] left-[180px] not-italic text-[0px] text-nowrap top-[199px] whitespace-pre"
             style={{ WebkitTextFillColor: 'transparent' }}
           >
             <span
@@ -252,7 +252,7 @@ export default function RankingPage() {
             </span>
           </p>
           <p
-            className="absolute bg-clip-text font-['Pretendard:Bold',sans-serif] leading-[0] left-[59px] not-italic text-[0px] text-nowrap top-[202px] whitespace-pre"
+            className="absolute bg-clip-text font-pretendard font-bold leading-[0] left-[59px] not-italic text-[0px] text-nowrap top-[202px] whitespace-pre"
             style={{ WebkitTextFillColor: 'transparent' }}
           >
             <span
@@ -264,11 +264,11 @@ export default function RankingPage() {
             <span className="leading-[21px] text-[14px]">st</span>
           </p>
           <p
-            className="absolute bg-clip-text font-['Pretendard:SemiBold',sans-serif] leading-[0] left-[294px] not-italic text-[0px] text-nowrap top-[207px] whitespace-pre"
+            className="absolute bg-clip-text font-pretendard font-semibold leading-[0] left-[294px] not-italic text-[0px] text-nowrap top-[207px] whitespace-pre"
             style={{ WebkitTextFillColor: 'transparent' }}
           >
             <span className="leading-[24px] text-[20px]">3</span>
-            <span className="font-['Pretendard:Bold',sans-serif] leading-[21px] text-[14px]">
+            <span className="font-pretendard font-bold leading-[21px] text-[14px]">
               st
             </span>
           </p>
@@ -314,11 +314,11 @@ export default function RankingPage() {
                     />
                   </svg>
                 </div>
-                <p className="font-['Pretendard:Medium',sans-serif] leading-[26px] not-italic relative shrink-0 text-[#6a6a6a] text-[18px] text-nowrap whitespace-pre">
+                <p className="font-pretendard font-medium leading-[26px] not-italic relative shrink-0 text-[#6a6a6a] text-[18px] text-nowrap whitespace-pre">
                   ilikecsshaha
                 </p>
               </div>
-              <div className="content-stretch flex font-['Pretendard:Regular',sans-serif] gap-[6px] items-start leading-[24px] not-italic relative shrink-0 text-[#999999] text-[14px] text-center text-nowrap whitespace-pre">
+              <div className="content-stretch flex font-pretendard gap-[6px] items-start leading-[24px] not-italic relative shrink-0 text-[#999999] text-[14px] text-center text-nowrap whitespace-pre">
                 <p className="relative shrink-0">조회 1700</p>
                 <p className="relative shrink-0">추천 877</p>
               </div>
@@ -355,11 +355,11 @@ export default function RankingPage() {
                     />
                   </svg>
                 </div>
-                <p className="font-['Pretendard:Medium',sans-serif] leading-[26px] not-italic relative shrink-0 text-[18px] text-nowrap text-white whitespace-pre">
+                <p className="font-pretendard font-medium leading-[26px] not-italic relative shrink-0 text-[18px] text-nowrap text-white whitespace-pre">
                   user_01486
                 </p>
               </div>
-              <div className="content-stretch flex font-['Pretendard:Regular',sans-serif] gap-[6px] items-start leading-[24px] not-italic relative shrink-0 text-[14px] text-center text-nowrap text-white whitespace-pre">
+              <div className="content-stretch flex font-pretendard gap-[6px] items-start leading-[24px] not-italic relative shrink-0 text-[14px] text-center text-nowrap text-white whitespace-pre">
                 <p className="relative shrink-0">조회 1425</p>
                 <p className="relative shrink-0">추천 850</p>
               </div>
@@ -396,11 +396,11 @@ export default function RankingPage() {
                     />
                   </svg>
                 </div>
-                <p className="font-['Pretendard:Medium',sans-serif] leading-[26px] not-italic relative shrink-0 text-[#6a6a6a] text-[18px] text-nowrap whitespace-pre">
+                <p className="font-pretendard font-medium leading-[26px] not-italic relative shrink-0 text-[#6a6a6a] text-[18px] text-nowrap whitespace-pre">
                   plzhomeplz
                 </p>
               </div>
-              <div className="content-stretch flex font-['Pretendard:Regular',sans-serif] gap-[6px] items-start leading-[16.5px] not-italic relative shrink-0 text-[#999999] text-[14px] text-center text-nowrap tracking-[0.0645px] whitespace-pre">
+              <div className="content-stretch flex font-pretendard gap-[6px] items-start leading-[16.5px] not-italic relative shrink-0 text-[#999999] text-[14px] text-center text-nowrap tracking-[0.0645px] whitespace-pre">
                 <p className="relative shrink-0">조회 1860</p>
                 <p className="relative shrink-0">추천 603</p>
               </div>
@@ -416,16 +416,16 @@ export default function RankingPage() {
             <div className="content-stretch flex gap-[6px] items-center justify-center relative shrink-0 w-[320px]">
               <div className="basis-0 content-stretch flex gap-[9px] grow items-center min-h-px min-w-px relative shrink-0">
                 <div className="content-stretch flex flex-col gap-[10px] items-center justify-center relative shrink-0 size-[24px]">
-                  <p className="font-['Pretendard:Medium',sans-serif] leading-[normal] not-italic relative shrink-0 text-[16px] text-black text-nowrap whitespace-pre">
+                  <p className="font-pretendard font-medium leading-[normal] not-italic relative shrink-0 text-[16px] text-black text-nowrap whitespace-pre">
                     4
                   </p>
                 </div>
-                <p className="font-['Pretendard:Medium',sans-serif] leading-[26px] not-italic relative shrink-0 text-[#6a6a6a] text-[18px] text-nowrap whitespace-pre">
+                <p className="font-pretendard font-medium leading-[26px] not-italic relative shrink-0 text-[#6a6a6a] text-[18px] text-nowrap whitespace-pre">
                   재현
                 </p>
               </div>
               <div className="content-stretch flex gap-[6px] items-start relative shrink-0">
-                <div className="content-stretch flex font-['Pretendard:Regular',sans-serif] gap-[6px] items-start leading-[24px] not-italic relative shrink-0 text-[#999999] text-[14px] text-center text-nowrap whitespace-pre">
+                <div className="content-stretch flex font-pretendard gap-[6px] items-start leading-[24px] not-italic relative shrink-0 text-[#999999] text-[14px] text-center text-nowrap whitespace-pre">
                   <p className="relative shrink-0">조회 1180</p>
                   <p className="relative shrink-0">추천 600</p>
                 </div>
@@ -442,16 +442,16 @@ export default function RankingPage() {
             <div className="content-stretch flex gap-[6px] items-center justify-center relative shrink-0 w-[320px]">
               <div className="basis-0 content-stretch flex gap-[9px] grow items-center min-h-px min-w-px relative shrink-0">
                 <div className="content-stretch flex flex-col gap-[10px] items-center justify-center relative shrink-0 size-[24px]">
-                  <p className="font-['Pretendard:Medium',sans-serif] leading-[normal] not-italic relative shrink-0 text-[16px] text-black text-nowrap whitespace-pre">
+                  <p className="font-pretendard font-medium leading-[normal] not-italic relative shrink-0 text-[16px] text-black text-nowrap whitespace-pre">
                     5
                   </p>
                 </div>
-                <p className="font-['Pretendard:Medium',sans-serif] leading-[26px] not-italic relative shrink-0 text-[#6a6a6a] text-[18px] text-nowrap whitespace-pre">
+                <p className="font-pretendard font-medium leading-[26px] not-italic relative shrink-0 text-[#6a6a6a] text-[18px] text-nowrap whitespace-pre">
                   성희
                 </p>
               </div>
               <div className="content-stretch flex gap-[6px] items-start relative shrink-0">
-                <div className="content-stretch flex font-['Pretendard:Regular',sans-serif] gap-[6px] items-start leading-[24px] not-italic relative shrink-0 text-[#999999] text-[14px] text-center text-nowrap whitespace-pre">
+                <div className="content-stretch flex font-pretendard gap-[6px] items-start leading-[24px] not-italic relative shrink-0 text-[#999999] text-[14px] text-center text-nowrap whitespace-pre">
                   <p className="relative shrink-0">조회 1160</p>
                   <p className="relative shrink-0">추천 500</p>
                 </div>
@@ -468,16 +468,16 @@ export default function RankingPage() {
             <div className="content-stretch flex gap-[6px] items-center justify-center relative shrink-0 w-[320px]">
               <div className="basis-0 content-stretch flex gap-[9px] grow items-center min-h-px min-w-px relative shrink-0">
                 <div className="content-stretch flex flex-col gap-[10px] items-center justify-center relative shrink-0 size-[24px]">
-                  <p className="font-['Pretendard:Medium',sans-serif] leading-[normal] not-italic relative shrink-0 text-[16px] text-black text-nowrap whitespace-pre">
+                  <p className="font-pretendard font-medium leading-[normal] not-italic relative shrink-0 text-[16px] text-black text-nowrap whitespace-pre">
                     6
                   </p>
                 </div>
-                <p className="font-['Pretendard:Medium',sans-serif] leading-[26px] not-italic relative shrink-0 text-[#6a6a6a] text-[18px] text-nowrap whitespace-pre">
+                <p className="font-pretendard font-medium leading-[26px] not-italic relative shrink-0 text-[#6a6a6a] text-[18px] text-nowrap whitespace-pre">
                   도연
                 </p>
               </div>
               <div className="content-stretch flex gap-[6px] items-start relative shrink-0">
-                <div className="content-stretch flex font-['Pretendard:Regular',sans-serif] gap-[6px] items-start leading-[24px] not-italic relative shrink-0 text-[#999999] text-[14px] text-center text-nowrap whitespace-pre">
+                <div className="content-stretch flex font-pretendard gap-[6px] items-start leading-[24px] not-italic relative shrink-0 text-[#999999] text-[14px] text-center text-nowrap whitespace-pre">
                   <p className="relative shrink-0">조회 1120</p>
                   <p className="relative shrink-0">추천 480</p>
                 </div>
@@ -494,16 +494,16 @@ export default function RankingPage() {
             <div className="content-stretch flex gap-[6px] items-center justify-center relative shrink-0 w-[320px]">
               <div className="basis-0 content-stretch flex gap-[9px] grow items-center min-h-px min-w-px relative shrink-0">
                 <div className="content-stretch flex flex-col gap-[10px] items-center justify-center relative shrink-0 size-[24px]">
-                  <p className="font-['Pretendard:Medium',sans-serif] leading-[normal] not-italic relative shrink-0 text-[16px] text-black text-nowrap whitespace-pre">
+                  <p className="font-pretendard font-medium leading-[normal] not-italic relative shrink-0 text-[16px] text-black text-nowrap whitespace-pre">
                     7
                   </p>
                 </div>
-                <p className="font-['Pretendard:Medium',sans-serif] leading-[26px] not-italic relative shrink-0 text-[#6a6a6a] text-[18px] text-nowrap whitespace-pre">
+                <p className="font-pretendard font-medium leading-[26px] not-italic relative shrink-0 text-[#6a6a6a] text-[18px] text-nowrap whitespace-pre">
                   근호
                 </p>
               </div>
               <div className="content-stretch flex gap-[6px] items-start relative shrink-0">
-                <div className="content-stretch flex font-['Pretendard:Regular',sans-serif] gap-[6px] items-start leading-[24px] not-italic relative shrink-0 text-[#999999] text-[14px] text-center text-nowrap whitespace-pre">
+                <div className="content-stretch flex font-pretendard gap-[6px] items-start leading-[24px] not-italic relative shrink-0 text-[#999999] text-[14px] text-center text-nowrap whitespace-pre">
                   <p className="relative shrink-0">조회 1000</p>
                   <p className="relative shrink-0">추천 425</p>
                 </div>
@@ -520,16 +520,16 @@ export default function RankingPage() {
             <div className="content-stretch flex gap-[6px] items-center justify-center relative shrink-0 w-[320px]">
               <div className="basis-0 content-stretch flex gap-[9px] grow items-center min-h-px min-w-px relative shrink-0">
                 <div className="content-stretch flex flex-col gap-[10px] items-center justify-center relative shrink-0 size-[24px]">
-                  <p className="font-['Pretendard:Medium',sans-serif] leading-[normal] not-italic relative shrink-0 text-[16px] text-black text-nowrap whitespace-pre">
+                  <p className="font-pretendard font-medium leading-[normal] not-italic relative shrink-0 text-[16px] text-black text-nowrap whitespace-pre">
                     8
                   </p>
                 </div>
-                <p className="font-['Pretendard:Medium',sans-serif] leading-[26px] not-italic relative shrink-0 text-[#6a6a6a] text-[18px] text-nowrap whitespace-pre">
+                <p className="font-pretendard font-medium leading-[26px] not-italic relative shrink-0 text-[#6a6a6a] text-[18px] text-nowrap whitespace-pre">
                   승주
                 </p>
               </div>
               <div className="content-stretch flex gap-[6px] items-start relative shrink-0">
-                <div className="content-stretch flex font-['Pretendard:Regular',sans-serif] gap-[6px] items-start leading-[24px] not-italic relative shrink-0 text-[#999999] text-[14px] text-center text-nowrap whitespace-pre">
+                <div className="content-stretch flex font-pretendard gap-[6px] items-start leading-[24px] not-italic relative shrink-0 text-[#999999] text-[14px] text-center text-nowrap whitespace-pre">
                   <p className="relative shrink-0">조회 860</p>
                   <p className="relative shrink-0">추천 420</p>
                 </div>
@@ -546,16 +546,16 @@ export default function RankingPage() {
             <div className="content-stretch flex gap-[6px] items-center justify-center relative shrink-0 w-[320px]">
               <div className="basis-0 content-stretch flex gap-[9px] grow items-center min-h-px min-w-px relative shrink-0">
                 <div className="content-stretch flex flex-col gap-[10px] items-center justify-center relative shrink-0 size-[24px]">
-                  <p className="font-['Pretendard:Medium',sans-serif] leading-[normal] not-italic relative shrink-0 text-[16px] text-black text-nowrap whitespace-pre">
+                  <p className="font-pretendard font-medium leading-[normal] not-italic relative shrink-0 text-[16px] text-black text-nowrap whitespace-pre">
                     9
                   </p>
                 </div>
-                <p className="font-['Pretendard:Medium',sans-serif] leading-[26px] not-italic relative shrink-0 text-[#6a6a6a] text-[18px] text-nowrap whitespace-pre">
+                <p className="font-pretendard font-medium leading-[26px] not-italic relative shrink-0 text-[#6a6a6a] text-[18px] text-nowrap whitespace-pre">
                   우정
                 </p>
               </div>
               <div className="content-stretch flex gap-[6px] items-start relative shrink-0">
-                <div className="content-stretch flex font-['Pretendard:Regular',sans-serif] gap-[6px] items-start leading-[24px] not-italic relative shrink-0 text-[#999999] text-[14px] text-center text-nowrap whitespace-pre">
+                <div className="content-stretch flex font-pretendard gap-[6px] items-start leading-[24px] not-italic relative shrink-0 text-[#999999] text-[14px] text-center text-nowrap whitespace-pre">
                   <p className="relative shrink-0">조회 860</p>
                   <p className="relative shrink-0">추천 327</p>
                 </div>
@@ -572,16 +572,16 @@ export default function RankingPage() {
             <div className="content-stretch flex gap-[6px] items-center justify-center relative shrink-0 w-[320px]">
               <div className="basis-0 content-stretch flex gap-[9px] grow items-center min-h-px min-w-px relative shrink-0">
                 <div className="content-stretch flex flex-col gap-[10px] items-center justify-center relative shrink-0 size-[24px]">
-                  <p className="font-['Pretendard:Medium',sans-serif] leading-[normal] not-italic relative shrink-0 text-[16px] text-black text-nowrap whitespace-pre">
+                  <p className="font-pretendard font-medium leading-[normal] not-italic relative shrink-0 text-[16px] text-black text-nowrap whitespace-pre">
                     10
                   </p>
                 </div>
-                <p className="font-['Pretendard:Medium',sans-serif] leading-[26px] not-italic relative shrink-0 text-[#6a6a6a] text-[18px] text-nowrap whitespace-pre">
+                <p className="font-pretendard font-medium leading-[26px] not-italic relative shrink-0 text-[#6a6a6a] text-[18px] text-nowrap whitespace-pre">
                   경진
                 </p>
               </div>
               <div className="content-stretch flex gap-[6px] items-start relative shrink-0">
-                <div className="content-stretch flex font-['Pretendard:Regular',sans-serif] gap-[6px] items-start leading-[24px] not-italic relative shrink-0 text-[#999999] text-[14px] text-center text-nowrap whitespace-pre">
+                <div className="content-stretch flex font-pretendard gap-[6px] items-start leading-[24px] not-italic relative shrink-0 text-[#999999] text-[14px] text-center text-nowrap whitespace-pre">
                   <p className="relative shrink-0">조회 750</p>
                   <p className="relative shrink-0">추천 300</p>
                 </div>

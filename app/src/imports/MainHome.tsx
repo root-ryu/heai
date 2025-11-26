@@ -57,7 +57,7 @@ function RightSide() {
 function StatusBarTime() {
   return (
     <div className="absolute h-[21px] left-[calc(16.67%-10.5px)] rounded-[24px] top-[14px] translate-x-[-50%] w-[54px]" data-name="_StatusBar-time">
-      <p className="absolute font-['Roboto:SemiBold',sans-serif] font-semibold h-[20px] leading-[22px] left-[27px] text-[#3a3a3a] text-[17px] text-center top-px tracking-[-0.408px] translate-x-[-50%] w-[54px]" style={{ fontVariationSettings: "'wdth' 100" }}>
+      <p className="absolute font-roboto font-semibold font-semibold h-[20px] leading-[22px] left-[27px] text-[#3a3a3a] text-[17px] text-center top-px tracking-[-0.408px] translate-x-[-50%] w-[54px]" style={{ fontVariationSettings: "'wdth' 100" }}>
         9:41
       </p>
     </div>
@@ -88,7 +88,7 @@ function Lv() {
       <div className="relative shrink-0 size-[24px]" data-name="Prize">
         <img alt="" className="absolute inset-0 max-w-none object-50%-50% object-contain pointer-events-none size-full" src={imgPrize} />
       </div>
-      <p className="font-['Roboto:Medium',sans-serif] font-medium leading-[22px] relative shrink-0 text-[#0c0c0c] text-[16px] text-center text-nowrap whitespace-pre" style={{ fontVariationSettings: "'wdth' 100" }}>
+      <p className="font-roboto font-medium font-medium leading-[22px] relative shrink-0 text-[#0c0c0c] text-[16px] text-center text-nowrap whitespace-pre" style={{ fontVariationSettings: "'wdth' 100" }}>
         Lv.3
       </p>
     </div>
@@ -111,7 +111,7 @@ function Bar1() {
   return (
     <div className="content-stretch flex gap-[8px] items-center relative shrink-0" data-name="bar">
       <Bar />
-      <p className="absolute font-['Pretendard:Medium',sans-serif] leading-[16px] left-[calc(50%-0.5px)] not-italic text-[12px] text-[rgba(12,12,12,0.24)] text-center text-nowrap top-[calc(50%-8px)] translate-x-[-50%] whitespace-pre">8 / 10</p>
+      <p className="absolute font-pretendard font-medium leading-[16px] left-[calc(50%-0.5px)] not-italic text-[12px] text-[rgba(12,12,12,0.24)] text-center text-nowrap top-[calc(50%-8px)] translate-x-[-50%] whitespace-pre">8 / 10</p>
     </div>
   );
 }
@@ -178,7 +178,7 @@ function LvIcon() {
 function Date1() {
   return (
     <div className="bg-[rgba(255,255,255,0.5)] box-border content-stretch flex gap-[10px] items-center justify-center overflow-clip px-[7px] py-[4px] relative rounded-[25px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.04)] shrink-0" data-name="date1">
-      <p className="font-['Pretendard:Medium',sans-serif] leading-[22px] not-italic relative shrink-0 text-[#dddddd] text-[16px] text-center text-nowrap whitespace-pre">10</p>
+      <p className="font-pretendard font-medium leading-[22px] not-italic relative shrink-0 text-[#dddddd] text-[16px] text-center text-nowrap whitespace-pre">10</p>
     </div>
   );
 }
@@ -186,7 +186,7 @@ function Date1() {
 function Date2() {
   return (
     <div className="bg-[rgba(255,255,255,0.5)] box-border content-stretch flex gap-[10px] items-center justify-center overflow-clip px-[7px] py-[4px] relative rounded-[25px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.04)] shrink-0" data-name="date2">
-      <p className="font-['Pretendard:Medium',sans-serif] leading-[22px] not-italic relative shrink-0 text-[#dddddd] text-[16px] text-center text-nowrap whitespace-pre">11</p>
+      <p className="font-pretendard font-medium leading-[22px] not-italic relative shrink-0 text-[#dddddd] text-[16px] text-center text-nowrap whitespace-pre">11</p>
     </div>
   );
 }
@@ -194,7 +194,7 @@ function Date2() {
 function Date3() {
   return (
     <div className="bg-[rgba(255,255,255,0.5)] box-border content-stretch flex gap-[10px] items-center justify-center overflow-clip px-[7px] py-[4px] relative rounded-[25px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.04)] shrink-0" data-name="date3">
-      <p className="font-['Pretendard:Medium',sans-serif] leading-[22px] not-italic relative shrink-0 text-[#dddddd] text-[16px] text-center text-nowrap whitespace-pre">12</p>
+      <p className="font-pretendard font-medium leading-[22px] not-italic relative shrink-0 text-[#dddddd] text-[16px] text-center text-nowrap whitespace-pre">12</p>
     </div>
   );
 }
@@ -202,10 +202,10 @@ function Date3() {
 function Date() {
   return (
     <div className="content-stretch flex flex-col gap-[4px] items-center relative shrink-0 text-center text-white w-[33px]" data-name="date">
-      <p className="font-['Roboto:Regular',sans-serif] font-normal leading-[18px] relative shrink-0 text-[12px] w-full" style={{ fontVariationSettings: "'wdth' 100" }}>
+      <p className="font-roboto font-normal leading-[18px] relative shrink-0 text-[12px] w-full" style={{ fontVariationSettings: "'wdth' 100" }}>
         Today
       </p>
-      <p className="font-['Pretendard:Bold',sans-serif] leading-[22px] not-italic relative shrink-0 text-[18px] w-full">13</p>
+      <p className="font-pretendard font-bold leading-[22px] not-italic relative shrink-0 text-[18px] w-full">13</p>
     </div>
   );
 }
@@ -221,7 +221,7 @@ function Date4Today() {
 function Date5() {
   return (
     <div className="bg-[rgba(255,255,255,0.5)] box-border content-stretch flex gap-[10px] items-center justify-center overflow-clip px-[7px] py-[4px] relative rounded-[25px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.04)] shrink-0" data-name="date5">
-      <p className="font-['Pretendard:Medium',sans-serif] leading-[22px] not-italic relative shrink-0 text-[#dddddd] text-[16px] text-center text-nowrap whitespace-pre">14</p>
+      <p className="font-pretendard font-medium leading-[22px] not-italic relative shrink-0 text-[#dddddd] text-[16px] text-center text-nowrap whitespace-pre">14</p>
     </div>
   );
 }
@@ -229,7 +229,7 @@ function Date5() {
 function Date6() {
   return (
     <div className="bg-[rgba(255,255,255,0.5)] box-border content-stretch flex gap-[10px] items-center justify-center overflow-clip px-[7px] py-[4px] relative rounded-[25px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.04)] shrink-0" data-name="date6">
-      <p className="font-['Pretendard:Medium',sans-serif] leading-[22px] not-italic relative shrink-0 text-[#dddddd] text-[16px] text-center text-nowrap whitespace-pre">15</p>
+      <p className="font-pretendard font-medium leading-[22px] not-italic relative shrink-0 text-[#dddddd] text-[16px] text-center text-nowrap whitespace-pre">15</p>
     </div>
   );
 }
@@ -237,7 +237,7 @@ function Date6() {
 function Date7() {
   return (
     <div className="bg-[rgba(255,255,255,0.5)] box-border content-stretch flex gap-[10px] items-center justify-center overflow-clip px-[7px] py-[4px] relative rounded-[25px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.04)] shrink-0" data-name="date7">
-      <p className="font-['Pretendard:Medium',sans-serif] leading-[22px] not-italic relative shrink-0 text-[#dddddd] text-[16px] text-center text-nowrap whitespace-pre">16</p>
+      <p className="font-pretendard font-medium leading-[22px] not-italic relative shrink-0 text-[#dddddd] text-[16px] text-center text-nowrap whitespace-pre">16</p>
     </div>
   );
 }
@@ -311,10 +311,10 @@ function Date4() {
 function Tit() {
   return (
     <div className="content-stretch flex flex-col items-start not-italic relative shrink-0 text-nowrap" data-name="tit">
-      <div className="flex flex-col font-['Pretendard:Medium',sans-serif] justify-center leading-[0] relative shrink-0 text-[#a4a4a4] text-[18px]">
+      <div className="flex flex-col font-pretendard font-medium justify-center leading-[0] relative shrink-0 text-[#a4a4a4] text-[18px]">
         <p className="leading-[26px] text-nowrap whitespace-pre">Today 완료한 루틴 50개</p>
       </div>
-      <p className="font-['Pretendard:Bold',sans-serif] leading-[32px] relative shrink-0 text-[#5fb8e1] text-[30px] whitespace-pre">82%</p>
+      <p className="font-pretendard font-bold leading-[32px] relative shrink-0 text-[#5fb8e1] text-[30px] whitespace-pre">82%</p>
     </div>
   );
 }
@@ -325,7 +325,7 @@ function Frame4() {
       <div className="relative shrink-0 size-[31px]" data-name="물마시기">
         <img alt="" className="absolute inset-0 max-w-none object-50%-50% object-cover pointer-events-none size-full" src={img} />
       </div>
-      <p className="font-['Pretendard:Regular',sans-serif] leading-[24px] not-italic relative shrink-0 text-[#0c0c0c] text-[16px] text-center text-nowrap whitespace-pre">물 마시기</p>
+      <p className="font-pretendard leading-[24px] not-italic relative shrink-0 text-[#0c0c0c] text-[16px] text-center text-nowrap whitespace-pre">물 마시기</p>
     </div>
   );
 }
@@ -377,7 +377,7 @@ function Frame5() {
       <div className="relative shrink-0 size-[30px]" data-name="ChatGPT Image 2025년 11월 18일 오후 03_46_27 1">
         <img alt="" className="absolute inset-0 max-w-none object-50%-50% object-cover pointer-events-none size-full" src={imgChatGptImage202511180346271} />
       </div>
-      <p className="font-['Pretendard:Regular',sans-serif] leading-[24px] not-italic relative shrink-0 text-[#0c0c0c] text-[16px] text-center text-nowrap whitespace-pre">명상</p>
+      <p className="font-pretendard leading-[24px] not-italic relative shrink-0 text-[#0c0c0c] text-[16px] text-center text-nowrap whitespace-pre">명상</p>
     </div>
   );
 }
@@ -421,7 +421,7 @@ function Frame6() {
       <div className="relative shrink-0 size-[30px]" data-name="image 1487">
         <img alt="" className="absolute inset-0 max-w-none object-50%-50% object-cover pointer-events-none size-full" src={imgImage1487} />
       </div>
-      <p className="font-['Pretendard:Regular',sans-serif] leading-[24px] not-italic relative shrink-0 text-[#0c0c0c] text-[16px] text-center text-nowrap whitespace-pre">잠자기</p>
+      <p className="font-pretendard leading-[24px] not-italic relative shrink-0 text-[#0c0c0c] text-[16px] text-center text-nowrap whitespace-pre">잠자기</p>
     </div>
   );
 }
@@ -479,7 +479,7 @@ function TxtBox() {
           <path d={svgPaths.p3c7b00} fill="var(--fill-0, black)" fillOpacity="0.03" id="Vector" />
         </svg>
       </div>
-      <p className="[text-underline-position:from-font] decoration-solid font-['Pretendard:Regular',sans-serif] leading-none min-w-full not-italic relative shrink-0 text-[12px] text-[rgba(12,12,12,0.53)] text-right underline w-[min-content]">+ 새 루틴 추가</p>
+      <p className="[text-underline-position:from-font] decoration-solid font-pretendard leading-none min-w-full not-italic relative shrink-0 text-[12px] text-[rgba(12,12,12,0.53)] text-right underline w-[min-content]">+ 새 루틴 추가</p>
     </div>
   );
 }
@@ -495,7 +495,7 @@ function Todolist() {
 function BTxt() {
   return (
     <div className="content-stretch flex gap-[2px] items-center justify-center relative shrink-0" data-name="b_txt">
-      <p className="font-['Pretendard:Regular',sans-serif] leading-[18px] not-italic relative shrink-0 text-[#7fa3c2] text-[9px] text-center text-nowrap whitespace-pre">150cm</p>
+      <p className="font-pretendard leading-[18px] not-italic relative shrink-0 text-[#7fa3c2] text-[9px] text-center text-nowrap whitespace-pre">150cm</p>
     </div>
   );
 }
@@ -504,7 +504,7 @@ function Frame1() {
   return (
     <div className="box-border content-stretch flex items-center justify-between px-0 py-[4px] relative shrink-0 w-full">
       <div aria-hidden="true" className="absolute border-[#acacac] border-[0px_0px_1px] border-solid inset-0 pointer-events-none" />
-      <p className="font-['Pretendard:Medium',sans-serif] leading-[22px] not-italic relative shrink-0 text-[#447fb1] text-[13px] text-center text-nowrap whitespace-pre">Height</p>
+      <p className="font-pretendard font-medium leading-[22px] not-italic relative shrink-0 text-[#447fb1] text-[13px] text-center text-nowrap whitespace-pre">Height</p>
       <BTxt />
     </div>
   );
@@ -513,7 +513,7 @@ function Frame1() {
 function BTxt1() {
   return (
     <div className="content-stretch flex gap-[2px] items-center justify-center relative shrink-0" data-name="b_txt">
-      <p className="font-['Pretendard:Regular',sans-serif] leading-[18px] not-italic relative shrink-0 text-[#7fa3c2] text-[9px] text-center text-nowrap whitespace-pre">100kg</p>
+      <p className="font-pretendard leading-[18px] not-italic relative shrink-0 text-[#7fa3c2] text-[9px] text-center text-nowrap whitespace-pre">100kg</p>
     </div>
   );
 }
@@ -522,7 +522,7 @@ function Frame2() {
   return (
     <div className="box-border content-stretch flex items-center justify-between px-0 py-[4px] relative shrink-0 w-full">
       <div aria-hidden="true" className="absolute border-[#acacac] border-[0px_0px_1px] border-solid inset-0 pointer-events-none" />
-      <p className="font-['Pretendard:Medium',sans-serif] leading-[22px] not-italic relative shrink-0 text-[#447fb1] text-[13px] text-center text-nowrap whitespace-pre">Weight</p>
+      <p className="font-pretendard font-medium leading-[22px] not-italic relative shrink-0 text-[#447fb1] text-[13px] text-center text-nowrap whitespace-pre">Weight</p>
       <BTxt1 />
     </div>
   );
@@ -555,7 +555,7 @@ function Frame15() {
 
 function Txt3() {
   return (
-    <div className="absolute content-stretch flex font-['Pretendard:Light',sans-serif] gap-[7px] items-end justify-end leading-[normal] left-[17.5px] not-italic text-[#7c7c7c] text-[14px] text-nowrap top-[186px] w-[133px] whitespace-pre" data-name="txt">
+    <div className="absolute content-stretch flex font-pretendard font-light gap-[7px] items-end justify-end leading-[normal] left-[17.5px] not-italic text-[#7c7c7c] text-[14px] text-nowrap top-[186px] w-[133px] whitespace-pre" data-name="txt">
       <p className="relative shrink-0">목표체중</p>
       <p className="relative shrink-0">50 kg</p>
     </div>
@@ -577,10 +577,10 @@ function Con() {
 function Tit1() {
   return (
     <div className="content-stretch flex flex-col items-start not-italic relative shrink-0 w-full" data-name="tit">
-      <div className="flex flex-col font-['Pretendard:Medium',sans-serif] justify-center leading-[0] relative shrink-0 text-[16px] text-[gainsboro] w-full">
+      <div className="flex flex-col font-pretendard font-medium justify-center leading-[0] relative shrink-0 text-[16px] text-[gainsboro] w-full">
         <p className="leading-[16px]">다음 아이템 해금까지</p>
       </div>
-      <p className="font-['Pretendard:Bold',sans-serif] leading-[32px] relative shrink-0 text-[#dfe5ff] text-[24px] w-full">89%</p>
+      <p className="font-pretendard font-bold leading-[32px] relative shrink-0 text-[#dfe5ff] text-[24px] w-full">89%</p>
     </div>
   );
 }
@@ -638,16 +638,16 @@ function Frame16() {
 function Txt4() {
   return (
     <div className="content-stretch flex flex-col items-start relative shrink-0" data-name="txt">
-      <p className="font-['Pretendard:SemiBold',sans-serif] leading-[26px] min-w-full not-italic relative shrink-0 text-[18px] text-white w-[min-content]">수면 기록</p>
-      <div className="flex flex-col font-['Pretendard:Medium',sans-serif] justify-center leading-[0] min-w-full not-italic relative shrink-0 text-[12px] text-white w-[min-content]">
+      <p className="font-pretendard font-semibold leading-[26px] min-w-full not-italic relative shrink-0 text-[18px] text-white w-[min-content]">수면 기록</p>
+      <div className="flex flex-col font-pretendard font-medium justify-center leading-[0] min-w-full not-italic relative shrink-0 text-[12px] text-white w-[min-content]">
         <p className="leading-[16px]">{`평균 수면 `}</p>
       </div>
-      <p className="font-['Roboto:Bold',sans-serif] font-bold leading-[0] not-italic relative shrink-0 text-[#3baa5c] text-[0px] text-nowrap whitespace-pre" style={{ fontVariationSettings: "'wdth' 100" }}>
-        <span className="font-['Pretendard:Bold',sans-serif] leading-[32px] text-[#4c94f0] text-[31px]">7</span>
-        <span className="font-['Pretendard:Medium',sans-serif] leading-[16px] text-[19px] text-white">시간</span>
-        <span className="font-['Pretendard:Medium',sans-serif] leading-[16px] text-[19px]"> </span>
-        <span className="font-['Pretendard:Bold',sans-serif] leading-[32px] text-[#4c94f0] text-[31px]">15</span>
-        <span className="font-['Pretendard:Medium',sans-serif] leading-[16px] text-[19px] text-white">분</span>
+      <p className="font-roboto font-bold font-bold leading-[0] not-italic relative shrink-0 text-[#3baa5c] text-[0px] text-nowrap whitespace-pre" style={{ fontVariationSettings: "'wdth' 100" }}>
+        <span className="font-pretendard font-bold leading-[32px] text-[#4c94f0] text-[31px]">7</span>
+        <span className="font-pretendard font-medium leading-[16px] text-[19px] text-white">시간</span>
+        <span className="font-pretendard font-medium leading-[16px] text-[19px]"> </span>
+        <span className="font-pretendard font-bold leading-[32px] text-[#4c94f0] text-[31px]">15</span>
+        <span className="font-pretendard font-medium leading-[16px] text-[19px] text-white">분</span>
       </p>
     </div>
   );
@@ -684,7 +684,7 @@ function Con2() {
 
 function BTxt2() {
   return (
-    <div className="content-stretch flex font-['Pretendard:Regular',sans-serif] gap-[2px] h-[18px] items-center justify-center leading-[18px] not-italic relative shrink-0 text-[12px] text-[rgba(2,1,14,0.5)] text-center text-nowrap w-full whitespace-pre" data-name="b_txt">
+    <div className="content-stretch flex font-pretendard gap-[2px] h-[18px] items-center justify-center leading-[18px] not-italic relative shrink-0 text-[12px] text-[rgba(2,1,14,0.5)] text-center text-nowrap w-full whitespace-pre" data-name="b_txt">
       <p className="relative shrink-0">35Kcal</p>
       <p className="relative shrink-0">2h</p>
       <p className="relative shrink-0">3km</p>
@@ -695,7 +695,7 @@ function BTxt2() {
 function Frame18() {
   return (
     <div className="absolute content-stretch flex flex-col gap-[4px] items-start left-[23px] top-[21px] w-[79px]">
-      <p className="font-['Pretendard:Regular',sans-serif] leading-none not-italic relative shrink-0 text-[#02010e] text-[16px] w-full">만보기</p>
+      <p className="font-pretendard leading-none not-italic relative shrink-0 text-[#02010e] text-[16px] w-full">만보기</p>
       <BTxt2 />
     </div>
   );
@@ -731,11 +731,11 @@ function Component() {
           </svg>
         </div>
       </div>
-      <p className="absolute font-['Pretendard:Regular',sans-serif] leading-none left-[166px] not-italic text-[#a8a8a8] text-[10px] text-nowrap top-[226px] whitespace-pre">오후 12시</p>
-      <p className="absolute font-['Pretendard:Regular',sans-serif] leading-none left-[16px] not-italic text-[#a8a8a8] text-[10px] text-nowrap top-[226px] whitespace-pre">오전 12시</p>
-      <p className="absolute font-['Pretendard:Regular',sans-serif] leading-none left-[313px] not-italic text-[#a8a8a8] text-[6px] text-nowrap top-[173px] whitespace-pre">1,500</p>
-      <p className="absolute font-['Pretendard:Regular',sans-serif] leading-none left-[313px] not-italic text-[#a8a8a8] text-[6px] text-nowrap top-[216px] whitespace-pre">0</p>
-      <p className="absolute font-['Pretendard:Regular',sans-serif] leading-none left-[313px] not-italic text-[#a8a8a8] text-[6px] text-nowrap top-[114px] whitespace-pre">3,000</p>
+      <p className="absolute font-pretendard leading-none left-[166px] not-italic text-[#a8a8a8] text-[10px] text-nowrap top-[226px] whitespace-pre">오후 12시</p>
+      <p className="absolute font-pretendard leading-none left-[16px] not-italic text-[#a8a8a8] text-[10px] text-nowrap top-[226px] whitespace-pre">오전 12시</p>
+      <p className="absolute font-pretendard leading-none left-[313px] not-italic text-[#a8a8a8] text-[6px] text-nowrap top-[173px] whitespace-pre">1,500</p>
+      <p className="absolute font-pretendard leading-none left-[313px] not-italic text-[#a8a8a8] text-[6px] text-nowrap top-[216px] whitespace-pre">0</p>
+      <p className="absolute font-pretendard leading-none left-[313px] not-italic text-[#a8a8a8] text-[6px] text-nowrap top-[114px] whitespace-pre">3,000</p>
       <div className="absolute flex h-[calc(1px*((var(--transform-inner-width)*1)+(var(--transform-inner-height)*0)))] items-center justify-center left-[calc(50%-10px)] top-[220px] translate-x-[-50%] w-[calc(1px*((var(--transform-inner-height)*1)+(var(--transform-inner-width)*0)))]" style={{ "--transform-inner-width": "16", "--transform-inner-height": "0" } as React.CSSProperties}>
         <div className="flex-none rotate-[90deg]">
           <div className="h-0 relative w-[16px]">
@@ -803,12 +803,12 @@ function Component() {
 function Con3() {
   return (
     <div className="bg-white h-[247px] overflow-clip relative shadow-[0px_0px_1px_0px_rgba(0,0,0,0.25)] shrink-0 w-[342px]" data-name="con4">
-      <p className="absolute font-['Inter:Medium',sans-serif] font-medium leading-none left-[133px] not-italic text-[#447fb1] text-[0px] text-nowrap text-right top-[60px] translate-x-[-100%] whitespace-pre">
-        <span className="font-['Pretendard:Bold',sans-serif] text-[32px]">7,123</span>
-        <span className="font-['Roboto:Medium',sans-serif] text-[14px] tracking-[-0.408px]" style={{ fontVariationSettings: "'wdth' 100" }}>
+      <p className="absolute font-inter font-medium font-medium leading-none left-[133px] not-italic text-[#447fb1] text-[0px] text-nowrap text-right top-[60px] translate-x-[-100%] whitespace-pre">
+        <span className="font-pretendard font-bold text-[32px]">7,123</span>
+        <span className="font-roboto font-medium text-[14px] tracking-[-0.408px]" style={{ fontVariationSettings: "'wdth' 100" }}>
           {" "}
         </span>
-        <span className="font-['Pretendard:Medium',sans-serif] text-[20px]">{`걸음 `}</span>
+        <span className="font-pretendard font-medium text-[20px]">{`걸음 `}</span>
       </p>
       <Frame18 />
       <Component />
@@ -826,13 +826,13 @@ function Con3() {
 function Frame12() {
   return (
     <div className="content-stretch flex flex-col gap-[4px] items-start relative shrink-0 text-nowrap">
-      <p className="font-['Pretendard:Regular',sans-serif] leading-none relative shrink-0 text-[#2e2e2e] text-[12px] whitespace-pre">이달의 막시무스는 누구?</p>
-      <div className="font-['Pretendard:Bold',sans-serif] leading-[1.2] relative shrink-0 text-[0px] text-[25px] text-white whitespace-pre">
+      <p className="font-pretendard leading-none relative shrink-0 text-[#2e2e2e] text-[12px] whitespace-pre">이달의 막시무스는 누구?</p>
+      <div className="font-pretendard font-bold leading-[1.2] relative shrink-0 text-[0px] text-[25px] text-white whitespace-pre">
         <p className="mb-0">
-          <span className="font-['Pretendard:ExtraBold',sans-serif]">우승자</span>
-          <span className="font-['Pretendard:SemiBold',sans-serif]">에게</span>
+          <span className="font-pretendard font-extrabold">우승자</span>
+          <span className="font-pretendard font-semibold">에게</span>
         </p>
-        <p className="font-['Pretendard:SemiBold',sans-serif]">리워드를 드립니다!!</p>
+        <p className="font-pretendard font-semibold">리워드를 드립니다!!</p>
       </div>
     </div>
   );
@@ -842,7 +842,7 @@ function Frame() {
   return (
     <div className="absolute content-stretch flex flex-col gap-[12px] items-start left-[24px] not-italic top-[calc(50%+0.5px)] translate-y-[-50%]">
       <Frame12 />
-      <div className="flex flex-col font-['Pretendard:Medium',sans-serif] justify-center leading-[0] min-w-full relative shrink-0 text-[#5a54fa] text-[10px] w-[min-content]">
+      <div className="flex flex-col font-pretendard font-medium justify-center leading-[0] min-w-full relative shrink-0 text-[#5a54fa] text-[10px] w-[min-content]">
         <p className="[text-underline-position:from-font] decoration-solid leading-[16px] underline">지금 당장 내 하트수 보러가기</p>
       </div>
     </div>

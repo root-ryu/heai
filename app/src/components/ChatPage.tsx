@@ -166,7 +166,7 @@ export default function ChatPage() {
 
       {/* 모달 컨테이너 */}
       <div className="fixed bottom-0 left-0 right-0 z-50 flex justify-center pointer-events-none">
-        <div className="w-full pointer-events-auto animate-slide-up-from-bottom">
+        <div className="w-full max-w-[375px] mx-auto pointer-events-auto animate-slide-up-from-bottom">
           {/* 메인 채팅 영역 */}
           <div
             className={`bg-neutral-50 flex flex-col rounded-t-[30px] shadow-2xl overflow-hidden transition-all h-[92svh] w-full`}
@@ -306,7 +306,7 @@ export default function ChatPage() {
                     <Send className="w-4 h-4" />
                   </button>
                 </div>
-              </div>
+              </div>  
             )}
           </div>
         </div>

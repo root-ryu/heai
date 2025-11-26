@@ -50,7 +50,7 @@ function CompleteButton({
       }`}
     >
       <p
-        className={`font-['Pretendard:Medium',sans-serif] leading-[26px] not-italic relative shrink-0 text-[18px] text-nowrap whitespace-pre ${
+        className={`font-pretendard font-medium leading-[26px] not-italic relative shrink-0 text-[18px] text-nowrap whitespace-pre ${
           disabled ? 'text-[#cccccc]' : 'text-white'
         }`}
       >
@@ -261,113 +261,119 @@ export default function CommunityWritePage() {
   const isFormValid = title.trim() && content.trim();
 
   return (
-    <div className="bg-white content-stretch flex flex-col items-center overflow-y-auto overflow-x-hidden h-full w-full pb-[120px]">
-      <Top />
+    <div className="bg-neutral-50 flex flex-col items-center w-full h-full overflow-hidden">
+      <div className="max-w-[375px] mx-auto w-full h-full flex flex-col pb-[120px]">
+        <Top />
 
-      {/* Custom Header */}
-      <div className="h-[48px] overflow-clip relative shrink-0 w-[375px] bg-white">
-        <div className="absolute content-stretch flex items-center justify-between left-1/2 top-[9px] translate-x-[-50%] w-[343px]">
-          <BackButton />
-          <div className="content-stretch flex gap-[8px] items-center relative shrink-0">
-            <div className="flex flex-row items-center self-stretch">
-              <CompleteButton disabled={!isFormValid} onClick={handleSubmit} />
-            </div>
-          </div>
-        </div>
-        <div className="absolute content-stretch flex gap-[4px] items-start left-[calc(50%+0.5px)] top-[11px] translate-x-[-50%]">
-          <p className="font-['Pretendard:SemiBold',sans-serif] leading-[24px] not-italic relative shrink-0 text-[#02010e] text-[20px] text-center text-nowrap whitespace-pre">
-            글쓰기
-          </p>
-        </div>
-      </div>
-
-      <div className="bg-white box-border content-stretch flex flex-col gap-[40px] items-start justify-center px-0 py-[20px] relative w-[343px] mx-auto flex-1">
-        {/* 게시판 선택 */}
-        <div className="content-stretch flex flex-col gap-[8px] items-start relative shrink-0 w-full">
-          <p className="font-['Pretendard:Medium',sans-serif] leading-[26px] not-italic relative shrink-0 text-[#040415] text-[18px] text-nowrap whitespace-pre">
-            게시판 선택
-          </p>
-        </div>
-      </div>
-
-      {/* CategoryTabs 컴포넌트 재활용 */}
-      <CategoryTabs
-        activeCategory={selectedCategory}
-        mode="selection"
-        onCategorySelect={setSelectedCategory}
-      />
-
-      <div className="bg-white box-border content-stretch flex flex-col gap-[40px] items-start justify-center px-0 py-[20px] relative w-[343px] mx-auto flex-1">
-        {/* 제목 및 내용 입력 */}
-        <div className="content-stretch flex flex-col gap-[24px] items-start relative shrink-0 w-[343px]">
-          {/* 제목 입력 */}
-          <div className="h-[44px] relative shrink-0 w-full">
-            <div className="box-border content-stretch flex h-[44px] items-center overflow-clip pb-[8px] pt-0 px-0 relative rounded-[inherit] w-full">
-              <div className="content-stretch flex gap-[4px] items-center relative shrink-0 w-full">
-                <EditIcon />
-                <input
-                  type="text"
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                  placeholder="제목을 입력하세요"
-                  className="font-['Pretendard:SemiBold',sans-serif] leading-[normal] not-italic flex-1 text-[#cccccc] text-[18px] tracking-[-1px] bg-transparent border-none outline-none placeholder:text-[#cccccc]"
+        {/* Custom Header */}
+        <div className="h-[48px] overflow-clip relative shrink-0 w-full bg-white">
+          <div className="absolute content-stretch flex items-center justify-between left-1/2 top-[9px] translate-x-[-50%] w-[343px]">
+            <BackButton />
+            <div className="content-stretch flex gap-[8px] items-center relative shrink-0">
+              <div className="flex flex-row items-center self-stretch">
+                <CompleteButton
+                  disabled={!isFormValid}
+                  onClick={handleSubmit}
                 />
               </div>
             </div>
-            <div
-              aria-hidden="true"
-              className="absolute border-[0px_0px_1px] border-neutral-200 border-solid inset-0 pointer-events-none"
-            />
           </div>
-
-          {/* 내용 입력 */}
-          <div className="content-stretch flex h-[300px] items-start overflow-clip relative shrink-0 w-full">
-            <textarea
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-              placeholder="내용을 입력하세요"
-              className="font-['Pretendard:Medium',sans-serif] leading-[26px] not-italic w-full h-full resize-none bg-transparent border-none outline-none text-[#cccccc] text-[18px] placeholder:text-[#cccccc]"
-            />
+          <div className="absolute content-stretch flex gap-[4px] items-start left-[calc(50%+0.5px)] top-[11px] translate-x-[-50%]">
+            <p className="font-pretendard font-semibold leading-[24px] not-italic relative shrink-0 text-[#02010e] text-[20px] text-center text-nowrap whitespace-pre">
+              글쓰기
+            </p>
           </div>
         </div>
 
-        {/* 이미지/동영상 버튼 */}
-        <div className="content-stretch flex gap-[30px] items-center relative shrink-0">
-          <button className="content-stretch flex gap-[7.995px] items-center relative shrink-0">
-            <ImageIcon />
-            <p className="font-['Pretendard:Regular',sans-serif] leading-[24px] not-italic relative shrink-0 text-[#686873] text-[14px] text-nowrap whitespace-pre">
-              이미지
-            </p>
-          </button>
-          <button className="content-stretch flex gap-[7.995px] items-center relative shrink-0">
-            <VideoIcon />
-            <p className="font-['Pretendard:Regular',sans-serif] leading-[24px] not-italic relative shrink-0 text-[#686873] text-[14px] text-nowrap whitespace-pre">
-              동영상
-            </p>
-          </button>
-        </div>
+        {/* Scrollable Content */}
+        <div className="flex-1 overflow-y-auto overflow-x-hidden w-full bg-white">
+          <div className="flex flex-col">
+            {/* 게시판 선택 */}
+            <div className="w-[343px] mx-auto pt-[20px] pb-[16px]">
+              <p className="font-pretendard font-medium leading-[26px] not-italic text-[#040415] text-[18px]">
+                게시판 선택
+              </p>
+            </div>
 
-        {/* 좋은 글 작성 팁 */}
-        <div className="bg-[rgba(205,205,205,0.2)] box-border content-stretch flex flex-col gap-[7.995px] items-center justify-center p-[16px] relative rounded-[16px] shrink-0 w-[343px]">
-          <div className="content-stretch flex flex-col gap-[10px] items-start relative shrink-0 w-[301px]">
-            <p className="font-['Pretendard:SemiBold',sans-serif] leading-[26px] not-italic relative shrink-0 text-[16px] text-black w-full">
-              💡 좋은 글 작성 팁
-            </p>
-            <div className="content-stretch flex flex-col font-['Pretendard:Regular',sans-serif] gap-[4px] items-start leading-[24px] not-italic relative shrink-0 text-[#555555] text-[14px] text-nowrap w-full whitespace-pre">
-              <p className="relative shrink-0">
-                • 명확하고 구체적인 제목을 작성해주세요
-              </p>
-              <p className="relative shrink-0">
-                • 다른 사람을 존중하는 언어를 사용해주세요
-              </p>
-              <p className="relative shrink-0">
-                • 관련 이미지가 있다면 함께 올려주세요
-              </p>
+            {/* CategoryTabs 컴포넌트 - 전체 너비로 배치 */}
+            <CategoryTabs
+              activeCategory={selectedCategory}
+              mode="selection"
+              onCategorySelect={setSelectedCategory}
+            />
+
+            {/* 입력 폼 영역 */}
+            <div className="w-[343px] mx-auto pt-[24px] pb-[20px]">
+              <div className="flex flex-col gap-[40px]">
+                {/* 제목 및 내용 입력 */}
+                <div className="flex flex-col gap-[24px] w-full">
+                  {/* 제목 입력 */}
+                  <div className="h-[44px] relative w-full">
+                    <div className="flex h-[44px] items-center pb-[8px] w-full">
+                      <div className="flex gap-[4px] items-center w-full">
+                        <EditIcon />
+                        <input
+                          type="text"
+                          value={title}
+                          onChange={(e) => setTitle(e.target.value)}
+                          placeholder="제목을 입력하세요"
+                          className="font-pretendard font-semibold leading-[normal] not-italic flex-1 text-[#cccccc] text-[18px] tracking-[-1px] bg-transparent border-none outline-none placeholder:text-[#cccccc]"
+                        />
+                      </div>
+                    </div>
+                    <div
+                      aria-hidden="true"
+                      className="absolute border-[0px_0px_1px] border-neutral-200 border-solid inset-0 pointer-events-none"
+                    />
+                  </div>
+
+                  {/* 내용 입력 */}
+                  <div className="flex h-[300px] w-full">
+                    <textarea
+                      value={content}
+                      onChange={(e) => setContent(e.target.value)}
+                      placeholder="내용을 입력하세요"
+                      className="font-pretendard font-medium leading-[26px] not-italic w-full h-full resize-none bg-transparent border-none outline-none text-[#cccccc] text-[18px] placeholder:text-[#cccccc]"
+                    />
+                  </div>
+                </div>
+
+                {/* 이미지/동영상 버튼 */}
+                <div className="flex gap-[30px] items-center">
+                  <button className="flex gap-[8px] items-center">
+                    <ImageIcon />
+                    <p className="font-pretendard leading-[24px] text-[#686873] text-[14px]">
+                      이미지
+                    </p>
+                  </button>
+                  <button className="flex gap-[8px] items-center">
+                    <VideoIcon />
+                    <p className="font-pretendard leading-[24px] text-[#686873] text-[14px]">
+                      동영상
+                    </p>
+                  </button>
+                </div>
+
+                {/* 좋은 글 작성 팁 */}
+                <div className="bg-[rgba(205,205,205,0.2)] flex flex-col gap-[8px] items-center justify-center p-[16px] rounded-[16px] w-full">
+                  <div className="flex flex-col gap-[10px] items-start w-full">
+                    <p className="font-pretendard font-semibold leading-[26px] text-[16px] text-black">
+                      💡 좋은 글 작성 팁
+                    </p>
+                    <div className="flex flex-col font-pretendard gap-[4px] items-start leading-[24px] text-[#555555] text-[14px] w-full">
+                      <p>• 명확하고 구체적인 제목을 작성해주세요</p>
+                      <p>• 다른 사람을 존중하는 언어를 사용해주세요</p>
+                      <p>• 관련 이미지가 있다면 함께 올려주세요</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+
+        <Bottom />
       </div>
-      <Bottom />
     </div>
   );
 }

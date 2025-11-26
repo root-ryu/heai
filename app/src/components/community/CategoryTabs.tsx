@@ -105,7 +105,7 @@ export default function CategoryTabs({
               }}
             >
               <p
-                className={`font-['Pretendard:Regular',sans-serif] leading-[18px] not-italic relative shrink-0 text-[16px] text-nowrap whitespace-pre ${
+                className={`font-normal leading-[18px] not-italic relative shrink-0 text-[16px] text-nowrap whitespace-pre ${
                   isActive ? 'text-white' : 'text-black'
                 }`}
               >

@@ -20,7 +20,7 @@ function Notch() {
 function StatusBarTime() {
   return (
     <div className="absolute h-[21px] left-[calc(16.67%-11px)] rounded-[24px] top-[14px] translate-x-[-50%] w-[54px]" data-name="_StatusBar-time">
-      <p className="absolute font-['SF_Pro_Text:Semibold',sans-serif] h-[20px] leading-[22px] left-[27px] not-italic text-[#010101] text-[17px] text-center top-px tracking-[-0.408px] translate-x-[-50%] w-[54px]">9:41</p>
+      <p className="absolute font-sfpro font-semibold h-[20px] leading-[22px] left-[27px] not-italic text-[#010101] text-[17px] text-center top-px tracking-[-0.408px] translate-x-[-50%] w-[54px]">9:41</p>
     </div>
   );
 }
@@ -81,7 +81,7 @@ function Top() {
 function Button() {
   return (
     <div className="bg-[#ebf2ff] box-border content-stretch flex gap-[10px] h-full items-center justify-center px-[12px] py-[4px] relative rounded-[50px] shrink-0" data-name="Button">
-      <p className="font-['Pretendard:Medium',sans-serif] leading-[26px] not-italic relative shrink-0 text-[#cccccc] text-[18px] text-nowrap whitespace-pre">완료</p>
+      <p className="font-pretendard font-medium leading-[26px] not-italic relative shrink-0 text-[#cccccc] text-[18px] text-nowrap whitespace-pre">완료</p>
     </div>
   );
 }
@@ -108,7 +108,7 @@ function Frame1() {
 function Frame2() {
   return (
     <div className="absolute content-stretch flex gap-[4px] items-start left-[calc(50%+0.5px)] top-[11px] translate-x-[-50%]">
-      <p className="font-['Pretendard:SemiBold',sans-serif] leading-[24px] not-italic relative shrink-0 text-[#02010e] text-[20px] text-center text-nowrap whitespace-pre">글쓰기</p>
+      <p className="font-pretendard font-semibold leading-[24px] not-italic relative shrink-0 text-[#02010e] text-[20px] text-center text-nowrap whitespace-pre">글쓰기</p>
     </div>
   );
 }
@@ -125,7 +125,7 @@ function Tit() {
 function Button1() {
   return (
     <div className="bg-[#ebf2ff] box-border content-stretch flex gap-[10px] h-[40px] items-center justify-center overflow-clip px-[14px] py-[8px] relative rounded-[50px] shrink-0" data-name="button">
-      <p className="font-['Pretendard:Regular',sans-serif] leading-[18px] not-italic relative shrink-0 text-[16px] text-black text-nowrap whitespace-pre">전체</p>
+      <p className="font-pretendard leading-[18px] not-italic relative shrink-0 text-[16px] text-black text-nowrap whitespace-pre">전체</p>
     </div>
   );
 }
@@ -133,7 +133,7 @@ function Button1() {
 function Button2() {
   return (
     <div className="bg-[rgba(255,179,71,0.21)] box-border content-stretch flex gap-[10px] h-[40px] items-center justify-center overflow-clip px-[14px] py-[8px] relative rounded-[50px] shrink-0 w-[71px]" data-name="button">
-      <p className="font-['Pretendard:Regular',sans-serif] leading-[18px] not-italic relative shrink-0 text-[16px] text-black text-nowrap whitespace-pre">캐릭터</p>
+      <p className="font-pretendard leading-[18px] not-italic relative shrink-0 text-[16px] text-black text-nowrap whitespace-pre">캐릭터</p>
     </div>
   );
 }
@@ -141,7 +141,7 @@ function Button2() {
 function Button3() {
   return (
     <div className="bg-[rgba(255,139,128,0.22)] box-border content-stretch flex gap-[10px] h-[40px] items-center justify-center overflow-clip px-[14px] py-[8px] relative rounded-[50px] shrink-0" data-name="button">
-      <p className="font-['Pretendard:Regular',sans-serif] leading-[18px] not-italic relative shrink-0 text-[16px] text-black text-nowrap whitespace-pre">자유게시판</p>
+      <p className="font-pretendard leading-[18px] not-italic relative shrink-0 text-[16px] text-black text-nowrap whitespace-pre">자유게시판</p>
     </div>
   );
 }
@@ -149,7 +149,7 @@ function Button3() {
 function Button4() {
   return (
     <div className="bg-[rgba(34,215,96,0.16)] box-border content-stretch flex gap-[10px] h-[40px] items-center justify-center overflow-clip px-[14px] py-[8px] relative rounded-[50px] shrink-0" data-name="button">
-      <p className="font-['Pretendard:Regular',sans-serif] leading-[18px] not-italic relative shrink-0 text-[16px] text-black text-nowrap whitespace-pre">루틴게시판</p>
+      <p className="font-pretendard leading-[18px] not-italic relative shrink-0 text-[16px] text-black text-nowrap whitespace-pre">루틴게시판</p>
     </div>
   );
 }
@@ -157,7 +157,7 @@ function Button4() {
 function Button5() {
   return (
     <div className="bg-[rgba(200,165,216,0.64)] box-border content-stretch flex gap-[10px] h-[40px] items-center justify-center overflow-clip px-[14px] py-[8px] relative rounded-[50px] shrink-0" data-name="button">
-      <p className="font-['Pretendard:Regular',sans-serif] leading-[18px] not-italic relative shrink-0 text-[16px] text-black text-nowrap whitespace-pre">꿀팁</p>
+      <p className="font-pretendard leading-[18px] not-italic relative shrink-0 text-[16px] text-black text-nowrap whitespace-pre">꿀팁</p>
     </div>
   );
 }
@@ -177,7 +177,7 @@ function Frame9() {
 function Frame4() {
   return (
     <div className="content-stretch flex flex-col gap-[8px] items-start relative shrink-0">
-      <p className="font-['Pretendard:Medium',sans-serif] leading-[26px] not-italic relative shrink-0 text-[#040415] text-[18px] text-nowrap whitespace-pre">게시판 선택</p>
+      <p className="font-pretendard font-medium leading-[26px] not-italic relative shrink-0 text-[#040415] text-[18px] text-nowrap whitespace-pre">게시판 선택</p>
       <Frame9 />
     </div>
   );
@@ -200,7 +200,7 @@ function Frame7() {
   return (
     <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
       <Edit />
-      <p className="font-['Pretendard:SemiBold',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#cccccc] text-[18px] text-nowrap tracking-[-1px] whitespace-pre">제목을 입력하세요</p>
+      <p className="font-pretendard font-semibold leading-[normal] not-italic relative shrink-0 text-[#cccccc] text-[18px] text-nowrap tracking-[-1px] whitespace-pre">제목을 입력하세요</p>
     </div>
   );
 }
@@ -219,7 +219,7 @@ function TextInput() {
 function TextArea() {
   return (
     <div className="content-stretch flex h-[300px] items-start overflow-clip relative shrink-0 w-full" data-name="Text Area">
-      <p className="font-['Pretendard:Medium',sans-serif] leading-[26px] not-italic relative shrink-0 text-[#cccccc] text-[18px] text-nowrap whitespace-pre">내용을 입력하세요</p>
+      <p className="font-pretendard font-medium leading-[26px] not-italic relative shrink-0 text-[#cccccc] text-[18px] text-nowrap whitespace-pre">내용을 입력하세요</p>
     </div>
   );
 }
@@ -260,7 +260,7 @@ function Button6() {
   return (
     <div className="content-stretch flex gap-[7.995px] items-center relative shrink-0" data-name="Button">
       <Icon />
-      <p className="font-['Pretendard:Regular',sans-serif] leading-[24px] not-italic relative shrink-0 text-[#686873] text-[14px] text-nowrap whitespace-pre">이미지</p>
+      <p className="font-pretendard leading-[24px] not-italic relative shrink-0 text-[#686873] text-[14px] text-nowrap whitespace-pre">이미지</p>
     </div>
   );
 }
@@ -289,7 +289,7 @@ function Button7() {
   return (
     <div className="content-stretch flex gap-[7.995px] items-center relative shrink-0" data-name="Button">
       <Icon5 />
-      <p className="font-['Pretendard:Regular',sans-serif] leading-[24px] not-italic relative shrink-0 text-[#686873] text-[14px] text-nowrap whitespace-pre">동영상</p>
+      <p className="font-pretendard leading-[24px] not-italic relative shrink-0 text-[#686873] text-[14px] text-nowrap whitespace-pre">동영상</p>
     </div>
   );
 }
@@ -305,7 +305,7 @@ function Frame5() {
 
 function List() {
   return (
-    <div className="content-stretch flex flex-col font-['Pretendard:Regular',sans-serif] gap-[4px] items-start leading-[24px] not-italic relative shrink-0 text-[#555555] text-[14px] text-nowrap w-full whitespace-pre" data-name="List">
+    <div className="content-stretch flex flex-col font-pretendard gap-[4px] items-start leading-[24px] not-italic relative shrink-0 text-[#555555] text-[14px] text-nowrap w-full whitespace-pre" data-name="List">
       <p className="relative shrink-0">• 명확하고 구체적인 제목을 작성해주세요</p>
       <p className="relative shrink-0">• 다른 사람을 존중하는 언어를 사용해주세요</p>
       <p className="relative shrink-0">• 관련 이미지가 있다면 함께 올려주세요</p>
@@ -316,7 +316,7 @@ function List() {
 function Frame6() {
   return (
     <div className="content-stretch flex flex-col gap-[10px] items-start relative shrink-0 w-[301px]">
-      <p className="font-['Pretendard:SemiBold',sans-serif] leading-[26px] not-italic relative shrink-0 text-[16px] text-black w-full">💡 좋은 글 작성 팁</p>
+      <p className="font-pretendard font-semibold leading-[26px] not-italic relative shrink-0 text-[16px] text-black w-full">💡 좋은 글 작성 팁</p>
       <List />
     </div>
   );

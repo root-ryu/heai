@@ -2,7 +2,7 @@ import imgChatGptImage202511180309341 from "figma:asset/093df2697a767b1e891b0eaa
 
 function BTxt() {
   return (
-    <div className="content-stretch flex font-['Pretendard:Regular',sans-serif] gap-[2px] h-[18px] items-center justify-center leading-[18px] not-italic relative shrink-0 text-[12px] text-[rgba(2,1,14,0.5)] text-center text-nowrap w-full whitespace-pre" data-name="b_txt">
+    <div className="content-stretch flex font-pretendard gap-[2px] h-[18px] items-center justify-center leading-[18px] not-italic relative shrink-0 text-[12px] text-[rgba(2,1,14,0.5)] text-center text-nowrap w-full whitespace-pre" data-name="b_txt">
       <p className="relative shrink-0">35Kcal</p>
       <p className="relative shrink-0">2h</p>
       <p className="relative shrink-0">3km</p>
@@ -13,7 +13,7 @@ function BTxt() {
 function Frame5() {
   return (
     <div className="content-stretch flex flex-col gap-[4px] items-start relative shrink-0 w-[79px]">
-      <p className="font-['Pretendard:SemiBold',sans-serif] leading-none not-italic relative shrink-0 text-[#02010e] text-[18px] text-nowrap whitespace-pre">만보기</p>
+      <p className="font-pretendard font-semibold leading-none not-italic relative shrink-0 text-[#02010e] text-[18px] text-nowrap whitespace-pre">만보기</p>
       <BTxt />
     </div>
   );
@@ -23,12 +23,12 @@ function Frame6() {
   return (
     <div className="absolute content-stretch flex flex-col items-start left-[21px] top-[21px] w-[114px]">
       <Frame5 />
-      <p className="font-['Inter:Medium',sans-serif] font-medium leading-none min-w-full not-italic relative shrink-0 text-[#447fb1] text-[0px] text-right w-[min-content]">
-        <span className="font-['Pretendard:Bold',sans-serif] text-[32px]">7,123</span>
-        <span className="font-['Roboto:Medium',sans-serif] text-[14px] tracking-[-0.408px]" style={{ fontVariationSettings: "'wdth' 100" }}>
+      <p className="font-inter font-medium font-medium leading-none min-w-full not-italic relative shrink-0 text-[#447fb1] text-[0px] text-right w-[min-content]">
+        <span className="font-pretendard font-bold text-[32px]">7,123</span>
+        <span className="font-roboto font-medium text-[14px] tracking-[-0.408px]" style={{ fontVariationSettings: "'wdth' 100" }}>
           {" "}
         </span>
-        <span className="font-['Pretendard:Medium',sans-serif] text-[20px]">{`걸음 `}</span>
+        <span className="font-pretendard font-medium text-[20px]">{`걸음 `}</span>
       </p>
     </div>
   );
@@ -64,11 +64,11 @@ function Component() {
           </svg>
         </div>
       </div>
-      <p className="absolute font-['Pretendard:Regular',sans-serif] leading-none left-[166px] not-italic text-[#a8a8a8] text-[10px] text-nowrap top-[226px] whitespace-pre">오후 12시</p>
-      <p className="absolute font-['Pretendard:Regular',sans-serif] leading-none left-[16px] not-italic text-[#a8a8a8] text-[10px] text-nowrap top-[226px] whitespace-pre">오전 12시</p>
-      <p className="absolute font-['Pretendard:Regular',sans-serif] leading-none left-[313px] not-italic text-[#a8a8a8] text-[6px] text-nowrap top-[173px] whitespace-pre">1,500</p>
-      <p className="absolute font-['Pretendard:Regular',sans-serif] leading-none left-[313px] not-italic text-[#a8a8a8] text-[6px] text-nowrap top-[216px] whitespace-pre">0</p>
-      <p className="absolute font-['Pretendard:Regular',sans-serif] leading-none left-[313px] not-italic text-[#a8a8a8] text-[6px] text-nowrap top-[114px] whitespace-pre">3,000</p>
+      <p className="absolute font-pretendard leading-none left-[166px] not-italic text-[#a8a8a8] text-[10px] text-nowrap top-[226px] whitespace-pre">오후 12시</p>
+      <p className="absolute font-pretendard leading-none left-[16px] not-italic text-[#a8a8a8] text-[10px] text-nowrap top-[226px] whitespace-pre">오전 12시</p>
+      <p className="absolute font-pretendard leading-none left-[313px] not-italic text-[#a8a8a8] text-[6px] text-nowrap top-[173px] whitespace-pre">1,500</p>
+      <p className="absolute font-pretendard leading-none left-[313px] not-italic text-[#a8a8a8] text-[6px] text-nowrap top-[216px] whitespace-pre">0</p>
+      <p className="absolute font-pretendard leading-none left-[313px] not-italic text-[#a8a8a8] text-[6px] text-nowrap top-[114px] whitespace-pre">3,000</p>
       <div className="absolute flex h-[calc(1px*((var(--transform-inner-width)*1)+(var(--transform-inner-height)*0)))] items-center justify-center left-[calc(50%-10px)] top-[220px] translate-x-[-50%] w-[calc(1px*((var(--transform-inner-height)*1)+(var(--transform-inner-width)*0)))]" style={{ "--transform-inner-width": "16", "--transform-inner-height": "0" } as React.CSSProperties}>
         <div className="flex-none rotate-[90deg]">
           <div className="h-0 relative w-[16px]">

@@ -20,7 +20,7 @@ export default function BookmarkPage() {
           >
             <ArrowLeft className="w-[24px] h-[24px] text-[#5A54FA]" />
           </button>
-          <p className="font-['Pretendard:Medium',sans-serif] text-[20px] text-[#02010e]">
+          <p className="font-pretendard font-medium text-[20px] text-[#02010e]">
             북마크
           </p>
         </div>
@@ -29,7 +29,7 @@ export default function BookmarkPage() {
       {/* Empty State */}
       <div className="flex-1 flex items-center justify-center">
         <div className="text-center">
-          <p className="font-['Pretendard:Regular',sans-serif] text-[16px] text-[#8c8c8c]">
+          <p className="font-pretendard text-[16px] text-[#8c8c8c]">
             북마크한 게시글이 없습니다
           </p>
         </div>

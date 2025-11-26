@@ -1,0 +1,4 @@
+// SVG asset for WeeklyRoutineStatus background
+
+export const imgVector =
+  'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOTYiIGhlaWdodD0iNzQiIHZpZXdCb3g9IjAgMCA5NiA3NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cGF0aCBkPSJNMCAwTDk2IDc0VjBIMFoiIGZpbGw9ImJsYWNrIiBmaWxsLW9wYWNpdHk9IjAuMDMiLz4KPC9zdmc+';

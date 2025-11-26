@@ -49,7 +49,7 @@ function RightSide() {
 function StatusBarTime() {
   return (
     <div className="absolute h-[21px] left-[calc(16.67%-10.5px)] rounded-[24px] top-[14px] translate-x-[-50%] w-[54px]" data-name="_StatusBar-time">
-      <p className="absolute font-['Roboto:SemiBold',sans-serif] font-semibold h-[20px] leading-[22px] left-[27px] text-[17px] text-black text-center top-px tracking-[-0.408px] translate-x-[-50%] w-[54px]" style={{ fontVariationSettings: "'wdth' 100" }}>
+      <p className="absolute font-roboto font-semibold font-semibold h-[20px] leading-[22px] left-[27px] text-[17px] text-black text-center top-px tracking-[-0.408px] translate-x-[-50%] w-[54px]" style={{ fontVariationSettings: "'wdth' 100" }}>
         9:41
       </p>
     </div>
@@ -116,7 +116,7 @@ function Main() {
     <div className="absolute bg-neutral-50 h-[48px] left-1/2 top-[47px] translate-x-[-50%] w-[375px]" data-name="main">
       <div className="h-[48px] overflow-clip relative rounded-[inherit] w-[375px]">
         <Frame8 />
-        <p className="absolute font-['Roboto:Bold','Noto_Sans_KR:Bold',sans-serif] font-bold leading-[32px] left-1/2 text-[#02010e] text-[24px] text-center text-nowrap top-[calc(50%-16px)] translate-x-[-50%] whitespace-pre" style={{ fontVariationSettings: "'wdth' 100" }}>
+        <p className="absolute font-roboto font-bold font-bold leading-[32px] left-1/2 text-[#02010e] text-[24px] text-center text-nowrap top-[calc(50%-16px)] translate-x-[-50%] whitespace-pre" style={{ fontVariationSettings: "'wdth' 100" }}>
           마이페이지
         </p>
         <Menu />
@@ -129,7 +129,7 @@ function Main() {
 function Frame2() {
   return (
     <div className="absolute bg-white left-[36px] overflow-clip rounded-[10px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.15)] size-[80px] top-[450px]">
-      <p className="absolute font-['Pretendard:SemiBold',sans-serif] leading-[24px] left-1/2 not-italic text-[16px] text-black text-center text-nowrap top-[calc(50%+13px)] translate-x-[-50%] whitespace-pre">캘린더</p>
+      <p className="absolute font-pretendard font-semibold leading-[24px] left-1/2 not-italic text-[16px] text-black text-center text-nowrap top-[calc(50%+13px)] translate-x-[-50%] whitespace-pre">캘린더</p>
       <div className="absolute h-[48px] left-[19px] top-[5px] w-[42px]" data-name="캘린더">
         <img alt="" className="absolute inset-0 max-w-none object-50%-50% object-cover pointer-events-none size-full" src={img} />
       </div>
@@ -140,7 +140,7 @@ function Frame2() {
 function Frame3() {
   return (
     <div className="absolute bg-white left-[calc(50%-3.5px)] overflow-clip rounded-[10px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.15)] size-[80px] top-[450px] translate-x-[-50%]">
-      <p className="absolute font-['Pretendard:SemiBold',sans-serif] leading-[24px] left-1/2 not-italic text-[16px] text-black text-center text-nowrap top-[calc(50%+13px)] translate-x-[-50%] whitespace-pre">뱃지</p>
+      <p className="absolute font-pretendard font-semibold leading-[24px] left-1/2 not-italic text-[16px] text-black text-center text-nowrap top-[calc(50%+13px)] translate-x-[-50%] whitespace-pre">뱃지</p>
       <div className="absolute h-[48px] left-1/2 top-[calc(50%-11px)] translate-x-[-50%] translate-y-[-50%] w-[56px]" data-name="1755830513393-28b855ee-bc38-424c-b725-b7550489330e 2">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <img alt="" className="absolute h-[116.67%] left-0 max-w-none top-[-8.33%] w-full" src={img175583051339328B855EeBc38424CB725B7550489330E2} />
@@ -153,7 +153,7 @@ function Frame3() {
 function Frame4() {
   return (
     <div className="absolute bg-white left-[calc(50%+64.5px)] overflow-clip rounded-[10px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.15)] size-[80px] top-[450px]">
-      <p className="absolute font-['Pretendard:SemiBold',sans-serif] leading-[24px] left-1/2 not-italic text-[16px] text-black text-center text-nowrap top-[calc(50%+13px)] translate-x-[-50%] whitespace-pre">새소식</p>
+      <p className="absolute font-pretendard font-semibold leading-[24px] left-1/2 not-italic text-[16px] text-black text-center text-nowrap top-[calc(50%+13px)] translate-x-[-50%] whitespace-pre">새소식</p>
       <div className="absolute h-[48px] left-[19px] top-[5px] w-[42px]" data-name="종">
         <img alt="" className="absolute inset-0 max-w-none object-50%-50% object-cover pointer-events-none size-full" src={img1} />
       </div>
@@ -200,7 +200,7 @@ function FaceId() {
           </svg>
         </div>
       </div>
-      <div className="absolute flex flex-col font-['Roboto:SemiBold',sans-serif] font-semibold inset-[45.83%_2.5%_4.17%_51.67%] justify-center leading-[0] text-[#9abaff] text-[12px] tracking-[-0.18px]" style={{ fontVariationSettings: "'wdth' 100" }}>
+      <div className="absolute flex flex-col font-roboto font-semibold font-semibold inset-[45.83%_2.5%_4.17%_51.67%] justify-center leading-[0] text-[#9abaff] text-[12px] tracking-[-0.18px]" style={{ fontVariationSettings: "'wdth' 100" }}>
         <p className="leading-[12px]">AI</p>
       </div>
     </div>
@@ -317,7 +317,7 @@ export default function My() {
     <div className="bg-neutral-50 relative size-full" data-name="my01">
       <div className="relative size-full">
         <Top />
-        <p className="absolute font-['Roboto:SemiBold','Noto_Sans_KR:Bold',sans-serif] font-semibold leading-[28px] left-[calc(50%+0.5px)] text-[20px] text-black text-center text-nowrap top-[calc(50%-12px)] translate-x-[-50%] whitespace-pre" style={{ fontVariationSettings: "'wdth' 100" }}>
+        <p className="absolute font-roboto font-semibold font-semibold leading-[28px] left-[calc(50%+0.5px)] text-[20px] text-black text-center text-nowrap top-[calc(50%-12px)] translate-x-[-50%] whitespace-pre" style={{ fontVariationSettings: "'wdth' 100" }}>
           막시무스
         </p>
         <Main />

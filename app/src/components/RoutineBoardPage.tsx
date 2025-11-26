@@ -296,7 +296,7 @@ export default function RoutineBoardPage() {
               {/* Banner Content */}
               <div className="content-stretch flex flex-col gap-[4px] items-start relative shrink-0 w-full z-10">
                 <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
-                  <p className="font-['Pretendard:SemiBold',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#040415] text-[18px] text-nowrap tracking-[-1px] whitespace-pre">
+                  <p className="font-semibold leading-[normal] not-italic relative shrink-0 text-[#040415] text-[18px] text-nowrap tracking-[-1px] whitespace-pre">
                     이달의 막시무스
                   </p>
                   <svg
@@ -320,17 +320,17 @@ export default function RoutineBoardPage() {
                     />
                   </svg>
                 </div>
-                <p className="font-['Pretendard:Regular',sans-serif] leading-[18px] not-italic relative shrink-0 text-[#333333] text-[16px] text-nowrap whitespace-pre">
+                <p className="font-normal leading-[18px] not-italic relative shrink-0 text-[#333333] text-[16px] text-nowrap whitespace-pre">
                   가장 인기있는 막시무스에 투표하세요
                 </p>
 
                 {/* Heart Count */}
                 <div className="content-stretch flex flex-col items-start relative shrink-0 w-full">
                   <div className="content-stretch flex items-center justify-between leading-[24px] not-italic relative shrink-0 text-nowrap text-white w-full whitespace-pre">
-                    <p className="font-['Pretendard:Regular',sans-serif] relative shrink-0 text-[14px]">
+                    <p className="font-normal relative shrink-0 text-[14px]">
                       내 하트 수
                     </p>
-                    <p className="font-['Pretendard:SemiBold',sans-serif] relative shrink-0 text-[20px]">
+                    <p className="font-semibold relative shrink-0 text-[20px]">
                       850
                     </p>
                   </div>
@@ -345,7 +345,7 @@ export default function RoutineBoardPage() {
 
                 {/* Link */}
                 <div className="content-stretch flex gap-[4px] items-center justify-center relative shrink-0">
-                  <p className="font-['Pretendard:Regular',sans-serif] leading-[16px] not-italic relative shrink-0 text-[#4a5565] text-[12px] text-nowrap whitespace-pre">
+                  <p className="font-normal leading-[16px] not-italic relative shrink-0 text-[#4a5565] text-[12px] text-nowrap whitespace-pre">
                     랭킹 바로가기
                   </p>
                   <svg
@@ -376,12 +376,12 @@ export default function RoutineBoardPage() {
           {/* Section Header */}
           <div className="bg-white w-full px-[16px] pt-[10px] pb-[10px] shrink-0 sticky top-0 z-10">
             <div className="content-stretch flex items-center justify-between relative shrink-0 w-full">
-              <p className="font-['Pretendard:Medium',sans-serif] leading-[26px] not-italic relative shrink-0 text-[18px] text-black">
+              <p className="font-medium leading-[26px] not-italic relative shrink-0 text-[18px] text-black">
                 {categoryDisplayName}
               </p>
               <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
                 <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
-                  <p className="font-['Pretendard:Regular',sans-serif] leading-[24px] not-italic relative shrink-0 text-[#333333] text-[14px] text-nowrap whitespace-pre">
+                  <p className="font-normal leading-[24px] not-italic relative shrink-0 text-[#333333] text-[14px] text-nowrap whitespace-pre">
                     {selectedSort}
                   </p>
                   <ChevronDown className="w-[16px] h-[16px] text-[#333333]" />
@@ -476,8 +476,8 @@ export default function RoutineBoardPage() {
                               className="box-border content-stretch flex gap-[10px] items-start px-[6px] py-[3px] relative rounded-[4px] shrink-0"
                               style={{ backgroundColor: categoryBgColor }}
                             >
-                              <p className="font-['Pretendard:Regular',sans-serif] leading-[16px] not-italic relative shrink-0 text-[#ffffff] text-[12px] text-nowrap whitespace-pre">
-                                루틴게시판{' '}
+                              <p className="font-normal leading-[16px] not-italic relative shrink-0 text-[#ffffff] text-[12px] text-nowrap whitespace-pre">
+                                꿀팁{' '}
                               </p>
                             </div>
                             <BookmarkButton />
@@ -485,7 +485,7 @@ export default function RoutineBoardPage() {
 
                           {/* Title */}
                           <div className="content-stretch flex flex-col gap-[2px] items-start relative shrink-0 w-full">
-                            <p className="font-['Pretendard:Regular',sans-serif] leading-[18px] not-italic relative shrink-0 text-[16px] text-black w-full whitespace-pre-wrap">
+                            <p className="font-normal leading-[18px] not-italic relative shrink-0 text-[16px] text-black w-full whitespace-pre-wrap">
                               {post.title}
                             </p>
                           </div>
@@ -513,11 +513,11 @@ export default function RoutineBoardPage() {
                         {/* Stats */}
                         <div className="content-stretch flex items-start justify-between relative shrink-0 w-[320px]">
                           <div className="content-stretch flex gap-[4px] items-start relative shrink-0">
-                            <p className="font-['Pretendard:Regular',sans-serif] leading-[16px] not-italic relative shrink-0 text-[#8c8c8c] text-[14px] text-nowrap whitespace-pre">
+                            <p className="font-normal leading-[16px] not-italic relative shrink-0 text-[#8c8c8c] text-[14px] text-nowrap whitespace-pre">
                               조회수 {post.views}
                             </p>
                           </div>
-                          <p className="font-['Pretendard:Regular',sans-serif] leading-[24px] not-italic relative shrink-0 text-[#8c8c8c] text-[14px] text-nowrap whitespace-pre">
+                          <p className="font-normal leading-[24px] not-italic relative shrink-0 text-[#8c8c8c] text-[14px] text-nowrap whitespace-pre">
                             {post.timeAgo}
                           </p>
                         </div>
@@ -544,7 +544,7 @@ export default function RoutineBoardPage() {
                                   strokeLinejoin="round"
                                 />
                               </svg>
-                              <p className="font-['Pretendard:Regular',sans-serif] leading-[24px] not-italic relative shrink-0 text-[#5e5e5e] text-[14px] text-nowrap whitespace-pre">
+                              <p className="font-normal leading-[24px] not-italic relative shrink-0 text-[#5e5e5e] text-[14px] text-nowrap whitespace-pre">
                                 추천수 {post.likes}
                               </p>
                             </div>
@@ -563,7 +563,7 @@ export default function RoutineBoardPage() {
                                   </svg>
                                 </div>
                               </div>
-                              <p className="font-['Pretendard:Regular',sans-serif] leading-[24px] not-italic relative shrink-0 text-[#5e5e5e] text-[14px] text-nowrap whitespace-pre">
+                              <p className="font-normal leading-[24px] not-italic relative shrink-0 text-[#5e5e5e] text-[14px] text-nowrap whitespace-pre">
                                 댓글 {post.comments}
                               </p>
                             </div>
@@ -597,10 +597,10 @@ export default function RoutineBoardPage() {
                     {/* Content */}
                     <div className="absolute bg-white box-border content-stretch flex flex-col gap-[4px] items-start left-0 overflow-clip px-[14px] py-[11px] top-[122px] w-[140px]">
                       <div className="content-stretch flex flex-col items-start not-italic relative shrink-0 text-black w-full">
-                        <p className="font-['Pretendard:Medium',sans-serif] leading-[21px] relative shrink-0 text-[14px] w-full truncate">
+                        <p className="font-medium leading-[21px] relative shrink-0 text-[14px] w-full truncate">
                           {post.title}
                         </p>
-                        <p className="font-['Pretendard:Regular',sans-serif] leading-[16px] relative shrink-0 text-[12px] w-full">
+                        <p className="font-normal leading-[16px] relative shrink-0 text-[12px] w-full">
                           ID : {post.author}
                         </p>
                       </div>
@@ -618,7 +618,7 @@ export default function RoutineBoardPage() {
                               strokeLinejoin="round"
                             />
                           </svg>
-                          <p className="font-['Pretendard:Regular',sans-serif] leading-[16px] not-italic relative shrink-0 text-[#5e5e5e] text-[12px] text-nowrap whitespace-pre">
+                          <p className="font-normal leading-[16px] not-italic relative shrink-0 text-[#5e5e5e] text-[12px] text-nowrap whitespace-pre">
                             {post.likes}
                           </p>
                         </div>
@@ -637,7 +637,7 @@ export default function RoutineBoardPage() {
                               </svg>
                             </div>
                           </div>
-                          <p className="font-['Pretendard:Regular',sans-serif] leading-[16px] not-italic relative shrink-0 text-[#5e5e5e] text-[12px] text-nowrap whitespace-pre">
+                          <p className="font-normal leading-[16px] not-italic relative shrink-0 text-[#5e5e5e] text-[12px] text-nowrap whitespace-pre">
                             댓글 {post.comments}
                           </p>
                         </div>

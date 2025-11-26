@@ -28,7 +28,7 @@ function ChevronLeft() {
 function Frame13() {
   return (
     <div className="content-stretch flex gap-[4px] items-center justify-center relative shrink-0">
-      <p className="font-['Pretendard:Regular',sans-serif] leading-[24px] not-italic relative shrink-0 text-[#333333] text-[14px] text-nowrap whitespace-pre">날짜순</p>
+      <p className="font-pretendard leading-[24px] not-italic relative shrink-0 text-[#333333] text-[14px] text-nowrap whitespace-pre">날짜순</p>
       <div className="flex h-[calc(1px*((var(--transform-inner-width)*1)+(var(--transform-inner-height)*0)))] items-center justify-center relative shrink-0 w-[calc(1px*((var(--transform-inner-height)*1)+(var(--transform-inner-width)*0)))]" style={{ "--transform-inner-width": "16", "--transform-inner-height": "16" } as React.CSSProperties}>
         <div className="flex-none rotate-[270deg]">
           <ChevronLeft />
@@ -96,7 +96,7 @@ function Frame27() {
 function Tit() {
   return (
     <div className="content-stretch flex items-center justify-between relative shrink-0 w-[343px]" data-name="tit">
-      <p className="font-['Pretendard:Medium',sans-serif] leading-[26px] not-italic relative shrink-0 text-[18px] text-black w-[98px]">캐릭터 게시판</p>
+      <p className="font-pretendard font-medium leading-[26px] not-italic relative shrink-0 text-[18px] text-black w-[98px]">캐릭터 게시판</p>
       <Frame27 />
     </div>
   );
@@ -105,8 +105,8 @@ function Tit() {
 function Frame16() {
   return (
     <div className="content-stretch flex flex-col items-start not-italic relative shrink-0 text-black w-full">
-      <p className="font-['Pretendard:Medium',sans-serif] leading-[21px] relative shrink-0 text-[14px] w-full">정의의 이름으로 널!</p>
-      <p className="font-['Pretendard:Regular',sans-serif] leading-[16px] relative shrink-0 text-[12px] w-full">ID : Mr셀러막</p>
+      <p className="font-pretendard font-medium leading-[21px] relative shrink-0 text-[14px] w-full">정의의 이름으로 널!</p>
+      <p className="font-pretendard leading-[16px] relative shrink-0 text-[12px] w-full">ID : Mr셀러막</p>
     </div>
   );
 }
@@ -127,7 +127,7 @@ function Frame() {
   return (
     <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
       <Heart />
-      <p className="font-['Pretendard:Regular',sans-serif] leading-[16px] not-italic relative shrink-0 text-[#5e5e5e] text-[12px] text-nowrap whitespace-pre">280</p>
+      <p className="font-pretendard leading-[16px] not-italic relative shrink-0 text-[#5e5e5e] text-[12px] text-nowrap whitespace-pre">280</p>
     </div>
   );
 }
@@ -152,7 +152,7 @@ function Frame1() {
           <SpeechBubble />
         </div>
       </div>
-      <p className="font-['Pretendard:Regular',sans-serif] leading-[16px] not-italic relative shrink-0 text-[#5e5e5e] text-[12px] text-nowrap whitespace-pre">댓글 21</p>
+      <p className="font-pretendard leading-[16px] not-italic relative shrink-0 text-[#5e5e5e] text-[12px] text-nowrap whitespace-pre">댓글 21</p>
     </div>
   );
 }
@@ -204,8 +204,8 @@ function Card() {
 function Frame18() {
   return (
     <div className="content-stretch flex flex-col items-start not-italic relative shrink-0 text-black w-full">
-      <p className="font-['Pretendard:Medium',sans-serif] leading-[21px] relative shrink-0 text-[14px] w-full">병줍알바 하실 분..?</p>
-      <p className="font-['Pretendard:Regular',sans-serif] leading-[16px] relative shrink-0 text-[12px] w-full">ID : 붕어빵 벤츠</p>
+      <p className="font-pretendard font-medium leading-[21px] relative shrink-0 text-[14px] w-full">병줍알바 하실 분..?</p>
+      <p className="font-pretendard leading-[16px] relative shrink-0 text-[12px] w-full">ID : 붕어빵 벤츠</p>
     </div>
   );
 }
@@ -226,7 +226,7 @@ function Frame2() {
   return (
     <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
       <Heart1 />
-      <p className="font-['Pretendard:Regular',sans-serif] leading-[16px] not-italic relative shrink-0 text-[#5e5e5e] text-[12px] text-nowrap whitespace-pre">42</p>
+      <p className="font-pretendard leading-[16px] not-italic relative shrink-0 text-[#5e5e5e] text-[12px] text-nowrap whitespace-pre">42</p>
     </div>
   );
 }
@@ -251,7 +251,7 @@ function Frame3() {
           <SpeechBubble1 />
         </div>
       </div>
-      <p className="font-['Pretendard:Regular',sans-serif] leading-[16px] not-italic relative shrink-0 text-[#5e5e5e] text-[12px] text-nowrap whitespace-pre">댓글 10</p>
+      <p className="font-pretendard leading-[16px] not-italic relative shrink-0 text-[#5e5e5e] text-[12px] text-nowrap whitespace-pre">댓글 10</p>
     </div>
   );
 }
@@ -312,8 +312,8 @@ function Component1() {
 function Frame21() {
   return (
     <div className="content-stretch flex flex-col items-start not-italic relative shrink-0 text-black w-[126px]">
-      <p className="font-['Pretendard:Medium',sans-serif] leading-[21px] relative shrink-0 text-[14px] text-nowrap whitespace-pre">린쨩이랑 드디어 결혼...</p>
-      <p className="font-['Pretendard:Regular',sans-serif] leading-[16px] min-w-full relative shrink-0 text-[12px] w-[min-content]">{` ID : 린쨩 사랑한다능`}</p>
+      <p className="font-pretendard font-medium leading-[21px] relative shrink-0 text-[14px] text-nowrap whitespace-pre">린쨩이랑 드디어 결혼...</p>
+      <p className="font-pretendard leading-[16px] min-w-full relative shrink-0 text-[12px] w-[min-content]">{` ID : 린쨩 사랑한다능`}</p>
     </div>
   );
 }
@@ -334,7 +334,7 @@ function Frame4() {
   return (
     <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
       <Heart2 />
-      <p className="font-['Pretendard:Regular',sans-serif] leading-[16px] not-italic relative shrink-0 text-[#5e5e5e] text-[12px] text-nowrap whitespace-pre">24</p>
+      <p className="font-pretendard leading-[16px] not-italic relative shrink-0 text-[#5e5e5e] text-[12px] text-nowrap whitespace-pre">24</p>
     </div>
   );
 }
@@ -359,7 +359,7 @@ function Frame5() {
           <SpeechBubble2 />
         </div>
       </div>
-      <p className="font-['Pretendard:Regular',sans-serif] leading-[16px] not-italic relative shrink-0 text-[#5e5e5e] text-[12px] text-nowrap whitespace-pre">댓글 20</p>
+      <p className="font-pretendard leading-[16px] not-italic relative shrink-0 text-[#5e5e5e] text-[12px] text-nowrap whitespace-pre">댓글 20</p>
     </div>
   );
 }
@@ -409,8 +409,8 @@ function Card2() {
 function Frame24() {
   return (
     <div className="content-stretch flex flex-col items-start not-italic relative shrink-0 text-black w-full">
-      <p className="font-['Pretendard:Medium',sans-serif] leading-[21px] relative shrink-0 text-[14px] w-full">춥다</p>
-      <p className="font-['Pretendard:Regular',sans-serif] leading-[16px] relative shrink-0 text-[12px] w-full">ID : 요다</p>
+      <p className="font-pretendard font-medium leading-[21px] relative shrink-0 text-[14px] w-full">춥다</p>
+      <p className="font-pretendard leading-[16px] relative shrink-0 text-[12px] w-full">ID : 요다</p>
     </div>
   );
 }
@@ -431,7 +431,7 @@ function Frame6() {
   return (
     <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
       <Heart3 />
-      <p className="font-['Pretendard:Regular',sans-serif] leading-[16px] not-italic relative shrink-0 text-[#5e5e5e] text-[12px] text-nowrap whitespace-pre">15</p>
+      <p className="font-pretendard leading-[16px] not-italic relative shrink-0 text-[#5e5e5e] text-[12px] text-nowrap whitespace-pre">15</p>
     </div>
   );
 }
@@ -456,7 +456,7 @@ function Frame7() {
           <SpeechBubble3 />
         </div>
       </div>
-      <p className="font-['Pretendard:Regular',sans-serif] leading-[16px] not-italic relative shrink-0 text-[#5e5e5e] text-[12px] text-nowrap whitespace-pre">댓글 10</p>
+      <p className="font-pretendard leading-[16px] not-italic relative shrink-0 text-[#5e5e5e] text-[12px] text-nowrap whitespace-pre">댓글 10</p>
     </div>
   );
 }
@@ -515,8 +515,8 @@ function Component2() {
 function Frame29() {
   return (
     <div className="content-stretch flex flex-col items-start not-italic relative shrink-0 text-black w-full">
-      <p className="font-['Pretendard:Medium',sans-serif] leading-[21px] relative shrink-0 text-[14px] w-full">내 눈을 바라봐</p>
-      <p className="font-['Pretendard:Regular',sans-serif] leading-[16px] relative shrink-0 text-[12px] w-full">ID : 밤티걸좋아요</p>
+      <p className="font-pretendard font-medium leading-[21px] relative shrink-0 text-[14px] w-full">내 눈을 바라봐</p>
+      <p className="font-pretendard leading-[16px] relative shrink-0 text-[12px] w-full">ID : 밤티걸좋아요</p>
     </div>
   );
 }
@@ -537,7 +537,7 @@ function Frame8() {
   return (
     <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
       <Heart4 />
-      <p className="font-['Pretendard:Regular',sans-serif] leading-[16px] not-italic relative shrink-0 text-[#5e5e5e] text-[12px] text-nowrap whitespace-pre">10</p>
+      <p className="font-pretendard leading-[16px] not-italic relative shrink-0 text-[#5e5e5e] text-[12px] text-nowrap whitespace-pre">10</p>
     </div>
   );
 }
@@ -562,7 +562,7 @@ function Frame9() {
           <SpeechBubble4 />
         </div>
       </div>
-      <p className="font-['Pretendard:Regular',sans-serif] leading-[16px] not-italic relative shrink-0 text-[#5e5e5e] text-[12px] text-nowrap whitespace-pre">댓글 4</p>
+      <p className="font-pretendard leading-[16px] not-italic relative shrink-0 text-[#5e5e5e] text-[12px] text-nowrap whitespace-pre">댓글 4</p>
     </div>
   );
 }
@@ -674,8 +674,8 @@ function Frame14() {
 function Frame33() {
   return (
     <div className="content-stretch flex flex-col items-start not-italic relative shrink-0 text-black w-full">
-      <p className="font-['Pretendard:Medium',sans-serif] leading-[21px] relative shrink-0 text-[14px] w-full">남친 구해요</p>
-      <p className="font-['Pretendard:Regular',sans-serif] leading-[16px] relative shrink-0 text-[12px] w-full">ID : 노밤티걸</p>
+      <p className="font-pretendard font-medium leading-[21px] relative shrink-0 text-[14px] w-full">남친 구해요</p>
+      <p className="font-pretendard leading-[16px] relative shrink-0 text-[12px] w-full">ID : 노밤티걸</p>
     </div>
   );
 }
@@ -696,7 +696,7 @@ function Frame10() {
   return (
     <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
       <Heart5 />
-      <p className="font-['Pretendard:Regular',sans-serif] leading-[16px] not-italic relative shrink-0 text-[#5e5e5e] text-[12px] text-nowrap whitespace-pre">20</p>
+      <p className="font-pretendard leading-[16px] not-italic relative shrink-0 text-[#5e5e5e] text-[12px] text-nowrap whitespace-pre">20</p>
     </div>
   );
 }
@@ -721,7 +721,7 @@ function Frame11() {
           <SpeechBubble5 />
         </div>
       </div>
-      <p className="font-['Pretendard:Regular',sans-serif] leading-[16px] not-italic relative shrink-0 text-[#5e5e5e] text-[12px] text-nowrap whitespace-pre">댓글 3</p>
+      <p className="font-pretendard leading-[16px] not-italic relative shrink-0 text-[#5e5e5e] text-[12px] text-nowrap whitespace-pre">댓글 3</p>
     </div>
   );
 }
