@@ -32,7 +32,7 @@ export default function MainPage() {
     meditation: false,
     sleep: false,
   });
-  const [selectedDate, setSelectedDate] = useState(13);
+  const [selectedDate, setSelectedDate] = useState(new Date().getDate());
   const [percentage, setPercentage] = useState(82);
 
   const toggleRoutine = (routine: 'water' | 'meditation' | 'sleep') => {
@@ -259,21 +259,27 @@ function LvIcon({ router }: { router: ReturnType<typeof useRouter> }) {
 
 function Today({
   selectedDate,
-  setSelectedDate,
 }: {
   selectedDate: number;
   setSelectedDate: (date: number) => void;
 }) {
-  // Calculate surrounding dates (3 before and 3 after)
-  const surroundingDates = [
-    selectedDate - 3,
-    selectedDate - 2,
-    selectedDate - 1,
-    selectedDate,
-    selectedDate + 1,
-    selectedDate + 2,
-    selectedDate + 3,
-  ];
+  // Get current date info for proper calendar calculation
+  const now = new Date();
+  const currentYear = now.getFullYear();
+  const currentMonth = now.getMonth();
+  const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+  
+  // Calculate surrounding dates (3 before and 3 after) with proper month boundaries
+  const surroundingDates = [];
+  for (let i = -3; i <= 3; i++) {
+    let date = selectedDate + i;
+    if (date < 1) {
+      date = new Date(currentYear, currentMonth, 0).getDate() + date;
+    } else if (date > daysInMonth) {
+      date = date - daysInMonth;
+    }
+    surroundingDates.push(date);
+  }
 
   return (
     <div className="box-border content-stretch flex items-center justify-between px-0 py-[8px] relative shrink-0 w-full">
@@ -299,7 +305,6 @@ function Today({
           <DatePill
             key={date}
             number={date.toString()}
-            onClick={() => setSelectedDate(date)}
           />
         )
       )}

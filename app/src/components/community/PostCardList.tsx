@@ -1,3 +1,4 @@
+import { useRouter } from 'next/navigation';
 import { Heart, MessageSquare } from 'lucide-react';
 import BookmarkButton from './BookmarkButton';
 
@@ -26,6 +27,7 @@ export default function PostCardList({
   isBookmarked = false,
   onBookmarkToggle,
 }: PostCardListProps) {
+  const router = useRouter();
   // categoryColor를 bg-[rgba(...)] 형식에서 실제 색상 값으로 변환
   const getCategoryBgColor = () => {
     if (post.categoryBgColor) return post.categoryBgColor;
@@ -40,10 +42,17 @@ export default function PostCardList({
     return colorMap[post.category] || 'rgba(90,84,250,0.67)';
   };
 
+  const handlePostClick = () => {
+    router.push(`/community/${post.id}`);
+  };
+
   return (
     <div className="bg-white w-full">
       {/* Post Content */}
-      <div className="px-[20px] py-[16px]">
+      <div
+        className="px-[20px] py-[16px] cursor-pointer hover:bg-neutral-50 transition-colors"
+        onClick={handlePostClick}
+      >
         <div className="w-[335px] mx-auto">
           {/* Category and Bookmark */}
           <div className="flex items-center justify-between mb-[12px]">

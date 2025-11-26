@@ -32,7 +32,7 @@ export default function MyPage() {
         <Top />
 
         {/* Header */}
-        <div className="bg-neutral-50 h-[48px] overflow-clip relative shrink-0 w-full">
+        <div className="bg-white h-[48px] overflow-clip relative shrink-0 w-full">
           <div className="absolute content-stretch flex items-center justify-between left-[7px] top-[9px] w-[calc(100%-14px)]">
             <div className="shrink-0 size-[30px]" />
             <button
