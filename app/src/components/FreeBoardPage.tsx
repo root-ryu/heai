@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Top, Bottom } from './Layout';
 import CommunityHeader from './community/CommunityHeader';
 import SearchBar from './community/SearchBar';
@@ -139,17 +139,18 @@ const ALL_POSTS: Post[] = [
 export default function FreeBoardPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [bookmarkedPosts, setBookmarkedPosts] = useState<number[]>([]);
+  const [isMounted, setIsMounted] = useState(false);
 
   // localStorage에서 사용자 작성 글 로드 (자유게시판)
-  const [userPosts] = useState<Post[]>(() => {
-    if (typeof window === 'undefined') return [];
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
-    const loadedPosts = JSON.parse(
-      localStorage.getItem('communityPosts') || '[]'
-    );
-    // free 카테고리 글만 필터링
-    return loadedPosts.filter((post: Post) => post.category === '자유게시판');
-  });
+  const userPosts = isMounted
+    ? JSON.parse(localStorage.getItem('communityPosts') || '[]').filter(
+        (post: Post) => post.category === '자유게시판'
+      )
+    : [];
 
   const handleBookmarkToggle = (postId: number, isBookmarked: boolean) => {
     setBookmarkedPosts((prev) =>
@@ -178,33 +179,36 @@ export default function FreeBoardPage() {
 
   return (
     <div className="bg-[#F8FBFF] flex flex-col items-center w-full h-full overflow-hidden">
-      <Top />
+      <div className="max-w-[375px] mx-auto w-full h-full flex flex-col">
+        <Top />
 
-      {/* Header */}
-      <CommunityHeader title="자유게시판" />
+        {/* Header */}
+        <CommunityHeader title="자유게시판" />
 
-      {/* Search Bar */}
-      <SearchBar value={searchQuery} onChange={setSearchQuery} />
+        {/* Search Bar */}
+        <SearchBar value={searchQuery} onChange={setSearchQuery} />
 
-      {/* Category Tabs */}
-      <CategoryTabs activeCategory="free" />
+        {/* Category Tabs */}
+        <CategoryTabs activeCategory="free" />
 
-      {/* Posts List */}
-      <div className="flex-1 overflow-y-auto overflow-x-hidden w-full pb-[120px]">
-        <div className="flex flex-col gap-[10px] pb-[20px]">
-          {searchedPosts.map((post) => (
-            <PostCardList
-              key={post.id}
-              post={post}
-              isBookmarked={bookmarkedPosts.includes(post.id)}
-              onBookmarkToggle={handleBookmarkToggle}
-            />
-          ))}
+        {/* Posts List */}
+        <div className="flex-1 overflow-y-auto overflow-x-hidden w-full pb-[120px]">
+          <div className="flex flex-col gap-[10px] pb-[20px]">
+            {searchedPosts.map((post) => (
+              <PostCardList
+                key={post.id}
+                post={post}
+                isBookmarked={bookmarkedPosts.includes(post.id)}
+                onBookmarkToggle={handleBookmarkToggle}
+              />
+            ))}
+          </div>
         </div>
-      </div>
 
-      <Bottom />
-      <FloatingWriteButton />
+        <FloatingWriteButton />
+
+        <Bottom />
+      </div>
     </div>
   );
 }

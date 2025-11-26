@@ -46,23 +46,25 @@ export default function MainPage() {
 
   return (
     <div className="bg-neutral-50 flex flex-col items-center relative w-full h-full">
-      {/* Top Status Bar */}
-      <Top />
+      <div className="max-w-[375px] mx-auto w-full h-full flex flex-col">
+        {/* Top Status Bar */}
+        <Top />
 
-      {/* Inner Content - Scrollable Area */}
-      <div className="flex-1 overflow-y-auto w-full">
-        <Inner
-          router={router}
-          routines={routines}
-          toggleRoutine={toggleRoutine}
-          selectedDate={selectedDate}
-          setSelectedDate={setSelectedDate}
-          percentage={percentage}
-        />
+        {/* Inner Content - Scrollable Area */}
+        <div className="flex-1 overflow-y-auto w-full">
+          <Inner
+            router={router}
+            routines={routines}
+            toggleRoutine={toggleRoutine}
+            selectedDate={selectedDate}
+            setSelectedDate={setSelectedDate}
+            percentage={percentage}
+          />
+        </div>
+
+        {/* Bottom Navigation */}
+        <Bottom />
       </div>
-
-      {/* Bottom Navigation */}
-      <Bottom />
     </div>
   );
 }
