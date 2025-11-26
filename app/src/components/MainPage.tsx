@@ -789,7 +789,7 @@ function StepsCard({ onClick }: { onClick: () => void }) {
           <p className="font-pretendard font-semibold leading-none not-italic relative shrink-0 text-[#02010e] text-[18px] text-nowrap whitespace-pre">
             만보기
           </p>
-          <div className="content-stretch flex font-pretendard gap-[2px] h-[18px] items-center justify-center leading-[18px] not-italic relative shrink-0 text-[12px] text-[rgba(2,1,14,0.5)] text-center text-nowrap w-full">
+          <div className="content-start flex font-pretendard gap-[2px] h-[18px] items-center justify-start leading-[18px] not-italic relative shrink-0 text-[12px] text-[rgba(2,1,14,0.5)] text-center text-nowrap w-full">
             <p className="relative shrink-0">35Kcal</p>
             <p className="relative shrink-0">2h</p>
             <p className="relative shrink-0">3km</p>

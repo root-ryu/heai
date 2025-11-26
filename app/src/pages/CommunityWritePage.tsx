@@ -317,7 +317,7 @@ export default function CommunityWritePage() {
                           value={title}
                           onChange={(e) => setTitle(e.target.value)}
                           placeholder="제목을 입력하세요"
-                          className="font-pretendard font-semibold leading-[normal] not-italic flex-1 text-[#cccccc] text-[18px] tracking-[-1px] bg-transparent border-none outline-none placeholder:text-[#cccccc]"
+                          className="font-pretendard font-semibold leading-[normal] not-italic flex-1 text-[#000000] text-[18px] tracking-[-1px] bg-transparent border-none outline-none placeholder:text-[#cccccc]"
                         />
                       </div>
                     </div>
@@ -328,12 +328,12 @@ export default function CommunityWritePage() {
                   </div>
 
                   {/* 내용 입력 */}
-                  <div className="flex h-[300px] w-full">
+                  <div className="flex h-[200px] w-full">
                     <textarea
                       value={content}
                       onChange={(e) => setContent(e.target.value)}
                       placeholder="내용을 입력하세요"
-                      className="font-pretendard font-medium leading-[26px] not-italic w-full h-full resize-none bg-transparent border-none outline-none text-[#cccccc] text-[18px] placeholder:text-[#cccccc]"
+                      className="font-pretendard font-medium leading-[26px] not-italic w-full h-full resize-none bg-transparent border-none outline-none text-[#000000] text-[18px] placeholder:text-[#cccccc]"
                     />
                   </div>
                 </div>
