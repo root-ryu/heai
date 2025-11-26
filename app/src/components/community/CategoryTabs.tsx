@@ -1,6 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import { useEffect, useRef } from 'react';
 
 interface CategoryTabsProps {
   activeCategory: string; // 'all' | 'character' | 'free' | 'routine' | 'tips'
@@ -18,25 +19,25 @@ const CATEGORIES = [
   {
     name: '캐릭터',
     color: 'rgba(255, 179, 71, 1)',
-    route: '/community/detail?category=character',
+    route: '/community/character',
     key: 'character',
   },
   {
     name: '자유게시판',
     color: 'rgba(255, 139, 128, 1)',
-    route: '/free-board',
+    route: '/community/free',
     key: 'free',
   },
   {
     name: '루틴게시판',
     color: 'rgba(34, 215, 96, 1)',
-    route: '/community/detail?category=routine',
+    route: '/community/routine',
     key: 'routine',
   },
   {
     name: '꿀팁',
     color: 'rgba(200, 165, 216, 1)',
-    route: '/community/detail?category=tips',
+    route: '/community/tips',
     key: 'tips',
   },
 ];
@@ -47,8 +48,33 @@ export default function CategoryTabs({
   onCategorySelect,
 }: CategoryTabsProps) {
   const router = useRouter();
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  // 스크롤 위치 복원
+  useEffect(() => {
+    try {
+      const savedScrollPos = sessionStorage.getItem('categoryTabsScroll');
+      if (savedScrollPos && scrollRef.current) {
+        scrollRef.current.scrollLeft = parseInt(savedScrollPos, 10);
+      }
+    } catch {
+      // Storage access denied - 무시
+    }
+  }, []);
 
   const handleClick = (cat: (typeof CATEGORIES)[0]) => {
+    // 스크롤 위치 저장
+    try {
+      if (scrollRef.current) {
+        sessionStorage.setItem(
+          'categoryTabsScroll',
+          scrollRef.current.scrollLeft.toString()
+        );
+      }
+    } catch {
+      // Storage access denied - 무시
+    }
+
     if (mode === 'selection' && onCategorySelect) {
       onCategorySelect(cat.key);
     } else {
@@ -57,8 +83,11 @@ export default function CategoryTabs({
   };
 
   return (
-    <div className="bg-white w-full px-[16px] pb-[10px] shrink-0">
-      <div className="box-border content-stretch flex gap-[8px] items-center overflow-x-auto overflow-y-clip pb-[10px] pt-0 px-0 relative shrink-0 w-[343px]">
+    <div className="bg-white w-full px-[16px] shrink-0">
+      <div
+        ref={scrollRef}
+        className="box-border content-stretch flex gap-[8px] items-center overflow-x-auto overflow-y-clip pb-[10px] pt-0 px-0 relative shrink-0 w-[343px]"
+      >
         {CATEGORIES.map((cat) => {
           const isActive = cat.key === activeCategory;
           // rgba 색상의 alpha 값만 조정

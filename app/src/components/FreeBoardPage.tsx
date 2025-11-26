@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { Top, Bottom } from './Layout';
 import CommunityHeader from './community/CommunityHeader';
 import SearchBar from './community/SearchBar';
@@ -138,9 +137,19 @@ const ALL_POSTS: Post[] = [
 ];
 
 export default function FreeBoardPage() {
-  const router = useRouter();
   const [searchQuery, setSearchQuery] = useState('');
   const [bookmarkedPosts, setBookmarkedPosts] = useState<number[]>([]);
+
+  // localStorage에서 사용자 작성 글 로드 (자유게시판)
+  const [userPosts] = useState<Post[]>(() => {
+    if (typeof window === 'undefined') return [];
+
+    const loadedPosts = JSON.parse(
+      localStorage.getItem('communityPosts') || '[]'
+    );
+    // free 카테고리 글만 필터링
+    return loadedPosts.filter((post: Post) => post.category === '자유게시판');
+  });
 
   const handleBookmarkToggle = (postId: number, isBookmarked: boolean) => {
     setBookmarkedPosts((prev) =>
@@ -153,11 +162,14 @@ export default function FreeBoardPage() {
     (post) => post.category === '자유게시판'
   );
 
+  // 사용자 작성 글과 기본 글 합치기
+  const allFreePosts = [...userPosts, ...freeBoardPosts];
+
   // 검색어로 추가 필터링
   const searchedPosts =
     searchQuery.trim() === ''
-      ? freeBoardPosts
-      : freeBoardPosts.filter(
+      ? allFreePosts
+      : allFreePosts.filter(
           (post) =>
             post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
             (post.content &&

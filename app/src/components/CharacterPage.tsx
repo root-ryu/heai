@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ChevronDown } from 'lucide-react';
 import { Top, Bottom } from './Layout';
@@ -218,85 +218,30 @@ const CATEGORY_DATA: Record<
   },
 };
 
-export default function CommunityDetailPage() {
+export default function CharacterPage() {
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedSort] = useState('날짜순');
   const [viewMode, setViewMode] = useState<'list' | 'grid'>('grid');
-  // URL에서 category 읽기 (초기값)
-  const getInitialCategory = () => {
-    if (typeof window !== 'undefined') {
-      const params = new URLSearchParams(window.location.search);
-      return params.get('category') || 'character';
-    }
-    return 'character';
-  };
-
-  const [category, setCategory] = useState<string>(getInitialCategory);
-  const [userPosts, setUserPosts] = useState<Post[]>([]);
 
   // localStorage에서 사용자 작성 글 로드 (클라이언트에서만)
-  useEffect(() => {
-    let isMounted = true;
+  const [userPosts] = useState<Post[]>(() => {
+    if (typeof window === 'undefined') return [];
 
-    const loadPosts = () => {
-      const loadedPosts = JSON.parse(
-        localStorage.getItem('communityPosts') || '[]'
-      );
-      // 현재 카테고리 글만 필터링
-      const categoryPosts = loadedPosts.filter(
-        (post: Post) => post.category === category
-      );
+    const loadedPosts = JSON.parse(
+      localStorage.getItem('communityPosts') || '[]'
+    );
+    // character 카테고리 글만 필터링
+    return loadedPosts.filter((post: Post) => post.category === '캐릭터');
+  });
 
-      if (isMounted) {
-        setUserPosts(categoryPosts);
-      }
-    };
-
-    loadPosts();
-
-    return () => {
-      isMounted = false;
-    };
-  }, [category]);
-
-  // URL 변경 감지
-  useEffect(() => {
-    const updateCategory = () => {
-      const params = new URLSearchParams(window.location.search);
-      const cat = params.get('category') || 'character';
-      setCategory(cat);
-    };
-
-    // popstate: 뒤로가기/앞으로가기
-    window.addEventListener('popstate', updateCategory);
-
-    // URL 변경 폴링 (Next.js 클라이언트 라우팅 대응)
-    const intervalId = setInterval(updateCategory, 100);
-
-    return () => {
-      window.removeEventListener('popstate', updateCategory);
-      clearInterval(intervalId);
-    };
-  }, []);
-
-  // Map English route to Korean display name
-  const getCategoryName = (route: string) => {
-    const nameMap: Record<string, string> = {
-      character: '캐릭터',
-      free: '자유게시판',
-      routine: '루틴게시판',
-      tips: '꿀팁',
-    };
-    return nameMap[route] || route;
-  };
-
-  const categoryData = category ? CATEGORY_DATA[category] : null;
+  const category = 'character';
+  const categoryData = CATEGORY_DATA[category];
   // 기본 posts와 사용자 posts 합치기
   const posts = [...userPosts, ...(categoryData?.posts || [])];
   const categoryColor = categoryData?.color || '#5A54FA';
   const categoryBgColor = categoryData?.bgColor || 'rgba(90,84,250,0.21)';
-  const categoryDisplayName = category ? getCategoryName(category) : '';
+  const categoryDisplayName = '캐릭터';
 
   const filteredPosts =
     searchQuery.trim() === ''
@@ -316,200 +261,200 @@ export default function CommunityDetailPage() {
       <SearchBar value={searchQuery} onChange={setSearchQuery} />
 
       {/* Category Tabs */}
-      <CategoryTabs activeCategory={category || 'all'} />
-
-      {/* Banner */}
-      <div className="bg-white w-full px-[16px] pb-[16px] shrink-0">
-        <button
-          onClick={() => router.push('/ranking')}
-          className="bg-gradient-to-r box-border content-stretch flex flex-col from-[#c1cbff] gap-[7.995px] items-start px-[14px] py-[16px] relative rounded-[16px] shrink-0 to-[#837eff] w-full cursor-pointer"
-        >
-          <div
-            aria-hidden="true"
-            className="absolute border border-solid border-white inset-0 pointer-events-none rounded-[16px] shadow-[0px_0px_4px_-5px_rgba(0,0,0,0.1)]"
-          />
-          <div className="absolute h-[68px] left-[239px] top-[16px] w-[88px]">
-            <svg
-              className="block size-full"
-              fill="none"
-              preserveAspectRatio="none"
-              viewBox="0 0 88 68"
-            >
-              <path
-                d={svgPaths.p36ddec80}
-                fill="#0C0C0C"
-                fillOpacity="0.66"
-                opacity="0.21"
-              />
-            </svg>
-          </div>
-
-          {/* Banner Content */}
-          <div className="content-stretch flex flex-col gap-[4px] items-start relative shrink-0 w-full z-10">
-            <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
-              <p className="font-['Pretendard:SemiBold',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#040415] text-[18px] text-nowrap tracking-[-1px] whitespace-pre">
-                이달의 막시무스
-              </p>
-              <svg
-                className="relative shrink-0 size-[20px]"
-                fill="none"
-                viewBox="0 0 20 20"
-              >
-                <path
-                  d={svgPaths.p3d4f1c00}
-                  stroke="#F0C362"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="1.99961"
-                />
-                <path
-                  d="M4.16602 16.4941H15.8327"
-                  stroke="#F0C362"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="1.99961"
-                />
-              </svg>
-            </div>
-            <p className="font-['Pretendard:Regular',sans-serif] leading-[18px] not-italic relative shrink-0 text-[#333333] text-[16px] text-nowrap whitespace-pre">
-              가장 인기있는 막시무스에 투표하세요
-            </p>
-
-            {/* Heart Count */}
-            <div className="content-stretch flex flex-col items-start relative shrink-0 w-full">
-              <div className="content-stretch flex items-center justify-between leading-[24px] not-italic relative shrink-0 text-nowrap text-white w-full whitespace-pre">
-                <p className="font-['Pretendard:Regular',sans-serif] relative shrink-0 text-[14px]">
-                  내 하트 수
-                </p>
-                <p className="font-['Pretendard:SemiBold',sans-serif] relative shrink-0 text-[20px]">
-                  850
-                </p>
-              </div>
-              <div className="bg-[rgba(255,255,255,0.2)] h-[7.995px] relative rounded-[2.13285e+07px] shrink-0 w-full">
-                <div className="overflow-clip rounded-[inherit] size-full">
-                  <div className="box-border content-stretch flex flex-col h-[7.995px] items-start pl-0 pr-[44.564px] py-0 relative w-full">
-                    <div className="bg-[#f0c362] h-[7.995px] rounded-[2.13285e+07px] shrink-0 w-full" />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Link */}
-            <div className="content-stretch flex gap-[4px] items-center justify-center relative shrink-0">
-              <p className="font-['Pretendard:Regular',sans-serif] leading-[16px] not-italic relative shrink-0 text-[#4a5565] text-[12px] text-nowrap whitespace-pre">
-                랭킹 바로가기
-              </p>
-              <svg
-                className="relative shrink-0 size-[9px]"
-                fill="none"
-                viewBox="0 0 9 9"
-              >
-                <path
-                  d="M2 1H8V7"
-                  stroke="#4A5565"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="1.5"
-                />
-                <path
-                  d="M1 8L8 1"
-                  stroke="#4A5565"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="1.5"
-                />
-              </svg>
-            </div>
-          </div>
-        </button>
-      </div>
-
-      {/* Section Header */}
-      <div className="bg-white w-full px-[16px] pt-[10px] pb-[10px] shrink-0 sticky top-0 z-10">
-        <div className="content-stretch flex items-center justify-between relative shrink-0 w-full">
-          <p className="font-['Pretendard:Medium',sans-serif] leading-[26px] not-italic relative shrink-0 text-[18px] text-black">
-            {categoryDisplayName}
-          </p>
-          <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
-            <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
-              <p className="font-['Pretendard:Regular',sans-serif] leading-[24px] not-italic relative shrink-0 text-[#333333] text-[14px] text-nowrap whitespace-pre">
-                {selectedSort}
-              </p>
-              <ChevronDown className="w-[16px] h-[16px] text-[#333333]" />
-            </div>
-            <div className="content-stretch flex gap-[5px] items-center relative shrink-0">
-              <button onClick={() => setViewMode('list')}>
-                <svg
-                  className="w-[24px] h-[24px]"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    d="M3 12H21"
-                    stroke="#5A54FA"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                  />
-                  <path
-                    d="M3 6H21"
-                    stroke="#5A54FA"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                  />
-                  <path
-                    d="M3 18H21"
-                    stroke="#5A54FA"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                  />
-                </svg>
-              </button>
-              <button onClick={() => setViewMode('grid')}>
-                <svg
-                  className="w-[24px] h-[24px]"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    d={svgPaths.p1753300}
-                    stroke="#5A54FA"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="1.5"
-                  />
-                  <path
-                    d={svgPaths.p272d7180}
-                    stroke="#5A54FA"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="1.5"
-                  />
-                  <path
-                    d={svgPaths.p1e2bc680}
-                    stroke="#5A54FA"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="1.5"
-                  />
-                  <path
-                    d={svgPaths.p2f4d7400}
-                    stroke="#5A54FA"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="1.5"
-                  />
-                </svg>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+      <CategoryTabs activeCategory="character" />
 
       {/* Posts List */}
       <div className="flex-1 overflow-y-auto overflow-x-hidden w-full pb-[120px]">
+        {/* Banner */}
+        <div className="bg-white w-full px-[16px] pb-[16px] shrink-0">
+          <button
+            onClick={() => router.push('/ranking')}
+            className="bg-gradient-to-r box-border content-stretch flex flex-col from-[#c1cbff] gap-[7.995px] items-start px-[14px] py-[16px] relative rounded-[16px] shrink-0 to-[#837eff] w-full cursor-pointer"
+          >
+            <div
+              aria-hidden="true"
+              className="absolute border border-solid border-white inset-0 pointer-events-none rounded-[16px] shadow-[0px_0px_4px_-5px_rgba(0,0,0,0.1)]"
+            />
+            <div className="absolute h-[68px] left-[239px] top-[16px] w-[88px]">
+              <svg
+                className="block size-full"
+                fill="none"
+                preserveAspectRatio="none"
+                viewBox="0 0 88 68"
+              >
+                <path
+                  d={svgPaths.p36ddec80}
+                  fill="#0C0C0C"
+                  fillOpacity="0.66"
+                  opacity="0.21"
+                />
+              </svg>
+            </div>
+
+            {/* Banner Content */}
+            <div className="content-stretch flex flex-col gap-[4px] items-start relative shrink-0 w-full z-10">
+              <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
+                <p className="font-['Pretendard:SemiBold',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#040415] text-[18px] text-nowrap tracking-[-1px] whitespace-pre">
+                  이달의 막시무스
+                </p>
+                <svg
+                  className="relative shrink-0 size-[20px]"
+                  fill="none"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    d={svgPaths.p3d4f1c00}
+                    stroke="#F0C362"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.99961"
+                  />
+                  <path
+                    d="M4.16602 16.4941H15.8327"
+                    stroke="#F0C362"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.99961"
+                  />
+                </svg>
+              </div>
+              <p className="font-['Pretendard:Regular',sans-serif] leading-[18px] not-italic relative shrink-0 text-[#333333] text-[16px] text-nowrap whitespace-pre">
+                가장 인기있는 막시무스에 투표하세요
+              </p>
+
+              {/* Heart Count */}
+              <div className="content-stretch flex flex-col items-start relative shrink-0 w-full">
+                <div className="content-stretch flex items-center justify-between leading-[24px] not-italic relative shrink-0 text-nowrap text-white w-full whitespace-pre">
+                  <p className="font-['Pretendard:Regular',sans-serif] relative shrink-0 text-[14px]">
+                    내 하트 수
+                  </p>
+                  <p className="font-['Pretendard:SemiBold',sans-serif] relative shrink-0 text-[20px]">
+                    850
+                  </p>
+                </div>
+                <div className="bg-[rgba(255,255,255,0.2)] h-[7.995px] relative rounded-[2.13285e+07px] shrink-0 w-full">
+                  <div className="overflow-clip rounded-[inherit] size-full">
+                    <div className="box-border content-stretch flex flex-col h-[7.995px] items-start pl-0 pr-[44.564px] py-0 relative w-full">
+                      <div className="bg-[#f0c362] h-[7.995px] rounded-[2.13285e+07px] shrink-0 w-full" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Link */}
+              <div className="content-stretch flex gap-[4px] items-center justify-center relative shrink-0">
+                <p className="font-['Pretendard:Regular',sans-serif] leading-[16px] not-italic relative shrink-0 text-[#4a5565] text-[12px] text-nowrap whitespace-pre">
+                  랭킹 바로가기
+                </p>
+                <svg
+                  className="relative shrink-0 size-[9px]"
+                  fill="none"
+                  viewBox="0 0 9 9"
+                >
+                  <path
+                    d="M2 1H8V7"
+                    stroke="#4A5565"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.5"
+                  />
+                  <path
+                    d="M1 8L8 1"
+                    stroke="#4A5565"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.5"
+                  />
+                </svg>
+              </div>
+            </div>
+          </button>
+        </div>
+
+        {/* Section Header */}
+        <div className="bg-white w-full px-[16px] pt-[10px] pb-[10px] shrink-0 sticky top-0 z-10">
+          <div className="content-stretch flex items-center justify-between relative shrink-0 w-full">
+            <p className="font-['Pretendard:Medium',sans-serif] leading-[26px] not-italic relative shrink-0 text-[18px] text-black">
+              {categoryDisplayName}
+            </p>
+            <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
+              <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
+                <p className="font-['Pretendard:Regular',sans-serif] leading-[24px] not-italic relative shrink-0 text-[#333333] text-[14px] text-nowrap whitespace-pre">
+                  {selectedSort}
+                </p>
+                <ChevronDown className="w-[16px] h-[16px] text-[#333333]" />
+              </div>
+              <div className="content-stretch flex gap-[5px] items-center relative shrink-0">
+                <button onClick={() => setViewMode('list')}>
+                  <svg
+                    className="w-[24px] h-[24px]"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M3 12H21"
+                      stroke="#5A54FA"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                    />
+                    <path
+                      d="M3 6H21"
+                      stroke="#5A54FA"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                    />
+                    <path
+                      d="M3 18H21"
+                      stroke="#5A54FA"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                    />
+                  </svg>
+                </button>
+                <button onClick={() => setViewMode('grid')}>
+                  <svg
+                    className="w-[24px] h-[24px]"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d={svgPaths.p1753300}
+                      stroke="#5A54FA"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="1.5"
+                    />
+                    <path
+                      d={svgPaths.p272d7180}
+                      stroke="#5A54FA"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="1.5"
+                    />
+                    <path
+                      d={svgPaths.p1e2bc680}
+                      stroke="#5A54FA"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="1.5"
+                    />
+                    <path
+                      d={svgPaths.p2f4d7400}
+                      stroke="#5A54FA"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="1.5"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {viewMode === 'list' ? (
           <div className="flex flex-col">
             {filteredPosts.map((post) => (
@@ -530,7 +475,7 @@ export default function CommunityDetailPage() {
                             style={{ backgroundColor: categoryBgColor }}
                           >
                             <p className="font-['Pretendard:Regular',sans-serif] leading-[16px] not-italic relative shrink-0 text-[#ffffff] text-[12px] text-nowrap whitespace-pre">
-                              {categoryDisplayName}{' '}
+                              캐릭터{' '}
                             </p>
                           </div>
                           <BookmarkButton />

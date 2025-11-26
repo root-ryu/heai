@@ -21,22 +21,24 @@ interface PostCardListProps {
   onBookmarkToggle?: (postId: number, isBookmarked: boolean) => void;
 }
 
-export default function PostCardList({ post, isBookmarked = false, onBookmarkToggle }: PostCardListProps) {
+export default function PostCardList({
+  post,
+  isBookmarked = false,
+  onBookmarkToggle,
+}: PostCardListProps) {
   // categoryColor를 bg-[rgba(...)] 형식에서 실제 색상 값으로 변환
   const getCategoryBgColor = () => {
     if (post.categoryBgColor) return post.categoryBgColor;
-    
+
     // 기본값 매핑
     const colorMap: Record<string, string> = {
-      '자유게시판': 'rgba(255,139,128,0.67)',
-      '캐릭터': 'rgba(255,179,71,0.67)',
-      '루틴게시판': 'rgba(34,215,96,0.67)',
-      '꿀팁': 'rgba(200,165,216,0.67)',
+      자유게시판: 'rgba(255,139,128,0.67)',
+      캐릭터: 'rgba(255,179,71,0.67)',
+      루틴게시판: 'rgba(34,215,96,0.67)',
+      꿀팁: 'rgba(200,165,216,0.67)',
     };
     return colorMap[post.category] || 'rgba(90,84,250,0.67)';
   };
-
-  const isFreeBoardCategory = post.category === '자유게시판';
 
   return (
     <div className="bg-white w-full">
@@ -45,16 +47,16 @@ export default function PostCardList({ post, isBookmarked = false, onBookmarkTog
         <div className="w-[335px] mx-auto">
           {/* Category and Bookmark */}
           <div className="flex items-center justify-between mb-[12px]">
-            <div 
-              className="rounded-[4px] px-[6px] py-[3px]" 
+            <div
+              className="rounded-[4px] px-[6px] py-[3px]"
               style={{ backgroundColor: getCategoryBgColor() }}
             >
-              <p className={`font-['Pretendard:Regular',sans-serif] text-[12px] leading-[16px] ${isFreeBoardCategory ? 'text-white' : 'text-[#333333]'}`}>
+              <p className="font-['Pretendard:Regular',sans-serif] text-[12px] leading-[16px] text-[#ffffff]">
                 {post.category}
               </p>
             </div>
-            <BookmarkButton 
-              postId={post.id} 
+            <BookmarkButton
+              postId={post.id}
               initialBookmarked={isBookmarked}
               onToggle={onBookmarkToggle}
             />
@@ -69,18 +71,27 @@ export default function PostCardList({ post, isBookmarked = false, onBookmarkTog
           {post.hasVote && post.voteOptions ? (
             <div className="flex flex-col gap-[8px] mb-[12px]">
               {post.voteOptions.map((option, idx) => (
-                <div key={idx} className="relative rounded-[10px] border border-[#f0f0f0]">
+                <div
+                  key={idx}
+                  className="relative rounded-[10px] border border-[#f0f0f0]"
+                >
                   <div className="p-[10px]">
                     {option.percentage > 0 && (
-                      <div 
+                      <div
                         className="absolute h-full left-0 rounded-tl-[10px] rounded-bl-[10px] top-0"
-                        style={{ 
+                        style={{
                           width: `${option.percentage}%`,
-                          backgroundColor: option.color.includes('bg-') ? undefined : option.color
+                          backgroundColor: option.color.includes('bg-')
+                            ? undefined
+                            : option.color,
                         }}
                       />
                     )}
-                    <p className={`font-['Pretendard:Regular',sans-serif] text-[16px] relative z-10 ${option.percentage > 0 ? 'text-white' : 'text-black'}`}>
+                    <p
+                      className={`font-['Pretendard:Regular',sans-serif] text-[16px] relative z-10 ${
+                        option.percentage > 0 ? 'text-white' : 'text-black'
+                      }`}
+                    >
                       {option.text}
                     </p>
                   </div>
@@ -89,9 +100,9 @@ export default function PostCardList({ post, isBookmarked = false, onBookmarkTog
             </div>
           ) : post.image ? (
             <div className="relative w-full h-[148px] rounded-[8px] mb-[12px] overflow-hidden bg-[rgba(251,201,201,0.2)]">
-              <img 
-                src={post.image} 
-                alt="" 
+              <img
+                src={post.image}
+                alt=""
                 className="absolute inset-0 w-full h-full object-contain"
               />
             </div>
@@ -99,8 +110,12 @@ export default function PostCardList({ post, isBookmarked = false, onBookmarkTog
 
           {/* Views and Time */}
           <div className="flex items-center justify-between">
-            <p className="font-['Pretendard:Regular',sans-serif] text-[14px] leading-[16px] text-[#8c8c8c]">조회수 {post.views}</p>
-            <p className="font-['Pretendard:Regular',sans-serif] text-[14px] leading-[24px] text-[#8c8c8c]">{post.timeAgo}</p>
+            <p className="font-['Pretendard:Regular',sans-serif] text-[14px] leading-[16px] text-[#8c8c8c]">
+              조회수 {post.views}
+            </p>
+            <p className="font-['Pretendard:Regular',sans-serif] text-[14px] leading-[24px] text-[#8c8c8c]">
+              {post.timeAgo}
+            </p>
           </div>
         </div>
       </div>
@@ -110,11 +125,15 @@ export default function PostCardList({ post, isBookmarked = false, onBookmarkTog
         <div className="w-[335px] mx-auto flex items-center gap-[16px]">
           <div className="flex items-center gap-[4px]">
             <Heart className="w-[16px] h-[16px] text-[#5D5D5D]" />
-            <p className="font-['Pretendard:Regular',sans-serif] text-[14px] leading-[24px] text-[#5e5e5e]">추천수 {post.likes}</p>
+            <p className="font-['Pretendard:Regular',sans-serif] text-[14px] leading-[24px] text-[#5e5e5e]">
+              추천수 {post.likes}
+            </p>
           </div>
           <div className="flex items-center gap-[4px]">
             <MessageSquare className="w-[16px] h-[16px] text-[#5E5E5E]" />
-            <p className="font-['Pretendard:Regular',sans-serif] text-[14px] leading-[24px] text-[#5e5e5e]">댓글 {post.comments}</p>
+            <p className="font-['Pretendard:Regular',sans-serif] text-[14px] leading-[24px] text-[#5e5e5e]">
+              댓글 {post.comments}
+            </p>
           </div>
         </div>
       </div>

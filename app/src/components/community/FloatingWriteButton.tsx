@@ -39,7 +39,7 @@ export default function FloatingWriteButton() {
   return (
     <button
       onClick={() => router.push('/community/write')}
-      className="bg-[#5a54fa] fixed right-[16px] bottom-[150px] size-[50px] rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all z-50 flex items-center justify-center"
+      className="bg-[#5a54fa] fixed right-[16px] bottom-[104px] size-[50px] rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all z-50 flex items-center justify-center"
       aria-label="글쓰기"
     >
       <Edit />

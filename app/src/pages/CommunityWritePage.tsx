@@ -185,12 +185,50 @@ export default function CommunityWritePage() {
   const handleSubmit = () => {
     if (!title.trim() || !content.trim()) return;
 
+    // 카테고리별 정보 매핑
+    const categoryInfo: Record<
+      string,
+      { name: string; color: string; bgColor: string }
+    > = {
+      character: {
+        name: '캐릭터',
+        color: '#FFB347',
+        bgColor: 'rgba(255,179,71,0.67)',
+      },
+      free: {
+        name: '자유게시판',
+        color: '#FF8B80',
+        bgColor: 'rgba(255,139,128,0.67)',
+      },
+      routine: {
+        name: '루틴게시판',
+        color: '#22D760',
+        bgColor: 'rgba(34,215,96,0.67)',
+      },
+      tips: {
+        name: '꿀팁',
+        color: '#C8A5D8',
+        bgColor: 'rgba(200,165,216,0.67)',
+      },
+      all: {
+        name: '전체',
+        color: '#5A54FA',
+        bgColor: 'rgba(90,84,250,0.21)',
+      },
+    };
+
+    const categoryData = categoryInfo[selectedCategory] || categoryInfo.all;
+
     // localStorage에 글 저장
     const newPost = {
       id: Date.now(),
-      category: selectedCategory,
+      category: categoryData.name,
+      categoryName: categoryData.name,
+      categoryColor: categoryData.color,
+      categoryBgColor: categoryData.bgColor,
       title: title.trim(),
       content: content.trim(),
+      image: undefined,
       views: 0,
       likes: 0,
       comments: 0,
@@ -213,6 +251,8 @@ export default function CommunityWritePage() {
     // 해당 카테고리 페이지로 이동
     if (selectedCategory === 'all') {
       router.push('/community');
+    } else if (selectedCategory === 'free') {
+      router.push('/community/free');
     } else {
       router.push(`/community/${selectedCategory}`);
     }

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Top, Bottom } from './Layout';
 import CommunityHeader from './community/CommunityHeader';
@@ -142,6 +142,16 @@ export default function CommunityPage() {
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState('');
   const [bookmarkedPosts, setBookmarkedPosts] = useState<number[]>([]);
+  const [userPosts, setUserPosts] = useState<Post[]>([]);
+
+  // localStorage에서 사용자 작성 글 로드 (전체 게시판)
+  useEffect(() => {
+    const loadedPosts = JSON.parse(
+      localStorage.getItem('communityPosts') || '[]'
+    );
+    // 모든 글 표시
+    setUserPosts(loadedPosts);
+  }, []);
 
   const handleBookmarkToggle = (postId: number, isBookmarked: boolean) => {
     setBookmarkedPosts((prev) =>
@@ -149,11 +159,14 @@ export default function CommunityPage() {
     );
   };
 
+  // 기본 posts와 사용자 posts 합치기
+  const allPosts = [...userPosts, ...POSTS];
+
   // 검색어로 필터링
   const searchedPosts =
     searchQuery.trim() === ''
-      ? POSTS
-      : POSTS.filter(
+      ? allPosts
+      : allPosts.filter(
           (post) =>
             post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
             (post.content &&
