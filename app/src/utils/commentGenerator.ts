@@ -95,21 +95,21 @@ interface Comment {
  */
 export function generateComments(postId: number, count: number): Comment[] {
   const comments: Comment[] = [];
-  
+
   for (let i = 0; i < count; i++) {
     const seed = postId * 1000 + i;
-    
+
     // 시드 기반으로 댓글 풀에서 선택
     const commentIndex = Math.floor(seededRandom(seed) * COMMENT_POOL.length);
     const timeIndex = Math.floor(seededRandom(seed + 1) * TIME_POOL.length);
-    
+
     const selectedComment = COMMENT_POOL[commentIndex];
-    
+
     comments.push({
       ...selectedComment,
       timeAgo: TIME_POOL[timeIndex],
     });
   }
-  
+
   return comments;
 }

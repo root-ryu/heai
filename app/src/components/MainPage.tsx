@@ -268,7 +268,7 @@ function Today({
   const currentYear = now.getFullYear();
   const currentMonth = now.getMonth();
   const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
-  
+
   // Calculate surrounding dates (3 before and 3 after) with proper month boundaries
   const surroundingDates = [];
   for (let i = -3; i <= 3; i++) {
@@ -302,10 +302,7 @@ function Today({
             </div>
           </div>
         ) : (
-          <DatePill
-            key={date}
-            number={date.toString()}
-          />
+          <DatePill key={date} number={date.toString()} />
         )
       )}
     </div>

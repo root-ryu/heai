@@ -2,12 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import {
-  Heart,
-  MessageSquare,
-  Bookmark,
-  Share2,
-} from 'lucide-react';
+import { Heart, MessageSquare, Bookmark, Share2 } from 'lucide-react';
 import { Top, Bottom } from './Layout';
 import { generateComments } from '../utils/commentGenerator';
 import { COMMUNITY_POSTS, type Post } from '../data/communityPosts';
@@ -239,7 +234,6 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
                 </button>
                 <button className="flex gap-[8px] items-center cursor-pointer hover:opacity-70 transition-opacity">
                   <Share2 className="size-[20px] text-[#686873]" />
-                  
                 </button>
               </div>
             </div>

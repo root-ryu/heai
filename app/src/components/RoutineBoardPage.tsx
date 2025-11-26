@@ -13,10 +13,7 @@ import { COMMUNITY_POSTS, Post } from '../data/communityPosts';
 import svgPaths from '../imports/svg-2hkovzo4c1';
 import svgPathsGrid from '../imports/svg-mfg8nwobt9';
 
-const CATEGORY_DATA: Record<
-  string,
-  { color: string; bgColor: string }
-> = {
+const CATEGORY_DATA: Record<string, { color: string; bgColor: string }> = {
   character: {
     color: '#FFB347',
     bgColor: 'rgba(255,179,71,0.67)',
@@ -56,7 +53,9 @@ export default function RoutineBoardPage() {
   const category = 'routine';
   const categoryData = CATEGORY_DATA[category];
   // COMMUNITY_POSTS에서 루틴게시판 필터링
-  const routinePosts = COMMUNITY_POSTS.filter(post => post.category === '루틴게시판');
+  const routinePosts = COMMUNITY_POSTS.filter(
+    (post) => post.category === '루틴게시판'
+  );
   // 기본 posts와 사용자 posts 합치기
   const posts = [...userPosts, ...routinePosts];
   const categoryColor = categoryData?.color || '#5A54FA';
