@@ -35,13 +35,24 @@ const CATEGORY_DATA: Record<string, { color: string; bgColor: string }> = {
 export default function RoutineBoardPage() {
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedSort] = useState('날짜순');
+  const [selectedSort, setSelectedSort] = useState<'날짜순' | '추천순'>('날짜순');
+  const [showSortDropdown, setShowSortDropdown] = useState(false);
   const [viewMode, setViewMode] = useState<'list' | 'grid'>('grid');
   const [isMounted, setIsMounted] = useState(false);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   // localStorage에서 사용자 작성 글 로드 (클라이언트에서만)
   useEffect(() => {
     setIsMounted(true);
+  }, []);
+
+  // 페이지 포커스될 때마다 새로고침
+  useEffect(() => {
+    const handleFocus = () => {
+      setRefreshKey(prev => prev + 1);
+    };
+    window.addEventListener('focus', handleFocus);
+    return () => window.removeEventListener('focus', handleFocus);
   }, []);
 
   const userPosts = isMounted
@@ -69,9 +80,17 @@ export default function RoutineBoardPage() {
           post.title.toLowerCase().includes(searchQuery.toLowerCase())
         );
 
+  // 정렬 적용
+  const sortedPosts = [...filteredPosts].sort((a, b) => {
+    if (selectedSort === '추천순') {
+      return b.likes - a.likes;
+    }
+    return 0; // 날짜순은 기본 순서 유지
+  });
+
   return (
     <div className="bg-[#F8FBFF] flex flex-col items-center w-full h-full overflow-hidden">
-      <div className="max-w-[375px] mx-auto w-full h-full flex flex-col">
+      <div className="max-w-[375px] mx-auto w-full h-full flex flex-col relative">
         <Top />
 
         {/* Header */}
@@ -192,17 +211,48 @@ export default function RoutineBoardPage() {
           </div>
 
           {/* Section Header */}
-          <div className="bg-white w-full px-[16px] pt-[10px] pb-[10px] shrink-0 sticky top-0 z-10">
+          <div className="bg-white w-full px-[16px] pt-[10px] pb-[10px] shrink-0 sticky top-0 z-20">
             <div className="content-stretch flex items-center justify-between relative shrink-0 w-full">
               <p className="font-pretendard font-medium leading-[26px] not-italic relative shrink-0 text-[18px] text-black">
                 {categoryDisplayName}
               </p>
               <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
-                <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
-                  <p className="font-pretendard leading-[24px] not-italic relative shrink-0 text-[#333333] text-[14px] text-nowrap whitespace-pre">
-                    {selectedSort}
-                  </p>
-                  <ChevronDown className="w-[16px] h-[16px] text-[#333333]" />
+                <div className="relative">
+                  <button
+                    onClick={() => setShowSortDropdown(!showSortDropdown)}
+                    className="content-stretch flex gap-[4px] items-center relative shrink-0 cursor-pointer"
+                  >
+                    <p className="font-pretendard leading-[24px] not-italic relative shrink-0 text-[#333333] text-[14px] text-nowrap whitespace-pre">
+                      {selectedSort}
+                    </p>
+                    <ChevronDown className="w-[16px] h-[16px] text-[#333333]" />
+                  </button>
+                  {showSortDropdown && (
+                    <div className="absolute top-[100%] right-0 mt-[4px] bg-white border border-[#e0e0e0] rounded-[8px] shadow-lg z-30 min-w-[70px]">
+                      <button
+                        onClick={() => {
+                          setSelectedSort('날짜순');
+                          setShowSortDropdown(false);
+                        }}
+                        className={`w-full text-center px-[8px] py-[10px] font-pretendard text-[14px] leading-[24px] hover:bg-[#F5F5F5] rounded-t-[8px] ${
+                          selectedSort === '날짜순' ? 'text-[#5A54FA] font-semibold' : 'text-[#333333]'
+                        }`}
+                      >
+                        날짜순
+                      </button>
+                      <button
+                        onClick={() => {
+                          setSelectedSort('추천순');
+                          setShowSortDropdown(false);
+                        }}
+                        className={`w-full text-center px-[8px] py-[10px] font-pretendard text-[14px] leading-[24px] hover:bg-[#F5F5F5] rounded-b-[8px] ${
+                          selectedSort === '추천순' ? 'text-[#5A54FA] font-semibold' : 'text-[#333333]'
+                        }`}
+                      >
+                        추천순
+                      </button>
+                    </div>
+                  )}
                 </div>
                 <div className="content-stretch flex gap-[5px] items-center relative shrink-0">
                   <button onClick={() => setViewMode('list')}>
@@ -277,9 +327,15 @@ export default function RoutineBoardPage() {
 
           {viewMode === 'list' ? (
             <div className="flex flex-col">
-              {filteredPosts.map((post) => (
+              {sortedPosts.map((post) => {
+                const storedLikes = isMounted ? localStorage.getItem(`post_${post.id}_likes`) : null;
+                const storedComments = isMounted ? localStorage.getItem(`post_${post.id}_commentsCount`) : null;
+                const displayLikes = storedLikes ? parseInt(storedLikes) : post.likes;
+                const displayComments = storedComments ? parseInt(storedComments) : post.comments;
+                
+                return (
                 <div
-                  key={post.id}
+                  key={`${post.id}-${refreshKey}`}
                   className="content-stretch flex flex-col items-start relative shrink-0 w-full cursor-pointer hover:opacity-90 transition-opacity"
                   style={{ backgroundColor: categoryColor }}
                   onClick={() => router.push(`/community/${post.id}`)}
@@ -363,8 +419,8 @@ export default function RoutineBoardPage() {
                                   strokeLinejoin="round"
                                 />
                               </svg>
-                              <p className="font-normal leading-[24px] not-italic relative shrink-0 text-[#5e5e5e] text-[14px] text-nowrap whitespace-pre">
-                                추천수 {post.likes}
+                              <p className="font-pretendard leading-[24px] not-italic relative shrink-0 text-[#5e5e5e] text-[14px] text-nowrap whitespace-pre">
+                                추천수 {displayLikes}
                               </p>
                             </div>
                             <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
@@ -382,8 +438,8 @@ export default function RoutineBoardPage() {
                                   </svg>
                                 </div>
                               </div>
-                              <p className="font-normal leading-[24px] not-italic relative shrink-0 text-[#5e5e5e] text-[14px] text-nowrap whitespace-pre">
-                                댓글 {post.comments}
+                              <p className="font-pretendard leading-[24px] not-italic relative shrink-0 text-[#5e5e5e] text-[14px] text-nowrap whitespace-pre">
+                                댓글 {displayComments}
                               </p>
                             </div>
                           </div>
@@ -392,14 +448,21 @@ export default function RoutineBoardPage() {
                     </div>
                   </div>
                 </div>
-              ))}
+              );
+              })}
             </div>
           ) : (
             <div className="bg-[#F8FBFF] w-full px-[16px] pb-[16px] pt-[8px]">
               <div className="grid grid-cols-2 gap-[8px]">
-                {filteredPosts.map((post) => (
+                {sortedPosts.map((post) => {
+                  const storedLikes = isMounted ? localStorage.getItem(`post_${post.id}_likes`) : null;
+                  const storedComments = isMounted ? localStorage.getItem(`post_${post.id}_commentsCount`) : null;
+                  const displayLikes = storedLikes ? parseInt(storedLikes) : post.likes;
+                  const displayComments = storedComments ? parseInt(storedComments) : post.comments;
+                  
+                  return (
                   <div
-                    key={post.id}
+                    key={`${post.id}-${refreshKey}`}
                     className="bg-white h-[210px] overflow-clip relative rounded-[20px] shrink-0 cursor-pointer hover:opacity-90 transition-opacity"
                     onClick={() => router.push(`/community/${post.id}`)}
                   >
@@ -438,8 +501,8 @@ export default function RoutineBoardPage() {
                               strokeLinejoin="round"
                             />
                           </svg>
-                          <p className="font-normal leading-[16px] not-italic relative shrink-0 text-[#5e5e5e] text-[12px] text-nowrap whitespace-pre">
-                            {post.likes}
+                          <p className="font-pretendard leading-[16px] not-italic relative shrink-0 text-[#5e5e5e] text-[12px] text-nowrap whitespace-pre">
+                            {displayLikes}
                           </p>
                         </div>
                         <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
@@ -457,8 +520,8 @@ export default function RoutineBoardPage() {
                               </svg>
                             </div>
                           </div>
-                          <p className="font-normal leading-[16px] not-italic relative shrink-0 text-[#5e5e5e] text-[12px] text-nowrap whitespace-pre">
-                            댓글 {post.comments}
+                          <p className="font-pretendard leading-[16px] not-italic relative shrink-0 text-[#5e5e5e] text-[12px] text-nowrap whitespace-pre">
+                            댓글 {displayComments}
                           </p>
                         </div>
                       </div>
@@ -467,7 +530,8 @@ export default function RoutineBoardPage() {
                     {/* Bookmark */}
                     <BookmarkButton className="absolute h-[26px] left-[130px] top-[8px] w-[28px]" />
                   </div>
-                ))}
+                );
+                })}
               </div>
             </div>
           )}

@@ -51,7 +51,7 @@ export default function SettingsPage() {
                 />
               </svg>
             </button>
-            <p className="font-roboto font-bold text-[24px] text-[#02010e]">
+            <p className="font-pretendard font-semibold text-[20px] text-[#02010e]">
               설정
             </p>
           </div>

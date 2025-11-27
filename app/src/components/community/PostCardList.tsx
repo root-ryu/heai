@@ -1,4 +1,5 @@
 import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { Heart, MessageSquare } from 'lucide-react';
 import BookmarkButton from './BookmarkButton';
 
@@ -28,6 +29,21 @@ export default function PostCardList({
   onBookmarkToggle,
 }: PostCardListProps) {
   const router = useRouter();
+  const [displayLikes, setDisplayLikes] = useState(post.likes);
+  const [displayComments, setDisplayComments] = useState(post.comments);
+
+  useEffect(() => {
+    // localStorage에서 해당 게시글의 좋아요/댓글 수 불러오기
+    const storedLikes = localStorage.getItem(`post_${post.id}_likes`);
+    const storedComments = localStorage.getItem(`post_${post.id}_commentsCount`);
+    
+    if (storedLikes) {
+      setDisplayLikes(parseInt(storedLikes));
+    }
+    if (storedComments) {
+      setDisplayComments(parseInt(storedComments));
+    }
+  }, [post.id]);
   // categoryColor를 bg-[rgba(...)] 형식에서 실제 색상 값으로 변환
   const getCategoryBgColor = () => {
     if (post.categoryBgColor) return post.categoryBgColor;
@@ -135,13 +151,13 @@ export default function PostCardList({
           <div className="flex items-center gap-[4px]">
             <Heart className="w-[16px] h-[16px] text-[#5D5D5D]" />
             <p className="font-pretendard text-[14px] leading-[24px] text-[#5e5e5e]">
-              추천수 {post.likes}
+              추천수 {displayLikes}
             </p>
           </div>
           <div className="flex items-center gap-[4px]">
             <MessageSquare className="w-[16px] h-[16px] text-[#5E5E5E]" />
             <p className="font-pretendard text-[14px] leading-[24px] text-[#5e5e5e]">
-              댓글 {post.comments}
+              댓글 {displayComments}
             </p>
           </div>
         </div>

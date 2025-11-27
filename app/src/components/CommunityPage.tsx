@@ -15,10 +15,20 @@ export default function CommunityPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [bookmarkedPosts, setBookmarkedPosts] = useState<number[]>([]);
   const [isMounted, setIsMounted] = useState(false);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   // localStorage에서 사용자 작성 글 로드 (전체 게시판)
   useEffect(() => {
     setIsMounted(true);
+  }, []);
+
+  // 페이지 포커스될 때마다 새로고침
+  useEffect(() => {
+    const handleFocus = () => {
+      setRefreshKey(prev => prev + 1);
+    };
+    window.addEventListener('focus', handleFocus);
+    return () => window.removeEventListener('focus', handleFocus);
   }, []);
 
   const userPosts = isMounted
@@ -64,7 +74,7 @@ export default function CommunityPage() {
           <div className="flex flex-col gap-[10px] pb-[20px]">
             {searchedPosts.map((post) => (
               <PostCardList
-                key={post.id}
+                key={`${post.id}-${refreshKey}`}
                 post={post}
                 isBookmarked={bookmarkedPosts.includes(post.id)}
                 onBookmarkToggle={handleBookmarkToggle}

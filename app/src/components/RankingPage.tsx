@@ -287,7 +287,7 @@ export default function RankingPage() {
         </div>
 
         {/* Rankings List */}
-        <div className="flex-1 overflow-y-auto overflow-x-hidden w-full">
+        <div className="flex-1 overflow-y-auto overflow-x-hidden w-full pb-[120px]">
           {/* 1st */}
           <div className="bg-white box-border content-stretch flex flex-col gap-[6px] items-center justify-center px-0 py-[16px] relative shrink-0 w-full">
             <div className="content-stretch flex gap-[6px] items-center justify-center relative shrink-0 w-[320px]">

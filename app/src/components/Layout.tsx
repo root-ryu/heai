@@ -49,7 +49,7 @@ function Menu({
     <div className="backdrop-blur-[3.5px] backdrop-filter bg-[rgba(255,255,255,0.5)] h-[70px] overflow-clip relative rounded-[70px] shadow-[0px_0px_4px_0px_rgba(36,32,116,0.1)] shrink-0 w-[260px]">
       <div className="absolute content-stretch flex h-[32px] items-center justify-between left-[19px] top-[19px] w-[221px]">
         <Icon1 router={router} isActive={pathname === '/'} />
-        <Icon2 router={router} isActive={pathname === '/community'} />
+        <Icon2 router={router} isActive={pathname.startsWith('/community')} />
         <Icon3 router={router} isActive={pathname === '/customize'} />
         <Icon4 router={router} isActive={pathname === '/mypage'} />
       </div>

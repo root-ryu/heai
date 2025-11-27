@@ -85,6 +85,28 @@ interface Comment {
   content: string;
   likes: number;
   timeAgo: string;
+  timestamp?: number;
+}
+
+// 시간 문자열을 밀리초로 변환하는 함수
+function timeAgoToTimestamp(timeAgo: string): number {
+  const now = Date.now();
+  
+  if (timeAgo.includes('방금')) return now - 1000;
+  if (timeAgo.includes('분 전')) {
+    const minutes = parseInt(timeAgo);
+    return now - minutes * 60 * 1000;
+  }
+  if (timeAgo.includes('시간 전')) {
+    const hours = parseInt(timeAgo);
+    return now - hours * 60 * 60 * 1000;
+  }
+  if (timeAgo.includes('일 전')) {
+    const days = parseInt(timeAgo);
+    return now - days * 24 * 60 * 60 * 1000;
+  }
+  
+  return now;
 }
 
 /**
@@ -104,10 +126,12 @@ export function generateComments(postId: number, count: number): Comment[] {
     const timeIndex = Math.floor(seededRandom(seed + 1) * TIME_POOL.length);
 
     const selectedComment = COMMENT_POOL[commentIndex];
+    const timeAgo = TIME_POOL[timeIndex];
 
     comments.push({
       ...selectedComment,
-      timeAgo: TIME_POOL[timeIndex],
+      timeAgo,
+      timestamp: timeAgoToTimestamp(timeAgo),
     });
   }
 

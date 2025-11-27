@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Heart, MessageSquare, Bookmark, Share2 } from 'lucide-react';
-import { Top, Bottom } from './Layout';
+import { Top } from './Layout';
 import { generateComments } from '../utils/commentGenerator';
 import { COMMUNITY_POSTS, type Post } from '../data/communityPosts';
 import svgPaths from '../imports/svg-jjl4gh5igk';
@@ -18,6 +18,7 @@ interface Comment {
   content: string;
   likes: number;
   timeAgo: string;
+  timestamp?: number;
 }
 
 export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
@@ -26,6 +27,11 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
   const [comments, setComments] = useState<Comment[]>([]);
   const [isLiked, setIsLiked] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(false);
+  const [selectedVoteOption, setSelectedVoteOption] = useState<number | null>(null);
+  const [votePercentages, setVotePercentages] = useState<number[]>([]);
+  const [commentInput, setCommentInput] = useState('');
+  const [likesCount, setLikesCount] = useState(0);
+  const [commentsCount, setCommentsCount] = useState(0);
 
   useEffect(() => {
     // localStorage 사용자 게시글 + 기본 더미 데이터 합치기
@@ -37,14 +43,80 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
 
     if (foundPost) {
       setPost(foundPost);
+      
+      // localStorage에서 좋아요/댓글 수 불러오기
+      const storedLikes = localStorage.getItem(`post_${postId}_likes`);
+      const storedCommentsCount = localStorage.getItem(`post_${postId}_commentsCount`);
+      const storedIsLiked = localStorage.getItem(`post_${postId}_isLiked`);
+      
+      setLikesCount(storedLikes ? parseInt(storedLikes) : foundPost.likes);
+      setCommentsCount(storedCommentsCount ? parseInt(storedCommentsCount) : foundPost.comments);
+      setIsLiked(storedIsLiked === 'true');
+      
       // 게시글의 댓글 수에 맞춰 댓글 생성
       const generatedComments = generateComments(postId, foundPost.comments);
-      setComments(generatedComments);
+      
+      // localStorage에서 사용자가 작성한 댓글 불러오기
+      const storedComments = localStorage.getItem(`post_${postId}_comments`);
+      const userComments = storedComments ? JSON.parse(storedComments) : [];
+      
+      // 사용자 댓글 + 생성된 댓글 합치기 후 날짜순 정렬 (최신순)
+      const allComments = [...userComments, ...generatedComments];
+      allComments.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+      setComments(allComments);
+      
+      // 투표 옵션 초기 퍼센테이지 설정
+      if (foundPost.voteOptions) {
+        setVotePercentages(foundPost.voteOptions.map(opt => opt.percentage));
+      }
     }
   }, [postId]);
 
+  const handleVoteClick = (optionIndex: number) => {
+    if (!post?.voteOptions) return;
+    
+    // 같은 옵션 클릭 시 선택 취소
+    if (selectedVoteOption === optionIndex) {
+      setSelectedVoteOption(null);
+      // 원래 퍼센테이지로 복원
+      setVotePercentages(post.voteOptions.map(opt => opt.percentage));
+      return;
+    }
+    
+    setSelectedVoteOption(optionIndex);
+    
+    // 투표 수 계산 (기존 퍼센테이지로부터 역산)
+    const totalVotes = post.voteOptions.reduce((sum, opt) => sum + opt.percentage, 0) || 1;
+    const voteCounts = post.voteOptions.map(opt => Math.round((opt.percentage / 100) * totalVotes));
+    
+    // 선택된 옵션에 1표 추가
+    voteCounts[optionIndex] += 1;
+    const newTotal = voteCounts.reduce((sum, count) => sum + count, 0);
+    
+    // 새로운 퍼센테이지 계산
+    const newPercentages = voteCounts.map(count => 
+      Math.round((count / newTotal) * 100)
+    );
+    
+    // 반올림으로 인한 오차 조정 (총합이 100이 되도록)
+    const diff = 100 - newPercentages.reduce((sum, p) => sum + p, 0);
+    if (diff !== 0) {
+      newPercentages[optionIndex] += diff;
+    }
+    
+    setVotePercentages(newPercentages);
+  };
+
   const handleLikeToggle = () => {
-    setIsLiked(!isLiked);
+    const newIsLiked = !isLiked;
+    const newLikesCount = newIsLiked ? likesCount + 1 : likesCount - 1;
+    
+    setIsLiked(newIsLiked);
+    setLikesCount(newLikesCount);
+    
+    // localStorage에 저장
+    localStorage.setItem(`post_${postId}_isLiked`, newIsLiked.toString());
+    localStorage.setItem(`post_${postId}_likes`, newLikesCount.toString());
   };
 
   const handleBookmarkToggle = () => {
@@ -182,12 +254,66 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
               {/* Post Content */}
               <div className="px-[16px] py-[18px]">
                 {post.content && (
-                  <p className="font-pretendard font-regular leading-[24px] not-italic text-[#151522] text-[14px] whitespace-pre-wrap">
+                  <p className="font-pretendard font-regular leading-[24px] not-italic text-[#151522] text-[14px] whitespace-pre-wrap mb-[12px]">
                     {post.content}
                   </p>
                 )}
+                
+                {/* Vote Section */}
+                {post.hasVote && post.voteOptions && (
+                  <div className="flex flex-col gap-[8px] mb-[12px]">
+                    {post.voteOptions.map((option, idx) => {
+                      const currentPercentage = votePercentages[idx] ?? option.percentage;
+                      const isSelected = selectedVoteOption === idx;
+                      
+                      return (
+                        <div
+                          key={idx}
+                          onClick={() => handleVoteClick(idx)}
+                          className={`relative rounded-[10px] border overflow-hidden transition-all cursor-pointer ${
+                            isSelected
+                              ? 'border-[#5A54FA]'
+                              : 'border-[#f0f0f0] hover:border-[#5A54FA]'
+                          }`}
+                        >
+                          <div className="p-[10px]">
+                            {currentPercentage > 0 && (
+                              <div
+                                className="absolute h-full left-0 top-0 transition-all duration-500 ease-out"
+                                style={{
+                                  width: `${currentPercentage}%`,
+                                  backgroundColor: isSelected ? '#5A54FA' : option.color,
+                                }}
+                              />
+                            )}
+                            <div className="relative z-10 flex items-center justify-between">
+                              <p
+                                className={`font-pretendard text-[16px] transition-colors ${
+                                  currentPercentage > 0
+                                    ? 'text-white font-semibold'
+                                    : 'text-black'
+                                }`}
+                              >
+                                {option.text}
+                                {isSelected && (
+                                  <span className="ml-[6px] text-[14px]">✓</span>
+                                )}
+                              </p>
+                              <p className={`font-pretendard text-[14px] font-medium transition-colors ${
+                                currentPercentage > 0 ? 'text-white' : 'text-[#a4a4a4]'
+                              }`}>
+                                {currentPercentage}%
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+
                 {post.image && (
-                  <div className="mt-[12px] w-full rounded-[8px] overflow-hidden">
+                  <div className="w-full rounded-[8px] overflow-hidden">
                     <img
                       src={post.image}
                       alt=""
@@ -211,13 +337,13 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
                     }`}
                   />
                   <p className="font-roboto font-normal leading-[21px] text-[#686873] text-[14px]">
-                    {post.likes + (isLiked ? 1 : 0)}
+                    {likesCount}
                   </p>
                 </button>
                 <div className="flex gap-[8px] items-center">
                   <MessageSquare className="size-[20px] text-[#686873]" />
                   <p className="font-roboto font-normal leading-[21px] text-[#686873] text-[14px]">
-                    {post.comments}
+                    {commentsCount}
                   </p>
                 </div>
                 <button
@@ -242,7 +368,7 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
             <div className="bg-white px-[16px] pb-[20px]">
               <div className="pb-[10px] pt-[18px]">
                 <p className="font-pretendard font-bold leading-[24px] not-italic text-[#040415] text-[16px]">
-                  댓글 {post.comments}
+                  댓글 {commentsCount}
                 </p>
               </div>
 
@@ -286,7 +412,66 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
           </div>
         </div>
 
-        <Bottom />
+        {/* Comment Input Section */}
+        <div className="bg-white border-t border-[#f0f0f0] px-[16px] py-[12px] shrink-0">
+          <div className="flex gap-[8px] items-end">
+            <textarea
+              value={commentInput}
+              onChange={(e) => setCommentInput(e.target.value)}
+              placeholder="댓글을 입력하세요..."
+              rows={1}
+              className="flex-1 bg-[#F5F5F5] rounded-[20px] px-[16px] py-[10px] font-pretendard text-[14px] text-[#151522] placeholder:text-[#a4a4a4] outline-none caret-[#5A54FA] resize-none overflow-hidden min-h-[40px] max-h-[120px]"
+              style={{ caretColor: '#5A54FA' }}
+              onInput={(e) => {
+                const target = e.target as HTMLTextAreaElement;
+                target.style.height = 'auto';
+                target.style.height = target.scrollHeight + 'px';
+              }}
+            />
+            <button
+              onClick={() => {
+                if (commentInput.trim()) {
+                  // 새 댓글 객체 생성
+                  const newComment: Comment = {
+                    author: '나',
+                    initial: '나',
+                    content: commentInput,
+                    likes: 0,
+                    timeAgo: '방금 전',
+                    timestamp: Date.now(),
+                  };
+                  
+                  // 댓글 목록에 추가 후 날짜순 정렬 (최신순)
+                  const updatedComments = [newComment, ...comments];
+                  updatedComments.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+                  setComments(updatedComments);
+                  
+                  // 댓글 수 증가
+                  const newCommentsCount = commentsCount + 1;
+                  setCommentsCount(newCommentsCount);
+                  
+                  // localStorage에 사용자 댓글만 저장
+                  const userComments = updatedComments.filter(c => c.author === '나');
+                  localStorage.setItem(`post_${postId}_comments`, JSON.stringify(userComments));
+                  localStorage.setItem(`post_${postId}_commentsCount`, newCommentsCount.toString());
+                  
+                  // 입력창 초기화
+                  setCommentInput('');
+                  
+                  // textarea 높이 초기화
+                  const textarea = document.querySelector('textarea');
+                  if (textarea) {
+                    textarea.style.height = 'auto';
+                  }
+                }
+              }}
+              disabled={!commentInput.trim()}
+              className="bg-[#5A54FA] text-white rounded-[20px] px-[20px] py-[10px] font-pretendard font-medium text-[14px] disabled:bg-[#F5F5F5] disabled:text-[#a4a4a4] transition-colors shrink-0"
+            >
+              등록
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

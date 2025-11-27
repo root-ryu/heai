@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ArrowLeft } from 'lucide-react';
 import { Top, Bottom } from './Layout';
 
 export default function SleepPage() {
@@ -10,44 +9,66 @@ export default function SleepPage() {
   const [view, setView] = useState<'daily' | 'weekly' | 'monthly'>('daily');
 
   return (
-    <div className="bg-neutral-50 flex flex-col items-center w-full h-full overflow-hidden">
+    <div className="bg-[#F8FBFF] flex flex-col items-center w-full h-full overflow-hidden">
       <Top />
 
-      <div className="flex-1 overflow-y-auto overflow-x-hidden w-full">
-        <div className="bg-white p-4 flex items-center gap-3 border-b">
-          <button onClick={() => router.push('/')} className="p-2">
-            <ArrowLeft className="w-6 h-6" />
+      {/* Header */}
+      <div className="bg-white w-full shrink-0">
+        <div className="h-[48px] relative w-full flex items-center justify-center">
+          <button
+            onClick={() => router.back()}
+            className="absolute left-[7px]"
+          >
+            <svg
+              className="block w-[30px] h-[30px]"
+              fill="none"
+              preserveAspectRatio="none"
+              viewBox="0 0 30 30"
+            >
+              <path
+                d="M21 26L10 15L21 4"
+                stroke="#5A54FA"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+              />
+            </svg>
           </button>
-          <h1>수면 기록</h1>
+          <p className="font-pretendard font-semibold text-[20px] text-[#02010e]">
+            수면 기록
+          </p>
         </div>
-        <div className="flex gap-2 p-4 bg-white border-b">
+      </div>
+
+      <div className="flex-1 overflow-y-auto overflow-x-hidden w-full">
+        <div className="flex gap-[12px] justify-center px-[16px] py-[12px] bg-white border-b border-[#f0f0f0]">
           <button
             onClick={() => setView('daily')}
-            className={`px-4 py-2 rounded-lg ${
-              view === 'daily' ? 'bg-blue-500 text-white' : 'bg-gray-100'
+            className={`flex-1 max-w-[100px] py-[8px] rounded-[30px] font-pretendard font-medium text-[14px] transition-colors ${
+              view === 'daily' ? 'bg-[#5A54FA] text-white' : 'bg-[#F5F5F5] text-[#666666]'
             }`}
           >
             일간
           </button>
           <button
             onClick={() => setView('weekly')}
-            className={`px-4 py-2 rounded-lg ${
-              view === 'weekly' ? 'bg-blue-500 text-white' : 'bg-gray-100'
+            className={`flex-1 max-w-[100px] py-[8px] rounded-[30px] font-pretendard font-medium text-[14px] transition-colors ${
+              view === 'weekly' ? 'bg-[#5A54FA] text-white' : 'bg-[#F5F5F5] text-[#666666]'
             }`}
           >
             주간
           </button>
           <button
             onClick={() => setView('monthly')}
-            className={`px-4 py-2 rounded-lg ${
-              view === 'monthly' ? 'bg-blue-500 text-white' : 'bg-gray-100'
+            className={`flex-1 max-w-[100px] py-[8px] rounded-[30px] font-pretendard font-medium text-[14px] transition-colors ${
+              view === 'monthly' ? 'bg-[#5A54FA] text-white' : 'bg-[#F5F5F5] text-[#666666]'
             }`}
           >
             월간
           </button>
         </div>
-        <div className="p-6">
-          <p className="text-gray-600">
+        <div className="flex items-center justify-center p-8">
+          <p className="text-[#a4a4a4] font-pretendard font-normal text-[16px]">
             {view === 'daily' ? '일간' : view === 'weekly' ? '주간' : '월간'}{' '}
             수면 기록을 확인할 수 있습니다.
           </p>

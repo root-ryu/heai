@@ -1,7 +1,6 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { ArrowLeft } from 'lucide-react';
 import { Top, Bottom } from './Layout';
 
 export default function BookmarkPage() {
@@ -16,11 +15,24 @@ export default function BookmarkPage() {
         <div className="h-[48px] relative w-full flex items-center justify-center">
           <button
             onClick={() => router.back()}
-            className="absolute left-[16px]"
+            className="absolute left-[7px]"
           >
-            <ArrowLeft className="w-[24px] h-[24px] text-[#5A54FA]" />
+            <svg
+              className="block w-[30px] h-[30px]"
+              fill="none"
+              preserveAspectRatio="none"
+              viewBox="0 0 30 30"
+            >
+              <path
+                d="M21 26L10 15L21 4"
+                stroke="#5A54FA"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+              />
+            </svg>
           </button>
-          <p className="font-pretendard font-medium text-[20px] text-[#02010e]">
+          <p className="font-pretendard font-semibold text-[20px] text-[#02010e]">
             북마크
           </p>
         </div>
