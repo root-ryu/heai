@@ -69,10 +69,11 @@ export async function DELETE(
     }
 
     return NextResponse.json({ message: 'Post deleted successfully' });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Unexpected error:', error);
+    const message = error instanceof Error ? error.message : 'Internal Server Error';
     return NextResponse.json(
-      { error: error.message || 'Internal Server Error' },
+      { error: message },
       { status: 500 }
     );
   }
