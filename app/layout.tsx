@@ -5,7 +5,14 @@ export const metadata: Metadata = {
   title: 'HeAi',
   description: '나와 함께 성장하는 AI 루틴 파트너',
   keywords: [
-    '헤이','HeAi','헬스','운동','AI','건강관리','피트니스','다이어트',
+    '헤이',
+    'HeAi',
+    '헬스',
+    '운동',
+    'AI',
+    '건강관리',
+    '피트니스',
+    '다이어트',
   ],
   authors: [{ name: 'Maximus' }],
   openGraph: {

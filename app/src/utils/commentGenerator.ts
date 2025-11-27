@@ -137,7 +137,7 @@ export function generateComments(postId: number, count: number): Comment[] {
     const selectedComment = COMMENT_POOL[commentIndex];
     const timeAgo = TIME_POOL[timeIndex];
     const timestamp = timeAgoToTimestamp(timeAgo);
-    
+
     // 1분 이내(60초) 댓글은 좋아요 0으로 설정
     const now = Date.now();
     const isRecent = now - timestamp < 60 * 1000;
