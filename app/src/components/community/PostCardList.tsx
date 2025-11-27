@@ -5,7 +5,7 @@ import BookmarkButton from './BookmarkButton';
 
 interface PostCardListProps {
   post: {
-    id: number;
+    id: number | string;
     category: string;
     categoryColor: string;
     categoryBgColor?: string;
@@ -18,9 +18,26 @@ interface PostCardListProps {
     likes: number;
     comments: number;
     timeAgo: string;
+    timestamp?: number;
   };
   isBookmarked?: boolean;
   onBookmarkToggle?: (postId: number, isBookmarked: boolean) => void;
+}
+
+// 타임스탬프를 시간 문자열로 변환하는 함수
+function getTimeAgoString(timestamp: number): string {
+  const now = Date.now();
+  const diff = now - timestamp;
+
+  const seconds = Math.floor(diff / 1000);
+  const minutes = Math.floor(seconds / 60);
+  const hours = Math.floor(minutes / 60);
+  const days = Math.floor(hours / 24);
+
+  if (seconds < 60) return '방금 전';
+  if (minutes < 60) return `${minutes}분 전`;
+  if (hours < 24) return `${hours}시간 전`;
+  return `${days}일 전`;
 }
 
 export default function PostCardList({
@@ -148,7 +165,7 @@ export default function PostCardList({
               조회수 {displayViews.toLocaleString()}
             </p>
             <p className="font-pretendard text-[14px] leading-[24px] text-[#8c8c8c]">
-              {post.timeAgo}
+              {post.timestamp ? getTimeAgoString(post.timestamp) : post.timeAgo}
             </p>
           </div>
         </div>

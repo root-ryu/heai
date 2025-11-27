@@ -1,7 +1,7 @@
 'use client';
 
-import TipsBoardPage from '@/app/src/components/TipsBoardPage';
+import CommunityPage from '@/app/src/components/CommunityPage';
 
 export default function Page() {
-  return <TipsBoardPage />;
+  return <CommunityPage category="tips" />;
 }

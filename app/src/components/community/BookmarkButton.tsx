@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react';
 import svgPaths from '../../imports/svg-jjl4gh5igk';
 
 interface BookmarkButtonProps {
-  postId?: number;
+  postId?: number | string;
   initialBookmarked?: boolean;
-  onToggle?: (postId: number, isBookmarked: boolean) => void;
+  onToggle?: (postId: number | string, isBookmarked: boolean) => void;
   className?: string;
 }
 

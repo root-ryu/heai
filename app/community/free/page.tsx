@@ -1,7 +1,7 @@
 'use client';
 
-import FreeBoardPage from '@/app/src/components/FreeBoardPage';
+import CommunityPage from '@/app/src/components/CommunityPage';
 
 export default function Page() {
-  return <FreeBoardPage />;
+  return <CommunityPage category="free" />;
 }

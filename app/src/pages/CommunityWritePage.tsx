@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Top, Bottom } from '../components/Layout';
 import CategoryTabs from '../components/community/CategoryTabs';
 import svgPaths from '../imports/svg-qx51amnvwr';
+import { getUserNickname } from '../utils/nickname';
 
 function BackButton() {
   const router = useRouter();
@@ -178,12 +179,16 @@ function VideoIcon() {
 
 export default function CommunityWritePage() {
   const router = useRouter();
-  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [selectedCategory, setSelectedCategory] = useState('character');
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
 
-  const handleSubmit = () => {
-    if (!title.trim() || !content.trim()) return;
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async () => {
+    if (!title.trim() || !content.trim() || isSubmitting) return;
+
+    setIsSubmitting(true);
 
     // 카테고리별 정보 매핑
     const categoryInfo: Record<
@@ -219,42 +224,45 @@ export default function CommunityWritePage() {
 
     const categoryData = categoryInfo[selectedCategory] || categoryInfo.all;
 
-    // localStorage에 글 저장
+    // API에 글 저장
     const newPost = {
-      id: Date.now(),
       category: categoryData.name,
-      categoryName: categoryData.name,
-      categoryColor: categoryData.color,
-      categoryBgColor: categoryData.bgColor,
       title: title.trim(),
       content: content.trim(),
       image: undefined,
-      views: 0,
-      likes: 0,
-      comments: 0,
-      timeAgo: '방금 전',
-      author: '익명',
-      createdAt: new Date().toISOString(),
+      author: getUserNickname(), // 랜덤 닉네임 사용
+      timestamp: Date.now(), // 타임스탬프 추가
     };
 
-    // 기존 글 목록 가져오기
-    const existingPosts = JSON.parse(
-      localStorage.getItem('communityPosts') || '[]'
-    );
+    try {
+      const res = await fetch('/api/community/posts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newPost),
+      });
 
-    // 새 글 추가
-    const updatedPosts = [newPost, ...existingPosts];
-    localStorage.setItem('communityPosts', JSON.stringify(updatedPosts));
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.error || 'Failed to create post');
+      }
 
-    console.log('글 작성 완료:', newPost);
+      const createdPost = await res.json();
+      console.log('글 작성 완료:', createdPost);
 
-    // 해당 카테고리 페이지로 이동
-    if (selectedCategory === 'all') {
-      router.push('/community');
-    } else if (selectedCategory === 'free') {
-      router.push('/community/free');
-    } else {
-      router.push(`/community/${selectedCategory}`);
+      // 해당 카테고리 페이지로 이동
+      if (selectedCategory === 'all') {
+        router.push('/community');
+      } else if (selectedCategory === 'free') {
+        router.push('/community/free');
+      } else {
+        router.push(`/community/${selectedCategory}`);
+      }
+    } catch (error: any) {
+      console.error('Error creating post:', error);
+      alert(`글 작성 중 오류가 발생했습니다: ${error.message}`);
+      setIsSubmitting(false); // 실패 시에만 다시 활성화 (성공 시 페이지 이동하므로 불필요하지만 안전하게)
     }
   };
 
@@ -272,7 +280,7 @@ export default function CommunityWritePage() {
             <div className="content-stretch flex gap-[8px] items-center relative shrink-0">
               <div className="flex flex-row items-center self-stretch">
                 <CompleteButton
-                  disabled={!isFormValid}
+                  disabled={!isFormValid || isSubmitting}
                   onClick={handleSubmit}
                 />
               </div>

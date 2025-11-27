@@ -16,7 +16,7 @@ const img81C692A7A7Be452DBf947A68C7B899Ba2 =
   '/71462b102d5e572fde7e57cd40c6bc509b1d5cac.png';
 
 export interface Post {
-  id: number;
+  id: number | string;
   category: string;
   categoryColor: string;
   categoryBgColor?: string;
@@ -29,8 +29,14 @@ export interface Post {
   likes: number;
   comments: number;
   timeAgo: string;
+  timestamp?: number;
   author: string;
 }
+
+// 고정된 기준 시간 (2025-11-27 14:20:00 KST)
+// 이 시간을 기준으로 각 게시글의 작성 시간을 계산
+// 서버/클라이언트 모두 같은 값을 사용하므로 Hydration 에러 없음
+const BASE_TIME = new Date('2025-11-27T14:20:00+09:00').getTime();
 
 export const COMMUNITY_POSTS: Post[] = [
   {
@@ -51,6 +57,7 @@ export const COMMUNITY_POSTS: Post[] = [
     likes: 20,
     comments: 3,
     timeAgo: '17분 전',
+    timestamp: BASE_TIME - 17 * 60 * 1000, // 17분 전
     author: '운동왕',
   },
   {
@@ -66,6 +73,7 @@ export const COMMUNITY_POSTS: Post[] = [
     likes: 14,
     comments: 2,
     timeAgo: '17분 전',
+    timestamp: BASE_TIME - 17 * 60 * 1000, // 17분 전
     author: '추억소환',
   },
   {
@@ -85,6 +93,7 @@ export const COMMUNITY_POSTS: Post[] = [
     likes: 8,
     comments: 5,
     timeAgo: '17분 전',
+    timestamp: BASE_TIME - 17 * 60 * 1000, // 17분 전
     author: '영화광',
   },
   {
@@ -101,6 +110,7 @@ export const COMMUNITY_POSTS: Post[] = [
     likes: 1,
     comments: 2,
     timeAgo: '17분 전',
+    timestamp: BASE_TIME - 17 * 60 * 1000, // 17분 전
     author: '후회중',
   },
   {
@@ -115,6 +125,7 @@ export const COMMUNITY_POSTS: Post[] = [
     likes: 15,
     comments: 4,
     timeAgo: '17분 전',
+    timestamp: BASE_TIME - 17 * 60 * 1000, // 17분 전
     author: '공감왕',
   },
   {
@@ -130,6 +141,7 @@ export const COMMUNITY_POSTS: Post[] = [
     likes: 22,
     comments: 7,
     timeAgo: '17분 전',
+    timestamp: BASE_TIME - 17 * 60 * 1000, // 17분 전
     author: '냥집사',
   },
   {
@@ -145,6 +157,7 @@ export const COMMUNITY_POSTS: Post[] = [
     likes: 5,
     comments: 3,
     timeAgo: '17분 전',
+    timestamp: BASE_TIME - 17 * 60 * 1000, // 17분 전
     author: '실망금지',
   },
   // 캐릭터 게시판
@@ -160,6 +173,7 @@ export const COMMUNITY_POSTS: Post[] = [
     likes: 280,
     comments: 21,
     timeAgo: '17분 전',
+    timestamp: BASE_TIME - 17 * 60 * 1000, // 17분 전
     author: 'Mr셀러막',
   },
   {
@@ -174,6 +188,7 @@ export const COMMUNITY_POSTS: Post[] = [
     likes: 42,
     comments: 10,
     timeAgo: '26분 전',
+    timestamp: BASE_TIME - 26 * 60 * 1000, // 26분 전
     author: '붕어빵 벤츠',
   },
   {
@@ -188,6 +203,7 @@ export const COMMUNITY_POSTS: Post[] = [
     likes: 24,
     comments: 20,
     timeAgo: '50분 전',
+    timestamp: BASE_TIME - 50 * 60 * 1000, // 50분 전
     author: '린쨩 사랑한다능',
   },
   {
@@ -202,6 +218,7 @@ export const COMMUNITY_POSTS: Post[] = [
     likes: 15,
     comments: 10,
     timeAgo: '1시간 전',
+    timestamp: BASE_TIME - 1 * 60 * 60 * 1000, // 1시간 전
     author: '요다',
   },
   {
@@ -216,6 +233,7 @@ export const COMMUNITY_POSTS: Post[] = [
     likes: 10,
     comments: 4,
     timeAgo: '2시간 전',
+    timestamp: BASE_TIME - 2 * 60 * 60 * 1000, // 2시간 전
     author: '밤티걸좋아요',
   },
   {
@@ -230,6 +248,7 @@ export const COMMUNITY_POSTS: Post[] = [
     likes: 20,
     comments: 18,
     timeAgo: '3시간 전',
+    timestamp: BASE_TIME - 3 * 60 * 60 * 1000, // 3시간 전
     author: '노밤티걸',
   },
   // 루틴 게시판
@@ -246,6 +265,7 @@ export const COMMUNITY_POSTS: Post[] = [
     likes: 156,
     comments: 34,
     timeAgo: '1시간 전',
+    timestamp: BASE_TIME - 1 * 60 * 60 * 1000, // 1시간 전
     author: '루틴왕',
   },
   {
@@ -261,6 +281,7 @@ export const COMMUNITY_POSTS: Post[] = [
     likes: 89,
     comments: 12,
     timeAgo: '2시간 전',
+    timestamp: BASE_TIME - 2 * 60 * 60 * 1000, // 2시간 전
     author: '헬스광',
   },
   // 꿀팁 게시판
@@ -277,6 +298,7 @@ export const COMMUNITY_POSTS: Post[] = [
     likes: 234,
     comments: 56,
     timeAgo: '30분 전',
+    timestamp: BASE_TIME - 30 * 60 * 1000, // 30분 전
     author: '다이어터',
   },
   {
@@ -291,6 +313,7 @@ export const COMMUNITY_POSTS: Post[] = [
     likes: 123,
     comments: 23,
     timeAgo: '1시간 전',
+    timestamp: BASE_TIME - 1 * 60 * 60 * 1000, // 1시간 전
     author: '홈트족',
   },
 ];

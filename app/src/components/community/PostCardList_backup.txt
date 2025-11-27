@@ -1,0 +1,19 @@
+현재 162-175줄:
+        <div className="w-[335px] mx-auto flex items-center gap-[16px]">
+          <div className="flex items-center gap-[4px]">
+            <Heart className="w-[16px] h-[16px] text-[#5D5D5D]" />
+            <p className="font-pretendard text-[14px] leading-[24px] text-[#5e5e5e]">
+              추천수 {displayLikes}
+            </p>
+          </div>
+          <div className="flex items-center gap-[4px]">
+            <MessageSquare className="w-[16px] h-[16px] text-[#5E5E5E]" />
+            <p className="font-pretendard text-[14px] leading-[24px] text-[#5e5e5e]">
+              댓글 {displayComments}
+            </p>
+          </div>
+        </div>
+
+수정해야 할 내용:
+1. Views and Time 섹션을 먼저 추가
+2. 그 다음 Likes and Comments 섹션

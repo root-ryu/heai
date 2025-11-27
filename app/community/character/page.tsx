@@ -1,7 +1,7 @@
 'use client';
 
-import CharacterPage from '@/app/src/components/CharacterPage';
+import CommunityPage from '@/app/src/components/CommunityPage';
 
 export default function Page() {
-  return <CharacterPage />;
+  return <CommunityPage category="character" />;
 }

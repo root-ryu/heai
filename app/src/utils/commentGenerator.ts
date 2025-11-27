@@ -124,11 +124,15 @@ function timeAgoToTimestamp(timeAgo: string): number {
  * @param count 생성할 댓글 수
  * @returns 댓글 배열
  */
-export function generateComments(postId: number, count: number): Comment[] {
+export function generateComments(postId: number | string, count: number): Comment[] {
   const comments: Comment[] = [];
 
   for (let i = 0; i < count; i++) {
-    const seed = postId * 1000 + i;
+    // postId가 문자열인 경우 해시코드로 변환하여 시드 생성
+    const idNum = typeof postId === 'string' 
+      ? postId.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0)
+      : postId;
+    const seed = idNum * 1000 + i;
 
     // 시드 기반으로 댓글 풀에서 선택
     const commentIndex = Math.floor(seededRandom(seed) * COMMENT_POOL.length);

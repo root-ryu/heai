@@ -1,7 +1,7 @@
 'use client';
 
-import RoutineBoardPage from '@/app/src/components/RoutineBoardPage';
+import CommunityPage from '@/app/src/components/CommunityPage';
 
 export default function Page() {
-  return <RoutineBoardPage />;
+  return <CommunityPage category="routine" />;
 }

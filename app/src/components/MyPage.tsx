@@ -5,6 +5,7 @@ import { Top, Bottom } from './Layout';
 import svgPaths from '../imports/svg-czxy8mittk';
 import { img2KLine, imgDone } from '../imports/svg-ivbnd';
 import { imgVector as imgVectorArrow } from '../imports/svg-8aral';
+import { getUserNickname } from '../utils/nickname';
 
 // Image paths
 const profileImage = '/587ee515c750bd68bb461300b07b5c4f101bc28b.png';
@@ -102,7 +103,7 @@ export default function MyPage() {
                 {/* Name & Edit */}
                 <div className="content-stretch flex gap-[5px] items-start relative shrink-0 w-full">
                   <p className="font-pretendard font-semibold leading-[20px] not-italic relative shrink-0 text-[#110c11] text-[18px] text-nowrap whitespace-pre">
-                    운동왕
+                    {getUserNickname()}
                   </p>
                   <div className="relative shrink-0 size-[20px]">
                     <img
