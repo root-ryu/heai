@@ -579,7 +579,10 @@ export default function TipsBoardPage() {
                       </div>
 
                       {/* Bookmark */}
-                      <BookmarkButton postId={post.id} className="absolute h-[26px] left-[130px] top-[8px] w-[28px]" />
+                      <BookmarkButton
+                        postId={post.id}
+                        className="absolute h-[26px] left-[130px] top-[8px] w-[28px]"
+                      />
                     </div>
                   );
                 })}

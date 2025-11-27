@@ -30,12 +30,12 @@ export default function BookmarkButton({
     e.stopPropagation(); // 부모 요소로의 이벤트 전파 차단
     const newState = !isBookmarked;
     setIsBookmarked(newState);
-    
+
     // localStorage에 저장
     if (postId !== undefined) {
       localStorage.setItem(`post_${postId}_bookmarked`, newState.toString());
     }
-    
+
     if (postId !== undefined && onToggle) {
       onToggle(postId, newState);
     }

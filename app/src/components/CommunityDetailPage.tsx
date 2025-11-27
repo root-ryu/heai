@@ -53,7 +53,9 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
         `post_${postId}_commentsCount`
       );
       const storedIsLiked = localStorage.getItem(`post_${postId}_isLiked`);
-      const storedBookmarked = localStorage.getItem(`post_${postId}_bookmarked`);
+      const storedBookmarked = localStorage.getItem(
+        `post_${postId}_bookmarked`
+      );
 
       setLikesCount(storedLikes ? parseInt(storedLikes) : foundPost.likes);
       setCommentsCount(
@@ -68,17 +70,31 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
       const storedViews = localStorage.getItem(viewsKey);
       const lastViewTime = localStorage.getItem(lastViewKey);
       const currentTime = Date.now();
-      const currentViews = storedViews ? parseInt(storedViews) : foundPost.views;
-      
+      const currentViews = storedViews
+        ? parseInt(storedViews)
+        : foundPost.views;
+
       // 마지막 조회 후 1초 이상 지났을 때만 증가 (Strict Mode 중복 방지)
       if (!lastViewTime || currentTime - parseInt(lastViewTime) > 1000) {
         const newViews = currentViews + 1;
-        console.log('[조회수] postId:', postId, '이전:', currentViews, '증가 후:', newViews);
+        console.log(
+          '[조회수] postId:',
+          postId,
+          '이전:',
+          currentViews,
+          '증가 후:',
+          newViews
+        );
         setViewsCount(newViews);
         localStorage.setItem(viewsKey, newViews.toString());
         localStorage.setItem(lastViewKey, currentTime.toString());
       } else {
-        console.log('[조회수] 중복 방지 - postId:', postId, '현재:', currentViews);
+        console.log(
+          '[조회수] 중복 방지 - postId:',
+          postId,
+          '현재:',
+          currentViews
+        );
         setViewsCount(currentViews);
       }
 
