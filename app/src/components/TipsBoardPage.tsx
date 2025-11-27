@@ -46,7 +46,26 @@ export default function TipsBoardPage() {
   // localStorage에서 사용자 작성 글 로드 (클라이언트에서만)
   useEffect(() => {
     setIsMounted(true);
+    // localStorage에서 정렬 옵션과 뷰 모드 복원
+    const savedSort = localStorage.getItem('tipsPage_sort');
+    const savedView = localStorage.getItem('tipsPage_view');
+    if (savedSort) setSelectedSort(savedSort as '날짜순' | '추천순');
+    if (savedView) setViewMode(savedView as 'list' | 'grid');
   }, []);
+
+  // 정렬 옵션 변경 시 localStorage에 저장
+  useEffect(() => {
+    if (isMounted) {
+      localStorage.setItem('tipsPage_sort', selectedSort);
+    }
+  }, [selectedSort, isMounted]);
+
+  // 뷰 모드 변경 시 localStorage에 저장
+  useEffect(() => {
+    if (isMounted) {
+      localStorage.setItem('tipsPage_view', viewMode);
+    }
+  }, [viewMode, isMounted]);
 
   // 페이지 포커스될 때마다 새로고침
   useEffect(() => {
@@ -338,12 +357,18 @@ export default function TipsBoardPage() {
                 const storedComments = isMounted
                   ? localStorage.getItem(`post_${post.id}_commentsCount`)
                   : null;
+                const storedViews = isMounted
+                  ? localStorage.getItem(`post_${post.id}_views`)
+                  : null;
                 const displayLikes = storedLikes
                   ? parseInt(storedLikes)
                   : post.likes;
                 const displayComments = storedComments
                   ? parseInt(storedComments)
                   : post.comments;
+                const displayViews = storedViews
+                  ? parseInt(storedViews)
+                  : post.views;
 
                 return (
                   <div
@@ -367,7 +392,7 @@ export default function TipsBoardPage() {
                                   꿀팁{' '}
                                 </p>
                               </div>
-                              <BookmarkButton />
+                              <BookmarkButton postId={post.id} />
                             </div>
 
                             {/* Title */}
@@ -400,8 +425,8 @@ export default function TipsBoardPage() {
                           {/* Stats */}
                           <div className="content-stretch flex items-start justify-between relative shrink-0 w-[320px]">
                             <div className="content-stretch flex gap-[4px] items-start relative shrink-0">
-                              <p className="font-normal leading-[16px] not-italic relative shrink-0 text-[#8c8c8c] text-[14px] text-nowrap whitespace-pre">
-                                조회수 {post.views}
+                              <p className="font-pretendard leading-[16px] not-italic relative shrink-0 text-[#8c8c8c] text-[14px] text-nowrap whitespace-pre">
+                                조회수 {displayViews.toLocaleString()}
                               </p>
                             </div>
                             <p className="font-normal leading-[24px] not-italic relative shrink-0 text-[#8c8c8c] text-[14px] text-nowrap whitespace-pre">
@@ -473,12 +498,18 @@ export default function TipsBoardPage() {
                   const storedComments = isMounted
                     ? localStorage.getItem(`post_${post.id}_commentsCount`)
                     : null;
+                  const storedViews = isMounted
+                    ? localStorage.getItem(`post_${post.id}_views`)
+                    : null;
                   const displayLikes = storedLikes
                     ? parseInt(storedLikes)
                     : post.likes;
                   const displayComments = storedComments
                     ? parseInt(storedComments)
                     : post.comments;
+                  const displayViews = storedViews
+                    ? parseInt(storedViews)
+                    : post.views;
 
                   return (
                     <div
@@ -548,7 +579,7 @@ export default function TipsBoardPage() {
                       </div>
 
                       {/* Bookmark */}
-                      <BookmarkButton className="absolute h-[26px] left-[130px] top-[8px] w-[28px]" />
+                      <BookmarkButton postId={post.id} className="absolute h-[26px] left-[130px] top-[8px] w-[28px]" />
                     </div>
                   );
                 })}

@@ -34,6 +34,7 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
   const [commentInput, setCommentInput] = useState('');
   const [likesCount, setLikesCount] = useState(0);
   const [commentsCount, setCommentsCount] = useState(0);
+  const [viewsCount, setViewsCount] = useState(0);
 
   useEffect(() => {
     // localStorage 사용자 게시글 + 기본 더미 데이터 합치기
@@ -52,12 +53,34 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
         `post_${postId}_commentsCount`
       );
       const storedIsLiked = localStorage.getItem(`post_${postId}_isLiked`);
+      const storedBookmarked = localStorage.getItem(`post_${postId}_bookmarked`);
 
       setLikesCount(storedLikes ? parseInt(storedLikes) : foundPost.likes);
       setCommentsCount(
         storedCommentsCount ? parseInt(storedCommentsCount) : foundPost.comments
       );
       setIsLiked(storedIsLiked === 'true');
+      setIsBookmarked(storedBookmarked === 'true');
+
+      // 조회수 불러오기 및 증가 (중복 실행 방지)
+      const viewsKey = `post_${postId}_views`;
+      const lastViewKey = `post_${postId}_lastView`;
+      const storedViews = localStorage.getItem(viewsKey);
+      const lastViewTime = localStorage.getItem(lastViewKey);
+      const currentTime = Date.now();
+      const currentViews = storedViews ? parseInt(storedViews) : foundPost.views;
+      
+      // 마지막 조회 후 1초 이상 지났을 때만 증가 (Strict Mode 중복 방지)
+      if (!lastViewTime || currentTime - parseInt(lastViewTime) > 1000) {
+        const newViews = currentViews + 1;
+        console.log('[조회수] postId:', postId, '이전:', currentViews, '증가 후:', newViews);
+        setViewsCount(newViews);
+        localStorage.setItem(viewsKey, newViews.toString());
+        localStorage.setItem(lastViewKey, currentTime.toString());
+      } else {
+        console.log('[조회수] 중복 방지 - postId:', postId, '현재:', currentViews);
+        setViewsCount(currentViews);
+      }
 
       // 게시글의 댓글 수에 맞춰 댓글 생성
       const generatedComments = generateComments(postId, foundPost.comments);
@@ -129,7 +152,10 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
   };
 
   const handleBookmarkToggle = () => {
-    setIsBookmarked(!isBookmarked);
+    const newBookmarked = !isBookmarked;
+    setIsBookmarked(newBookmarked);
+    // localStorage에 저장
+    localStorage.setItem(`post_${postId}_bookmarked`, newBookmarked.toString());
   };
 
   if (!post) {
@@ -253,7 +279,7 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
                       </p>
                       <p className="font-arial font-regular text-[11px]">|</p>
                       <p className="font-pretendard font-regular leading-[16px] not-italic text-[12px]">
-                        조회 {post.views}
+                        조회 {viewsCount.toLocaleString()}
                       </p>
                     </div>
                   </div>

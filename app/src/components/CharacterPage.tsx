@@ -46,6 +46,11 @@ export default function CharacterPage() {
   // localStorage에서 사용자 작성 글 로드 (클라이언트에서만)
   useEffect(() => {
     setIsMounted(true);
+    // localStorage에서 정렬 옵션과 뷰 모드 복원
+    const savedSort = localStorage.getItem('characterPage_sort');
+    const savedView = localStorage.getItem('characterPage_view');
+    if (savedSort) setSelectedSort(savedSort as '날짜순' | '추천순');
+    if (savedView) setViewMode(savedView as 'list' | 'grid');
   }, []);
 
   // 페이지 포커스될 때마다 새로고침
@@ -81,6 +86,20 @@ export default function CharacterPage() {
       : posts.filter((post) =>
           post.title.toLowerCase().includes(searchQuery.toLowerCase())
         );
+
+  // 정렬 옵션 변경 시 localStorage에 저장
+  useEffect(() => {
+    if (isMounted) {
+      localStorage.setItem('characterPage_sort', selectedSort);
+    }
+  }, [selectedSort, isMounted]);
+
+  // 뷰 모드 변경 시 localStorage에 저장
+  useEffect(() => {
+    if (isMounted) {
+      localStorage.setItem('characterPage_view', viewMode);
+    }
+  }, [viewMode, isMounted]);
 
   // 정렬 적용
   const sortedPosts = [...filteredPosts].sort((a, b) => {
@@ -340,12 +359,18 @@ export default function CharacterPage() {
                 const storedComments = isMounted
                   ? localStorage.getItem(`post_${post.id}_commentsCount`)
                   : null;
+                const storedViews = isMounted
+                  ? localStorage.getItem(`post_${post.id}_views`)
+                  : null;
                 const displayLikes = storedLikes
                   ? parseInt(storedLikes)
                   : post.likes;
                 const displayComments = storedComments
                   ? parseInt(storedComments)
                   : post.comments;
+                const displayViews = storedViews
+                  ? parseInt(storedViews)
+                  : post.views;
 
                 return (
                   <div
@@ -369,7 +394,7 @@ export default function CharacterPage() {
                                   캐릭터{' '}
                                 </p>
                               </div>
-                              <BookmarkButton />
+                              <BookmarkButton postId={post.id} />
                             </div>
 
                             {/* Title */}
@@ -403,7 +428,7 @@ export default function CharacterPage() {
                           <div className="content-stretch flex items-start justify-between relative shrink-0 w-[320px]">
                             <div className="content-stretch flex gap-[4px] items-start relative shrink-0">
                               <p className="font-pretendard leading-[16px] not-italic relative shrink-0 text-[#8c8c8c] text-[14px] text-nowrap whitespace-pre">
-                                조회수 {post.views}
+                                조회수 {displayViews.toLocaleString()}
                               </p>
                             </div>
                             <p className="font-pretendard leading-[24px] not-italic relative shrink-0 text-[#8c8c8c] text-[14px] text-nowrap whitespace-pre">
@@ -475,12 +500,18 @@ export default function CharacterPage() {
                   const storedComments = isMounted
                     ? localStorage.getItem(`post_${post.id}_commentsCount`)
                     : null;
+                  const storedViews = isMounted
+                    ? localStorage.getItem(`post_${post.id}_views`)
+                    : null;
                   const displayLikes = storedLikes
                     ? parseInt(storedLikes)
                     : post.likes;
                   const displayComments = storedComments
                     ? parseInt(storedComments)
                     : post.comments;
+                  const displayViews = storedViews
+                    ? parseInt(storedViews)
+                    : post.views;
 
                   return (
                     <div
@@ -550,7 +581,7 @@ export default function CharacterPage() {
                       </div>
 
                       {/* Bookmark */}
-                      <BookmarkButton className="absolute h-[26px] left-[130px] top-[8px] w-[28px]" />
+                      <BookmarkButton postId={post.id} className="absolute h-[26px] left-[130px] top-[8px] w-[28px]" />
                     </div>
                   );
                 })}

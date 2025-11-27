@@ -31,6 +31,7 @@ export default function PostCardList({
   const router = useRouter();
   const [displayLikes, setDisplayLikes] = useState(post.likes);
   const [displayComments, setDisplayComments] = useState(post.comments);
+  const [displayViews, setDisplayViews] = useState(post.views);
 
   useEffect(() => {
     // localStorage에서 해당 게시글의 좋아요/댓글 수 불러오기
@@ -44,6 +45,12 @@ export default function PostCardList({
     }
     if (storedComments) {
       setDisplayComments(parseInt(storedComments));
+    }
+
+    // 조회수 불러오기
+    const storedViews = localStorage.getItem(`post_${post.id}_views`);
+    if (storedViews) {
+      setDisplayViews(parseInt(storedViews));
     }
   }, [post.id]);
   // categoryColor를 bg-[rgba(...)] 형식에서 실제 색상 값으로 변환
@@ -138,7 +145,7 @@ export default function PostCardList({
           {/* Views and Time */}
           <div className="flex items-center justify-between">
             <p className="font-pretendard text-[14px] leading-[16px] text-[#8c8c8c]">
-              조회수 {post.views}
+              조회수 {displayViews.toLocaleString()}
             </p>
             <p className="font-pretendard text-[14px] leading-[24px] text-[#8c8c8c]">
               {post.timeAgo}

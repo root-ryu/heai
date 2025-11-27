@@ -300,6 +300,7 @@ export default function CommunityWritePage() {
               activeCategory={selectedCategory}
               mode="selection"
               onCategorySelect={setSelectedCategory}
+              excludeAll={true}
             />
 
             {/* 입력 폼 영역 */}

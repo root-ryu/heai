@@ -7,6 +7,7 @@ interface CategoryTabsProps {
   activeCategory: string; // 'all' | 'character' | 'free' | 'routine' | 'tips'
   mode?: 'navigation' | 'selection'; // navigation: 페이지 이동, selection: 선택만
   onCategorySelect?: (category: string) => void; // selection 모드일 때 사용
+  excludeAll?: boolean; // '전체' 카테고리 제외 여부
 }
 
 const CATEGORIES = [
@@ -46,9 +47,15 @@ export default function CategoryTabs({
   activeCategory,
   mode = 'navigation',
   onCategorySelect,
+  excludeAll = false,
 }: CategoryTabsProps) {
   const router = useRouter();
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  // excludeAll이 true면 '전체' 제외
+  const displayCategories = excludeAll
+    ? CATEGORIES.filter((cat) => cat.key !== 'all')
+    : CATEGORIES;
 
   // 스크롤 위치 복원
   useEffect(() => {
@@ -88,7 +95,7 @@ export default function CategoryTabs({
         ref={scrollRef}
         className="box-border content-stretch flex gap-[8px] items-center overflow-x-auto overflow-y-clip pb-[10px] pt-0 px-0 relative shrink-0 w-[343px]"
       >
-        {CATEGORIES.map((cat) => {
+        {displayCategories.map((cat) => {
           const isActive = cat.key === activeCategory;
           // rgba 색상의 alpha 값만 조정
           const bgColor = isActive

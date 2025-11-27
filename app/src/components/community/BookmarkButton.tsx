@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import svgPaths from '../../imports/svg-jjl4gh5igk';
 
 interface BookmarkButtonProps {
@@ -16,10 +16,26 @@ export default function BookmarkButton({
 }: BookmarkButtonProps) {
   const [isBookmarked, setIsBookmarked] = useState(initialBookmarked);
 
+  // localStorage에서 북마크 상태 불러오기
+  useEffect(() => {
+    if (postId !== undefined) {
+      const storedBookmark = localStorage.getItem(`post_${postId}_bookmarked`);
+      if (storedBookmark !== null) {
+        setIsBookmarked(storedBookmark === 'true');
+      }
+    }
+  }, [postId]);
+
   const handleClick = (e: React.MouseEvent) => {
     e.stopPropagation(); // 부모 요소로의 이벤트 전파 차단
     const newState = !isBookmarked;
     setIsBookmarked(newState);
+    
+    // localStorage에 저장
+    if (postId !== undefined) {
+      localStorage.setItem(`post_${postId}_bookmarked`, newState.toString());
+    }
+    
     if (postId !== undefined && onToggle) {
       onToggle(postId, newState);
     }
