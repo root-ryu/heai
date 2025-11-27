@@ -135,7 +135,7 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
       } = {};
       allComments.forEach((comment) => {
         if (!comment.timestamp) return; // timestamp가 없으면 스킵
-        
+
         const commentId = comment.timestamp.toString();
         const likedKey = `post_${postId}_comment_${commentId}_liked`;
         const likesKey = `post_${postId}_comment_${commentId}_likes`;
@@ -499,7 +499,7 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
 
               {comments.map((comment, index) => {
                 if (!comment.timestamp) return null; // timestamp가 없으면 렌더링 안 함
-                
+
                 const commentId = comment.timestamp.toString();
                 const commentState = commentLikesState[commentId] || {
                   liked: false,
