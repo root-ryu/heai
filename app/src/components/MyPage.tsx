@@ -26,22 +26,16 @@ const iconOthers = '/e6a38d3bd5fad0a2e488ffc45ba5ab8a4a8aef2c.png';
 const eyeLogo = '/eyelogo.png';
 
 export default function MyPage() {
+  // 1. 초기값은 빈 문자열로 설정 (서버 빌드 시 안전함)
   const [nickname, setNickname] = useState('');
   const router = useRouter();
 
   useEffect(() => {
-    const fetchNickname = async () => {
-      try {
-        const res = await fetch('/api/user/nickname');
-        if (res.ok) {
-          const data = await res.json();
-          setNickname(data.nickname);
-        }
-      } catch (error) {
-        console.error('Failed to fetch nickname:', error);
-      }
-    };
-    fetchNickname();
+    // 2. 브라우저가 실행된 후(Mount) 안전하게 로컬스토리지 접근
+    const storedNickname = getUserNickname();
+    if (storedNickname) {
+      setNickname(storedNickname);
+    }
   }, []);
 
   return (
@@ -120,7 +114,8 @@ export default function MyPage() {
                 {/* Name & Edit */}
                 <div className="content-stretch flex gap-[5px] items-start relative shrink-0 w-full">
                   <p className="font-pretendard font-semibold leading-[20px] not-italic relative shrink-0 text-[#110c11] text-[18px] text-nowrap whitespace-pre">
-                    {getUserNickname()}
+                    {/* [수정 완료] 함수 직접 호출을 지우고 상태 변수로 변경 */}
+                    {nickname}
                   </p>
                   <div className="relative shrink-0 size-[20px]">
                     <img
