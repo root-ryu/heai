@@ -3,10 +3,10 @@ import { supabase } from '../../../../lib/supabaseClient';
 
 export async function GET(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const id = params.id;
+    const { id } = await params;
 
     const { data, error } = await supabase
       .from('community')
@@ -28,10 +28,10 @@ export async function GET(
 
 export async function DELETE(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const id = params.id;
+    const { id } = await params;
     const { author } = await req.json(); // 요청 본문에서 작성자 정보 받기
 
     if (!author) {
