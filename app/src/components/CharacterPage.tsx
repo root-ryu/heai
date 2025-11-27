@@ -509,9 +509,7 @@ export default function CharacterPage() {
                   const displayComments = storedComments
                     ? parseInt(storedComments)
                     : post.comments;
-                  const displayViews = storedViews
-                    ? parseInt(storedViews)
-                    : post.views;
+
 
                   return (
                     <div

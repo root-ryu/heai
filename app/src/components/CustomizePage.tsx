@@ -12,9 +12,7 @@ const imgFashion = '/bdbce79835c370b2940ed68dfd380f2887c89666.png';
 const imgFace = '/9ba8d2c702dd94511c088390df9e53091a84a891.png';
 
 export default function CustomizePage() {
-  const [selectedCategory, setSelectedCategory] = useState<
-    'face' | 'fashion' | 'room' | 'badge'
-  >('face');
+
 
   return (
     <div className="bg-neutral-50 flex flex-col items-center w-full h-full overflow-hidden">
@@ -163,7 +161,7 @@ export default function CustomizePage() {
               <div className="content-stretch flex items-end justify-between relative shrink-0 w-[343px]">
                 <div className="flex flex-row items-end self-stretch">
                   <button
-                    onClick={() => setSelectedCategory('face')}
+
                     className="content-stretch flex flex-col h-full items-end relative shrink-0 w-[63px]"
                   >
                     <div className="aspect-[1024/1024] relative shrink-0 w-full">
@@ -179,7 +177,7 @@ export default function CustomizePage() {
                   </button>
                 </div>
                 <button
-                  onClick={() => setSelectedCategory('fashion')}
+
                   className="content-stretch flex flex-col gap-[4px] items-start relative shrink-0 w-[65px]"
                 >
                   <div className="aspect-[1024/1024] relative shrink-0 w-full">
@@ -195,7 +193,7 @@ export default function CustomizePage() {
                 </button>
                 <div className="flex flex-row items-end self-stretch">
                   <button
-                    onClick={() => setSelectedCategory('room')}
+
                     className="content-stretch flex flex-col h-full items-start justify-between relative shrink-0 w-[65px]"
                   >
                     <div className="aspect-[1024/1024] relative shrink-0 w-full">
@@ -212,7 +210,6 @@ export default function CustomizePage() {
                 </div>
                 <div className="flex flex-row items-end self-stretch">
                   <button
-                    onClick={() => setSelectedCategory('badge')}
                     className="content-stretch flex flex-col h-full items-start justify-between relative shrink-0 w-[65px]"
                   >
                     <div className="aspect-[1024/1024] relative shrink-0 w-full">

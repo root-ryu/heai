@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter, usePathname } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Top, Bottom } from './Layout';
 import svgPaths from '../imports/svg-067ap2oqb0';
@@ -22,11 +22,10 @@ const imgD1Ab8437258E4F5D9609F294541080A31 =
 const imgChatGptImage202511180309341 =
   '/093df2697a767b1e891b0eaa5bc949cbbac3c388.png';
 const img336584700 = '/7ead42acac65dca5bdba700634d9e214cb5b6134.png';
-const imgEye12 = '/532303d6c8033a0d1a7fe404f94ac83b8cb9ed53.png';
+
 
 export default function MainPage() {
   const router = useRouter();
-  const pathname = usePathname();
   const [routines, setRoutines] = useState({
     water: true,
     meditation: false,

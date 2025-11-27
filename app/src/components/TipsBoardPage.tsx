@@ -507,9 +507,7 @@ export default function TipsBoardPage() {
                   const displayComments = storedComments
                     ? parseInt(storedComments)
                     : post.comments;
-                  const displayViews = storedViews
-                    ? parseInt(storedViews)
-                    : post.views;
+
 
                   return (
                     <div

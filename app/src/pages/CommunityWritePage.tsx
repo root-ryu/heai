@@ -259,9 +259,10 @@ export default function CommunityWritePage() {
       } else {
         router.push(`/community/${selectedCategory}`);
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error creating post:', error);
-      alert(`글 작성 중 오류가 발생했습니다: ${error.message}`);
+      const message = error instanceof Error ? error.message : 'Unknown error';
+      alert(`글 작성 중 오류가 발생했습니다: ${message}`);
       setIsSubmitting(false); // 실패 시에만 다시 활성화 (성공 시 페이지 이동하므로 불필요하지만 안전하게)
     }
   };

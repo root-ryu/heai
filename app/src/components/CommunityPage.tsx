@@ -37,6 +37,7 @@ export default function CommunityPage({ category = 'all' }: CommunityPageProps) 
             '꿀팁': { color: '#C8A5D8', bgColor: 'rgba(200,165,216,0.67)' },
           };
 
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const mappedPosts: Post[] = data.map((item: any) => {
             const catInfo = categoryInfo[item.category] || { color: '#5A54FA', bgColor: 'rgba(90,84,250,0.67)' };
             const timestamp = new Date(item.created_at).getTime();

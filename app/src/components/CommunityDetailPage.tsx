@@ -225,6 +225,7 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
             const commentsRes = await fetch(`/api/community/comments?postId=${postId}`);
             if (commentsRes.ok) {
               const commentsData = await commentsRes.json();
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               const mappedComments: Comment[] = commentsData.map((c: any) => ({
                 id: c.id, // ID 저장 (삭제 시 필요)
                 author: c.author,

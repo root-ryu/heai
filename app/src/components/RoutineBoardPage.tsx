@@ -509,9 +509,7 @@ export default function RoutineBoardPage() {
                   const displayComments = storedComments
                     ? parseInt(storedComments)
                     : post.comments;
-                  const displayViews = storedViews
-                    ? parseInt(storedViews)
-                    : post.views;
+
 
                   return (
                     <div
