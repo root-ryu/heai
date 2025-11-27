@@ -114,13 +114,15 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
       setComments(allComments);
 
       // 댓글 좋아요 상태 초기화
-      const initialCommentLikes: { [key: number]: { liked: boolean; count: number } } = {};
+      const initialCommentLikes: {
+        [key: number]: { liked: boolean; count: number };
+      } = {};
       allComments.forEach((comment, index) => {
         const likedKey = `post_${postId}_comment_${index}_liked`;
         const likesKey = `post_${postId}_comment_${index}_likes`;
         const storedLiked = localStorage.getItem(likedKey);
         const storedLikes = localStorage.getItem(likesKey);
-        
+
         initialCommentLikes[index] = {
           liked: storedLiked === 'true',
           count: storedLikes ? parseInt(storedLikes) : comment.likes,
@@ -349,7 +351,11 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
                                 className="absolute h-full left-0 top-0 transition-all duration-500 ease-out rounded-tl-[10px] rounded-bl-[10px]"
                                 style={{
                                   width: `${currentPercentage}%`,
-                                  backgroundColor: isSelected ? '#5A54FA' : hasVoted ? 'rgba(90, 84, 250, 0.5)' : option.color,
+                                  backgroundColor: isSelected
+                                    ? '#5A54FA'
+                                    : hasVoted
+                                    ? 'rgba(90, 84, 250, 0.5)'
+                                    : option.color,
                                 }}
                               />
                             )}
@@ -444,19 +450,30 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
               </div>
 
               {comments.map((comment, index) => {
-                const commentState = commentLikesState[index] || { liked: false, count: comment.likes };
+                const commentState = commentLikesState[index] || {
+                  liked: false,
+                  count: comment.likes,
+                };
 
                 const handleCommentLike = () => {
                   const newLiked = !commentState.liked;
-                  const newCount = newLiked ? commentState.count + 1 : commentState.count - 1;
-                  
+                  const newCount = newLiked
+                    ? commentState.count + 1
+                    : commentState.count - 1;
+
                   setCommentLikesState((prev) => ({
                     ...prev,
                     [index]: { liked: newLiked, count: newCount },
                   }));
-                  
-                  localStorage.setItem(`post_${postId}_comment_${index}_liked`, newLiked.toString());
-                  localStorage.setItem(`post_${postId}_comment_${index}_likes`, newCount.toString());
+
+                  localStorage.setItem(
+                    `post_${postId}_comment_${index}_liked`,
+                    newLiked.toString()
+                  );
+                  localStorage.setItem(
+                    `post_${postId}_comment_${index}_likes`,
+                    newCount.toString()
+                  );
                 };
 
                 return (
