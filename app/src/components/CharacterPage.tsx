@@ -387,11 +387,11 @@ export default function CharacterPage() {
                             {/* Header */}
                             <div className="content-stretch flex items-center justify-between relative shrink-0 w-full">
                               <div
-                                className="box-border content-stretch flex gap-[10px] items-start px-[6px] py-[3px] relative rounded-[4px] shrink-0"
+                                className="box-border content-stretch flex gap-[10px] items-center px-[6px] py-[3px] relative rounded-[4px] shrink-0"
                                 style={{ backgroundColor: categoryBgColor }}
                               >
-                                <p className="font-pretendard leading-[16px] not-italic relative shrink-0 text-[#ffffff] text-[12px] text-nowrap whitespace-pre">
-                                  캐릭터{' '}
+                                <p className="font-pretendard leading-[16px] not-italic relative shrink-0 text-[#ffffff] text-[12px] text-nowrap whitespace-pre text-center">
+                                  캐릭터
                                 </p>
                               </div>
                               <BookmarkButton postId={post.id} />
@@ -471,7 +471,7 @@ export default function CharacterPage() {
                                       viewBox="0 0 14 14"
                                     >
                                       <path
-                                        d={svgPaths.p13d11a80}
+                                        d={svgPathsGrid.p2a722600}
                                         fill="#5E5E5E"
                                       />
                                     </svg>

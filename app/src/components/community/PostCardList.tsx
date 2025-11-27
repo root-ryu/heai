@@ -82,10 +82,10 @@ export default function PostCardList({
           {/* Category and Bookmark */}
           <div className="flex items-center justify-between mb-[12px]">
             <div
-              className="rounded-[4px] px-[6px] py-[3px]"
+              className="rounded-[4px] px-[6px] py-[3px] flex items-center justify-center"
               style={{ backgroundColor: getCategoryBgColor() }}
             >
-              <p className="font-pretendard text-[12px] leading-[16px] text-[#ffffff]">
+              <p className="font-pretendard text-[12px] leading-[16px] text-[#ffffff] text-center">
                 {post.category}
               </p>
             </div>

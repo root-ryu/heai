@@ -69,9 +69,18 @@ const COMMENT_POOL = [
 ];
 
 const TIME_POOL = [
-  '방금 전',
+  '2분 전',
+  '5분 전',
   '10분 전',
+  '15분 전',
+  '20분 전',
+  '25분 전',
   '30분 전',
+  '35분 전',
+  '40분 전',
+  '45분 전',
+  '50분 전',
+  '55분 전',
   '1시간 전',
   '2시간 전',
   '3시간 전',
@@ -127,11 +136,17 @@ export function generateComments(postId: number, count: number): Comment[] {
 
     const selectedComment = COMMENT_POOL[commentIndex];
     const timeAgo = TIME_POOL[timeIndex];
+    const timestamp = timeAgoToTimestamp(timeAgo);
+    
+    // 1분 이내(60초) 댓글은 좋아요 0으로 설정
+    const now = Date.now();
+    const isRecent = now - timestamp < 60 * 1000;
 
     comments.push({
       ...selectedComment,
+      likes: isRecent ? 0 : selectedComment.likes,
       timeAgo,
-      timestamp: timeAgoToTimestamp(timeAgo),
+      timestamp,
     });
   }
 

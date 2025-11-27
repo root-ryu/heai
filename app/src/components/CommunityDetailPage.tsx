@@ -21,6 +21,22 @@ interface Comment {
   timestamp?: number;
 }
 
+// 타임스탬프를 시간 문자열로 변환하는 함수
+function getTimeAgoString(timestamp: number): string {
+  const now = Date.now();
+  const diff = now - timestamp;
+  
+  const seconds = Math.floor(diff / 1000);
+  const minutes = Math.floor(seconds / 60);
+  const hours = Math.floor(minutes / 60);
+  const days = Math.floor(hours / 24);
+  
+  if (seconds < 60) return '방금 전';
+  if (minutes < 60) return `${minutes}분 전`;
+  if (hours < 24) return `${hours}시간 전`;
+  return `${days}일 전`;
+}
+
 export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
   const router = useRouter();
   const [post, setPost] = useState<Post | null>(null);
@@ -132,7 +148,18 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
 
       // 투표 옵션 초기 퍼센테이지 설정
       if (foundPost.voteOptions) {
-        setVotePercentages(foundPost.voteOptions.map((opt) => opt.percentage));
+        const storedVoteOption = localStorage.getItem(`post_${postId}_voteOption`);
+        const storedVotePercentages = localStorage.getItem(`post_${postId}_votePercentages`);
+        
+        if (storedVoteOption !== null) {
+          setSelectedVoteOption(parseInt(storedVoteOption));
+        }
+        
+        if (storedVotePercentages) {
+          setVotePercentages(JSON.parse(storedVotePercentages));
+        } else {
+          setVotePercentages(foundPost.voteOptions.map((opt) => opt.percentage));
+        }
       }
     }
   }, [postId]);
@@ -144,7 +171,12 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
     if (selectedVoteOption === optionIndex) {
       setSelectedVoteOption(null);
       // 원래 퍼센테이지로 복원
-      setVotePercentages(post.voteOptions.map((opt) => opt.percentage));
+      const originalPercentages = post.voteOptions.map((opt) => opt.percentage);
+      setVotePercentages(originalPercentages);
+      
+      // localStorage에서 제거
+      localStorage.removeItem(`post_${postId}_voteOption`);
+      localStorage.removeItem(`post_${postId}_votePercentages`);
       return;
     }
 
@@ -173,6 +205,10 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
     }
 
     setVotePercentages(newPercentages);
+    
+    // localStorage에 저장
+    localStorage.setItem(`post_${postId}_voteOption`, optionIndex.toString());
+    localStorage.setItem(`post_${postId}_votePercentages`, JSON.stringify(newPercentages));
   };
 
   const handleLikeToggle = () => {
@@ -454,6 +490,11 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
                   liked: false,
                   count: comment.likes,
                 };
+                
+                // 동적 시간 계산
+                const displayTime = comment.timestamp 
+                  ? getTimeAgoString(comment.timestamp)
+                  : comment.timeAgo;
 
                 const handleCommentLike = () => {
                   const newLiked = !commentState.liked;
@@ -492,7 +533,7 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
                           {comment.author}
                         </p>
                         <p className="font-pretendard font-regular leading-[16px] not-italic text-[#999999] text-[12px]">
-                          {comment.timeAgo}
+                          {displayTime}
                         </p>
                       </div>
                       <p className="font-pretendard font-regular leading-[24px] not-italic text-[#151522] text-[14px] mb-[4px]">
