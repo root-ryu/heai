@@ -35,7 +35,9 @@ const CATEGORY_DATA: Record<string, { color: string; bgColor: string }> = {
 export default function CharacterPage() {
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedSort, setSelectedSort] = useState<'날짜순' | '추천순'>('날짜순');
+  const [selectedSort, setSelectedSort] = useState<'날짜순' | '추천순'>(
+    '날짜순'
+  );
   const [showSortDropdown, setShowSortDropdown] = useState(false);
   const [viewMode, setViewMode] = useState<'list' | 'grid'>('grid');
   const [isMounted, setIsMounted] = useState(false);
@@ -49,7 +51,7 @@ export default function CharacterPage() {
   // 페이지 포커스될 때마다 새로고침
   useEffect(() => {
     const handleFocus = () => {
-      setRefreshKey(prev => prev + 1);
+      setRefreshKey((prev) => prev + 1);
     };
     window.addEventListener('focus', handleFocus);
     return () => window.removeEventListener('focus', handleFocus);
@@ -235,7 +237,9 @@ export default function CharacterPage() {
                           setShowSortDropdown(false);
                         }}
                         className={`w-full text-center px-[8px] py-[10px] font-pretendard text-[14px] leading-[24px] hover:bg-[#F5F5F5] rounded-t-[8px] ${
-                          selectedSort === '날짜순' ? 'text-[#5A54FA] font-semibold' : 'text-[#333333]'
+                          selectedSort === '날짜순'
+                            ? 'text-[#5A54FA] font-semibold'
+                            : 'text-[#333333]'
                         }`}
                       >
                         날짜순
@@ -246,7 +250,9 @@ export default function CharacterPage() {
                           setShowSortDropdown(false);
                         }}
                         className={`w-full text-center px-[8px] py-[10px] font-pretendard text-[14px] leading-[24px] hover:bg-[#F5F5F5] rounded-b-[8px] ${
-                          selectedSort === '추천순' ? 'text-[#5A54FA] font-semibold' : 'text-[#333333]'
+                          selectedSort === '추천순'
+                            ? 'text-[#5A54FA] font-semibold'
+                            : 'text-[#333333]'
                         }`}
                       >
                         추천순
@@ -328,209 +334,225 @@ export default function CharacterPage() {
           {viewMode === 'list' ? (
             <div className="flex flex-col">
               {sortedPosts.map((post) => {
-                const storedLikes = isMounted ? localStorage.getItem(`post_${post.id}_likes`) : null;
-                const storedComments = isMounted ? localStorage.getItem(`post_${post.id}_commentsCount`) : null;
-                const displayLikes = storedLikes ? parseInt(storedLikes) : post.likes;
-                const displayComments = storedComments ? parseInt(storedComments) : post.comments;
-                
+                const storedLikes = isMounted
+                  ? localStorage.getItem(`post_${post.id}_likes`)
+                  : null;
+                const storedComments = isMounted
+                  ? localStorage.getItem(`post_${post.id}_commentsCount`)
+                  : null;
+                const displayLikes = storedLikes
+                  ? parseInt(storedLikes)
+                  : post.likes;
+                const displayComments = storedComments
+                  ? parseInt(storedComments)
+                  : post.comments;
+
                 return (
-                <div
-                  key={`${post.id}-${refreshKey}`}
-                  className="content-stretch flex flex-col items-start relative shrink-0 w-full cursor-pointer hover:opacity-90 transition-opacity"
-                  style={{ backgroundColor: categoryColor }}
-                  onClick={() => router.push(`/community/${post.id}`)}
-                >
-                  {/* Post Content */}
-                  <div className="bg-white relative shrink-0 w-full">
-                    <div className="flex flex-col items-center justify-center size-full">
-                      <div className="box-border content-stretch flex flex-col gap-[12px] items-center justify-center px-[20px] py-[16px] relative w-full">
-                        <div className="content-stretch flex flex-col gap-[12px] items-start relative shrink-0 w-[320px]">
-                          {/* Header */}
-                          <div className="content-stretch flex items-center justify-between relative shrink-0 w-full">
-                            <div
-                              className="box-border content-stretch flex gap-[10px] items-start px-[6px] py-[3px] relative rounded-[4px] shrink-0"
-                              style={{ backgroundColor: categoryBgColor }}
-                            >
-                              <p className="font-pretendard leading-[16px] not-italic relative shrink-0 text-[#ffffff] text-[12px] text-nowrap whitespace-pre">
-                                캐릭터{' '}
-                              </p>
-                            </div>
-                            <BookmarkButton />
-                          </div>
-
-                          {/* Title */}
-                          <div className="content-stretch flex flex-col gap-[2px] items-start relative shrink-0 w-full">
-                            <p className="font-pretendard leading-[18px] not-italic relative shrink-0 text-[16px] text-black w-full whitespace-pre-wrap">
-                              {post.title}
-                            </p>
-                          </div>
-
-                          {/* Image */}
-                          <div className="content-stretch flex items-start justify-between relative shrink-0 w-full">
-                            <div className="basis-0 grow h-[148px] min-h-px min-w-px relative rounded-[8px] shrink-0">
+                  <div
+                    key={`${post.id}-${refreshKey}`}
+                    className="content-stretch flex flex-col items-start relative shrink-0 w-full cursor-pointer hover:opacity-90 transition-opacity"
+                    style={{ backgroundColor: categoryColor }}
+                    onClick={() => router.push(`/community/${post.id}`)}
+                  >
+                    {/* Post Content */}
+                    <div className="bg-white relative shrink-0 w-full">
+                      <div className="flex flex-col items-center justify-center size-full">
+                        <div className="box-border content-stretch flex flex-col gap-[12px] items-center justify-center px-[20px] py-[16px] relative w-full">
+                          <div className="content-stretch flex flex-col gap-[12px] items-start relative shrink-0 w-[320px]">
+                            {/* Header */}
+                            <div className="content-stretch flex items-center justify-between relative shrink-0 w-full">
                               <div
-                                aria-hidden="true"
-                                className="absolute inset-0 pointer-events-none rounded-[8px]"
+                                className="box-border content-stretch flex gap-[10px] items-start px-[6px] py-[3px] relative rounded-[4px] shrink-0"
+                                style={{ backgroundColor: categoryBgColor }}
                               >
-                                <div className="absolute bg-[rgba(251,201,201,0.2)] inset-0 rounded-[8px]" />
-                                <div className="absolute inset-0 overflow-hidden rounded-[8px]">
-                                  <img
-                                    alt=""
-                                    className="absolute h-[88.02%] left-[34.47%] max-w-none top-[6.78%] w-[31.61%]"
-                                    src={post.image}
-                                  />
+                                <p className="font-pretendard leading-[16px] not-italic relative shrink-0 text-[#ffffff] text-[12px] text-nowrap whitespace-pre">
+                                  캐릭터{' '}
+                                </p>
+                              </div>
+                              <BookmarkButton />
+                            </div>
+
+                            {/* Title */}
+                            <div className="content-stretch flex flex-col gap-[2px] items-start relative shrink-0 w-full">
+                              <p className="font-pretendard leading-[18px] not-italic relative shrink-0 text-[16px] text-black w-full whitespace-pre-wrap">
+                                {post.title}
+                              </p>
+                            </div>
+
+                            {/* Image */}
+                            <div className="content-stretch flex items-start justify-between relative shrink-0 w-full">
+                              <div className="basis-0 grow h-[148px] min-h-px min-w-px relative rounded-[8px] shrink-0">
+                                <div
+                                  aria-hidden="true"
+                                  className="absolute inset-0 pointer-events-none rounded-[8px]"
+                                >
+                                  <div className="absolute bg-[rgba(251,201,201,0.2)] inset-0 rounded-[8px]" />
+                                  <div className="absolute inset-0 overflow-hidden rounded-[8px]">
+                                    <img
+                                      alt=""
+                                      className="absolute h-[88.02%] left-[34.47%] max-w-none top-[6.78%] w-[31.61%]"
+                                      src={post.image}
+                                    />
+                                  </div>
                                 </div>
                               </div>
                             </div>
                           </div>
-                        </div>
 
-                        {/* Stats */}
-                        <div className="content-stretch flex items-start justify-between relative shrink-0 w-[320px]">
-                          <div className="content-stretch flex gap-[4px] items-start relative shrink-0">
-                            <p className="font-pretendard leading-[16px] not-italic relative shrink-0 text-[#8c8c8c] text-[14px] text-nowrap whitespace-pre">
-                              조회수 {post.views}
+                          {/* Stats */}
+                          <div className="content-stretch flex items-start justify-between relative shrink-0 w-[320px]">
+                            <div className="content-stretch flex gap-[4px] items-start relative shrink-0">
+                              <p className="font-pretendard leading-[16px] not-italic relative shrink-0 text-[#8c8c8c] text-[14px] text-nowrap whitespace-pre">
+                                조회수 {post.views}
+                              </p>
+                            </div>
+                            <p className="font-pretendard leading-[24px] not-italic relative shrink-0 text-[#8c8c8c] text-[14px] text-nowrap whitespace-pre">
+                              {post.timeAgo}
                             </p>
                           </div>
-                          <p className="font-pretendard leading-[24px] not-italic relative shrink-0 text-[#8c8c8c] text-[14px] text-nowrap whitespace-pre">
-                            {post.timeAgo}
-                          </p>
                         </div>
                       </div>
                     </div>
-                  </div>
 
-                  {/* Actions */}
-                  <div className="bg-white relative shrink-0 w-full">
-                    <div className="flex flex-row items-center justify-center size-full">
-                      <div className="box-border content-stretch flex gap-[16px] items-center justify-center pb-[20px] pt-[10px] px-[20px] relative w-full">
-                        <div className="content-stretch flex items-center justify-between relative shrink-0 w-[320px]">
-                          <div className="content-stretch flex gap-[16px] items-center relative shrink-0">
-                            <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
-                              <svg
-                                className="relative shrink-0 size-[16px]"
-                                fill="none"
-                                viewBox="0 0 16 16"
-                              >
-                                <path
-                                  d={svgPaths.p39507bc0}
-                                  stroke="#5D5D5D"
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                />
-                              </svg>
-                              <p className="font-pretendard leading-[24px] not-italic relative shrink-0 text-[#5e5e5e] text-[14px] text-nowrap whitespace-pre">
-                                추천수 {displayLikes}
-                              </p>
-                            </div>
-                            <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
-                              <div className="flex items-center justify-center relative shrink-0">
-                                <div className="flex-none rotate-[180deg] scale-y-[-100%]">
-                                  <svg
-                                    className="relative size-[14px]"
-                                    fill="none"
-                                    viewBox="0 0 14 14"
-                                  >
-                                    <path
-                                      d={svgPaths.p13d11a80}
-                                      fill="#5E5E5E"
-                                    />
-                                  </svg>
-                                </div>
+                    {/* Actions */}
+                    <div className="bg-white relative shrink-0 w-full">
+                      <div className="flex flex-row items-center justify-center size-full">
+                        <div className="box-border content-stretch flex gap-[16px] items-center justify-center pb-[20px] pt-[10px] px-[20px] relative w-full">
+                          <div className="content-stretch flex items-center justify-between relative shrink-0 w-[320px]">
+                            <div className="content-stretch flex gap-[16px] items-center relative shrink-0">
+                              <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
+                                <svg
+                                  className="relative shrink-0 size-[16px]"
+                                  fill="none"
+                                  viewBox="0 0 16 16"
+                                >
+                                  <path
+                                    d={svgPaths.p39507bc0}
+                                    stroke="#5D5D5D"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                  />
+                                </svg>
+                                <p className="font-pretendard leading-[24px] not-italic relative shrink-0 text-[#5e5e5e] text-[14px] text-nowrap whitespace-pre">
+                                  추천수 {displayLikes}
+                                </p>
                               </div>
-                              <p className="font-pretendard leading-[24px] not-italic relative shrink-0 text-[#5e5e5e] text-[14px] text-nowrap whitespace-pre">
-                                댓글 {displayComments}
-                              </p>
+                              <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
+                                <div className="flex items-center justify-center relative shrink-0">
+                                  <div className="flex-none rotate-[180deg] scale-y-[-100%]">
+                                    <svg
+                                      className="relative size-[14px]"
+                                      fill="none"
+                                      viewBox="0 0 14 14"
+                                    >
+                                      <path
+                                        d={svgPaths.p13d11a80}
+                                        fill="#5E5E5E"
+                                      />
+                                    </svg>
+                                  </div>
+                                </div>
+                                <p className="font-pretendard leading-[24px] not-italic relative shrink-0 text-[#5e5e5e] text-[14px] text-nowrap whitespace-pre">
+                                  댓글 {displayComments}
+                                </p>
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              );
+                );
               })}
             </div>
           ) : (
             <div className="bg-[#F8FBFF] w-full px-[16px] pb-[16px] pt-[8px]">
               <div className="grid grid-cols-2 gap-[8px]">
                 {sortedPosts.map((post) => {
-                  const storedLikes = isMounted ? localStorage.getItem(`post_${post.id}_likes`) : null;
-                  const storedComments = isMounted ? localStorage.getItem(`post_${post.id}_commentsCount`) : null;
-                  const displayLikes = storedLikes ? parseInt(storedLikes) : post.likes;
-                  const displayComments = storedComments ? parseInt(storedComments) : post.comments;
-                  
+                  const storedLikes = isMounted
+                    ? localStorage.getItem(`post_${post.id}_likes`)
+                    : null;
+                  const storedComments = isMounted
+                    ? localStorage.getItem(`post_${post.id}_commentsCount`)
+                    : null;
+                  const displayLikes = storedLikes
+                    ? parseInt(storedLikes)
+                    : post.likes;
+                  const displayComments = storedComments
+                    ? parseInt(storedComments)
+                    : post.comments;
+
                   return (
-                  <div
-                    key={`${post.id}-${refreshKey}`}
-                    className="bg-white h-[210px] overflow-clip relative rounded-[20px] shrink-0 cursor-pointer hover:opacity-90 transition-opacity"
-                    onClick={() => router.push(`/community/${post.id}`)}
-                  >
-                    {/* Character Image */}
-                    <div className="absolute h-[108px] left-[calc(50%+2.5px)] top-[11px] translate-x-[-50%] w-[90px]">
-                      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                        <img
-                          alt=""
-                          className="absolute h-[125.12%] left-0 max-w-none top-[-13.28%] w-full"
-                          src={post.image}
-                        />
+                    <div
+                      key={`${post.id}-${refreshKey}`}
+                      className="bg-white h-[210px] overflow-clip relative rounded-[20px] shrink-0 cursor-pointer hover:opacity-90 transition-opacity"
+                      onClick={() => router.push(`/community/${post.id}`)}
+                    >
+                      {/* Character Image */}
+                      <div className="absolute h-[108px] left-[calc(50%+2.5px)] top-[11px] translate-x-[-50%] w-[90px]">
+                        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                          <img
+                            alt=""
+                            className="absolute h-[125.12%] left-0 max-w-none top-[-13.28%] w-full"
+                            src={post.image}
+                          />
+                        </div>
                       </div>
-                    </div>
 
-                    {/* Content */}
-                    <div className="absolute bg-white box-border content-stretch flex flex-col gap-[4px] items-start left-0 overflow-clip px-[14px] py-[11px] top-[122px] w-[140px]">
-                      <div className="content-stretch flex flex-col items-start not-italic relative shrink-0 text-black w-full">
-                        <p className="font-pretendard font-medium leading-[21px] relative shrink-0 text-[14px] w-full truncate">
-                          {post.title}
-                        </p>
-                        <p className="font-pretendard leading-[16px] relative shrink-0 text-[12px] w-full">
-                          ID : {post.author}
-                        </p>
-                      </div>
-                      <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
-                        <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
-                          <svg
-                            className="relative shrink-0 size-[16px]"
-                            fill="none"
-                            viewBox="0 0 16 16"
-                          >
-                            <path
-                              d={svgPathsGrid.p39507bc0}
-                              stroke="#5D5D5D"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </svg>
-                          <p className="font-pretendard leading-[16px] not-italic relative shrink-0 text-[#5e5e5e] text-[12px] text-nowrap whitespace-pre">
-                            {displayLikes}
+                      {/* Content */}
+                      <div className="absolute bg-white box-border content-stretch flex flex-col gap-[4px] items-start left-0 overflow-clip px-[14px] py-[11px] top-[122px] w-[140px]">
+                        <div className="content-stretch flex flex-col items-start not-italic relative shrink-0 text-black w-full">
+                          <p className="font-pretendard font-medium leading-[21px] relative shrink-0 text-[14px] w-full truncate">
+                            {post.title}
+                          </p>
+                          <p className="font-pretendard leading-[16px] relative shrink-0 text-[12px] w-full">
+                            ID : {post.author}
                           </p>
                         </div>
                         <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
-                          <div className="flex items-center justify-center relative shrink-0">
-                            <div className="flex-none rotate-[180deg] scale-y-[-100%]">
-                              <svg
-                                className="relative size-[14px]"
-                                fill="none"
-                                viewBox="0 0 14 14"
-                              >
-                                <path
-                                  d={svgPathsGrid.p2a722600}
-                                  fill="#5E5E5E"
-                                />
-                              </svg>
-                            </div>
+                          <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
+                            <svg
+                              className="relative shrink-0 size-[16px]"
+                              fill="none"
+                              viewBox="0 0 16 16"
+                            >
+                              <path
+                                d={svgPathsGrid.p39507bc0}
+                                stroke="#5D5D5D"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
+                            </svg>
+                            <p className="font-pretendard leading-[16px] not-italic relative shrink-0 text-[#5e5e5e] text-[12px] text-nowrap whitespace-pre">
+                              {displayLikes}
+                            </p>
                           </div>
-                          <p className="font-pretendard leading-[16px] not-italic relative shrink-0 text-[#5e5e5e] text-[12px] text-nowrap whitespace-pre">
-                            댓글 {displayComments}
-                          </p>
+                          <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
+                            <div className="flex items-center justify-center relative shrink-0">
+                              <div className="flex-none rotate-[180deg] scale-y-[-100%]">
+                                <svg
+                                  className="relative size-[14px]"
+                                  fill="none"
+                                  viewBox="0 0 14 14"
+                                >
+                                  <path
+                                    d={svgPathsGrid.p2a722600}
+                                    fill="#5E5E5E"
+                                  />
+                                </svg>
+                              </div>
+                            </div>
+                            <p className="font-pretendard leading-[16px] not-italic relative shrink-0 text-[#5e5e5e] text-[12px] text-nowrap whitespace-pre">
+                              댓글 {displayComments}
+                            </p>
+                          </div>
                         </div>
                       </div>
-                    </div>
 
-                    {/* Bookmark */}
-                    <BookmarkButton className="absolute h-[26px] left-[130px] top-[8px] w-[28px]" />
-                  </div>
-                );
+                      {/* Bookmark */}
+                      <BookmarkButton className="absolute h-[26px] left-[130px] top-[8px] w-[28px]" />
+                    </div>
+                  );
                 })}
               </div>
             </div>

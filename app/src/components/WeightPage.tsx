@@ -13,10 +13,7 @@ export default function WeightPage() {
       {/* Header */}
       <div className="bg-white w-full shrink-0">
         <div className="h-[48px] relative w-full flex items-center justify-center">
-          <button
-            onClick={() => router.back()}
-            className="absolute left-[7px]"
-          >
+          <button onClick={() => router.back()} className="absolute left-[7px]">
             <svg
               className="block w-[30px] h-[30px]"
               fill="none"

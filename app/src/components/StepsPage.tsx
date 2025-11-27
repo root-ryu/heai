@@ -15,10 +15,7 @@ export default function StepsPage() {
       {/* Header */}
       <div className="bg-white w-full shrink-0">
         <div className="h-[48px] relative w-full flex items-center justify-center">
-          <button
-            onClick={() => router.back()}
-            className="absolute left-[7px]"
-          >
+          <button onClick={() => router.back()} className="absolute left-[7px]">
             <svg
               className="block w-[30px] h-[30px]"
               fill="none"
@@ -45,7 +42,9 @@ export default function StepsPage() {
           <button
             onClick={() => setView('daily')}
             className={`flex-1 max-w-[100px] py-[8px] rounded-[30px] font-pretendard font-medium text-[14px] transition-colors ${
-              view === 'daily' ? 'bg-[#5A54FA] text-white' : 'bg-[#F5F5F5] text-[#666666]'
+              view === 'daily'
+                ? 'bg-[#5A54FA] text-white'
+                : 'bg-[#F5F5F5] text-[#666666]'
             }`}
           >
             일간
@@ -53,7 +52,9 @@ export default function StepsPage() {
           <button
             onClick={() => setView('weekly')}
             className={`flex-1 max-w-[100px] py-[8px] rounded-[30px] font-pretendard font-medium text-[14px] transition-colors ${
-              view === 'weekly' ? 'bg-[#5A54FA] text-white' : 'bg-[#F5F5F5] text-[#666666]'
+              view === 'weekly'
+                ? 'bg-[#5A54FA] text-white'
+                : 'bg-[#F5F5F5] text-[#666666]'
             }`}
           >
             주간
@@ -61,7 +62,9 @@ export default function StepsPage() {
           <button
             onClick={() => setView('monthly')}
             className={`flex-1 max-w-[100px] py-[8px] rounded-[30px] font-pretendard font-medium text-[14px] transition-colors ${
-              view === 'monthly' ? 'bg-[#5A54FA] text-white' : 'bg-[#F5F5F5] text-[#666666]'
+              view === 'monthly'
+                ? 'bg-[#5A54FA] text-white'
+                : 'bg-[#F5F5F5] text-[#666666]'
             }`}
           >
             월간

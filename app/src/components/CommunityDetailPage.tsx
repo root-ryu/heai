@@ -27,7 +27,9 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
   const [comments, setComments] = useState<Comment[]>([]);
   const [isLiked, setIsLiked] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(false);
-  const [selectedVoteOption, setSelectedVoteOption] = useState<number | null>(null);
+  const [selectedVoteOption, setSelectedVoteOption] = useState<number | null>(
+    null
+  );
   const [votePercentages, setVotePercentages] = useState<number[]>([]);
   const [commentInput, setCommentInput] = useState('');
   const [likesCount, setLikesCount] = useState(0);
@@ -43,77 +45,84 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
 
     if (foundPost) {
       setPost(foundPost);
-      
+
       // localStorage에서 좋아요/댓글 수 불러오기
       const storedLikes = localStorage.getItem(`post_${postId}_likes`);
-      const storedCommentsCount = localStorage.getItem(`post_${postId}_commentsCount`);
+      const storedCommentsCount = localStorage.getItem(
+        `post_${postId}_commentsCount`
+      );
       const storedIsLiked = localStorage.getItem(`post_${postId}_isLiked`);
-      
+
       setLikesCount(storedLikes ? parseInt(storedLikes) : foundPost.likes);
-      setCommentsCount(storedCommentsCount ? parseInt(storedCommentsCount) : foundPost.comments);
+      setCommentsCount(
+        storedCommentsCount ? parseInt(storedCommentsCount) : foundPost.comments
+      );
       setIsLiked(storedIsLiked === 'true');
-      
+
       // 게시글의 댓글 수에 맞춰 댓글 생성
       const generatedComments = generateComments(postId, foundPost.comments);
-      
+
       // localStorage에서 사용자가 작성한 댓글 불러오기
       const storedComments = localStorage.getItem(`post_${postId}_comments`);
       const userComments = storedComments ? JSON.parse(storedComments) : [];
-      
+
       // 사용자 댓글 + 생성된 댓글 합치기 후 날짜순 정렬 (최신순)
       const allComments = [...userComments, ...generatedComments];
       allComments.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
       setComments(allComments);
-      
+
       // 투표 옵션 초기 퍼센테이지 설정
       if (foundPost.voteOptions) {
-        setVotePercentages(foundPost.voteOptions.map(opt => opt.percentage));
+        setVotePercentages(foundPost.voteOptions.map((opt) => opt.percentage));
       }
     }
   }, [postId]);
 
   const handleVoteClick = (optionIndex: number) => {
     if (!post?.voteOptions) return;
-    
+
     // 같은 옵션 클릭 시 선택 취소
     if (selectedVoteOption === optionIndex) {
       setSelectedVoteOption(null);
       // 원래 퍼센테이지로 복원
-      setVotePercentages(post.voteOptions.map(opt => opt.percentage));
+      setVotePercentages(post.voteOptions.map((opt) => opt.percentage));
       return;
     }
-    
+
     setSelectedVoteOption(optionIndex);
-    
+
     // 투표 수 계산 (기존 퍼센테이지로부터 역산)
-    const totalVotes = post.voteOptions.reduce((sum, opt) => sum + opt.percentage, 0) || 1;
-    const voteCounts = post.voteOptions.map(opt => Math.round((opt.percentage / 100) * totalVotes));
-    
+    const totalVotes =
+      post.voteOptions.reduce((sum, opt) => sum + opt.percentage, 0) || 1;
+    const voteCounts = post.voteOptions.map((opt) =>
+      Math.round((opt.percentage / 100) * totalVotes)
+    );
+
     // 선택된 옵션에 1표 추가
     voteCounts[optionIndex] += 1;
     const newTotal = voteCounts.reduce((sum, count) => sum + count, 0);
-    
+
     // 새로운 퍼센테이지 계산
-    const newPercentages = voteCounts.map(count => 
+    const newPercentages = voteCounts.map((count) =>
       Math.round((count / newTotal) * 100)
     );
-    
+
     // 반올림으로 인한 오차 조정 (총합이 100이 되도록)
     const diff = 100 - newPercentages.reduce((sum, p) => sum + p, 0);
     if (diff !== 0) {
       newPercentages[optionIndex] += diff;
     }
-    
+
     setVotePercentages(newPercentages);
   };
 
   const handleLikeToggle = () => {
     const newIsLiked = !isLiked;
     const newLikesCount = newIsLiked ? likesCount + 1 : likesCount - 1;
-    
+
     setIsLiked(newIsLiked);
     setLikesCount(newLikesCount);
-    
+
     // localStorage에 저장
     localStorage.setItem(`post_${postId}_isLiked`, newIsLiked.toString());
     localStorage.setItem(`post_${postId}_likes`, newLikesCount.toString());
@@ -258,14 +267,15 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
                     {post.content}
                   </p>
                 )}
-                
+
                 {/* Vote Section */}
                 {post.hasVote && post.voteOptions && (
                   <div className="flex flex-col gap-[8px] mb-[12px]">
                     {post.voteOptions.map((option, idx) => {
-                      const currentPercentage = votePercentages[idx] ?? option.percentage;
+                      const currentPercentage =
+                        votePercentages[idx] ?? option.percentage;
                       const isSelected = selectedVoteOption === idx;
-                      
+
                       return (
                         <div
                           key={idx}
@@ -282,7 +292,9 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
                                 className="absolute h-full left-0 top-0 transition-all duration-500 ease-out"
                                 style={{
                                   width: `${currentPercentage}%`,
-                                  backgroundColor: isSelected ? '#5A54FA' : option.color,
+                                  backgroundColor: isSelected
+                                    ? '#5A54FA'
+                                    : option.color,
                                 }}
                               />
                             )}
@@ -296,12 +308,18 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
                               >
                                 {option.text}
                                 {isSelected && (
-                                  <span className="ml-[6px] text-[14px]">✓</span>
+                                  <span className="ml-[6px] text-[14px]">
+                                    ✓
+                                  </span>
                                 )}
                               </p>
-                              <p className={`font-pretendard text-[14px] font-medium transition-colors ${
-                                currentPercentage > 0 ? 'text-white' : 'text-[#a4a4a4]'
-                              }`}>
+                              <p
+                                className={`font-pretendard text-[14px] font-medium transition-colors ${
+                                  currentPercentage > 0
+                                    ? 'text-white'
+                                    : 'text-[#a4a4a4]'
+                                }`}
+                              >
                                 {currentPercentage}%
                               </p>
                             </div>
@@ -440,24 +458,34 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
                     timeAgo: '방금 전',
                     timestamp: Date.now(),
                   };
-                  
+
                   // 댓글 목록에 추가 후 날짜순 정렬 (최신순)
                   const updatedComments = [newComment, ...comments];
-                  updatedComments.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+                  updatedComments.sort(
+                    (a, b) => (b.timestamp || 0) - (a.timestamp || 0)
+                  );
                   setComments(updatedComments);
-                  
+
                   // 댓글 수 증가
                   const newCommentsCount = commentsCount + 1;
                   setCommentsCount(newCommentsCount);
-                  
+
                   // localStorage에 사용자 댓글만 저장
-                  const userComments = updatedComments.filter(c => c.author === '나');
-                  localStorage.setItem(`post_${postId}_comments`, JSON.stringify(userComments));
-                  localStorage.setItem(`post_${postId}_commentsCount`, newCommentsCount.toString());
-                  
+                  const userComments = updatedComments.filter(
+                    (c) => c.author === '나'
+                  );
+                  localStorage.setItem(
+                    `post_${postId}_comments`,
+                    JSON.stringify(userComments)
+                  );
+                  localStorage.setItem(
+                    `post_${postId}_commentsCount`,
+                    newCommentsCount.toString()
+                  );
+
                   // 입력창 초기화
                   setCommentInput('');
-                  
+
                   // textarea 높이 초기화
                   const textarea = document.querySelector('textarea');
                   if (textarea) {

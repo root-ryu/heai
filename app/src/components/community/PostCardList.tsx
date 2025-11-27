@@ -35,8 +35,10 @@ export default function PostCardList({
   useEffect(() => {
     // localStorage에서 해당 게시글의 좋아요/댓글 수 불러오기
     const storedLikes = localStorage.getItem(`post_${post.id}_likes`);
-    const storedComments = localStorage.getItem(`post_${post.id}_commentsCount`);
-    
+    const storedComments = localStorage.getItem(
+      `post_${post.id}_commentsCount`
+    );
+
     if (storedLikes) {
       setDisplayLikes(parseInt(storedLikes));
     }

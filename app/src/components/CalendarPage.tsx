@@ -13,10 +13,7 @@ export default function CalendarPage() {
       {/* Header */}
       <div className="bg-white w-full shrink-0">
         <div className="h-[48px] relative w-full flex items-center justify-center">
-          <button
-            onClick={() => router.back()}
-            className="absolute left-[7px]"
-          >
+          <button onClick={() => router.back()} className="absolute left-[7px]">
             <svg
               className="block w-[30px] h-[30px]"
               fill="none"
@@ -39,7 +36,6 @@ export default function CalendarPage() {
       </div>
 
       <div className="flex-1 overflow-y-auto overflow-x-hidden w-full">
-
         <div className="flex items-center justify-center p-8">
           <p className="font-pretendard font-medium text-[16px] text-[#a4a4a4]">
             달력 페이지

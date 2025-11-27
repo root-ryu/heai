@@ -23,7 +23,7 @@ export default function FreeBoardPage() {
   // 페이지 포커스될 때마다 새로고침
   useEffect(() => {
     const handleFocus = () => {
-      setRefreshKey(prev => prev + 1);
+      setRefreshKey((prev) => prev + 1);
     };
     window.addEventListener('focus', handleFocus);
     return () => window.removeEventListener('focus', handleFocus);
