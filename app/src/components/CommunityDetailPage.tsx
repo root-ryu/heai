@@ -52,7 +52,7 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
   const [commentsCount, setCommentsCount] = useState(0);
   const [viewsCount, setViewsCount] = useState(0);
   const [commentLikesState, setCommentLikesState] = useState<{
-    [key: number]: { liked: boolean; count: number };
+    [key: string]: { liked: boolean; count: number };
   }>({});
 
   useEffect(() => {
@@ -129,17 +129,20 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
       allComments.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
       setComments(allComments);
 
-      // 댓글 좋아요 상태 초기화
+      // 댓글 좋아요 상태 초기화 (타임스탬프 기반)
       const initialCommentLikes: {
-        [key: number]: { liked: boolean; count: number };
+        [key: string]: { liked: boolean; count: number };
       } = {};
-      allComments.forEach((comment, index) => {
-        const likedKey = `post_${postId}_comment_${index}_liked`;
-        const likesKey = `post_${postId}_comment_${index}_likes`;
+      allComments.forEach((comment) => {
+        if (!comment.timestamp) return; // timestamp가 없으면 스킵
+        
+        const commentId = comment.timestamp.toString();
+        const likedKey = `post_${postId}_comment_${commentId}_liked`;
+        const likesKey = `post_${postId}_comment_${commentId}_likes`;
         const storedLiked = localStorage.getItem(likedKey);
         const storedLikes = localStorage.getItem(likesKey);
 
-        initialCommentLikes[index] = {
+        initialCommentLikes[commentId] = {
           liked: storedLiked === 'true',
           count: storedLikes ? parseInt(storedLikes) : comment.likes,
         };
@@ -495,7 +498,10 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
               </div>
 
               {comments.map((comment, index) => {
-                const commentState = commentLikesState[index] || {
+                if (!comment.timestamp) return null; // timestamp가 없으면 렌더링 안 함
+                
+                const commentId = comment.timestamp.toString();
+                const commentState = commentLikesState[commentId] || {
                   liked: false,
                   count: comment.likes,
                 };
@@ -513,15 +519,15 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
 
                   setCommentLikesState((prev) => ({
                     ...prev,
-                    [index]: { liked: newLiked, count: newCount },
+                    [commentId]: { liked: newLiked, count: newCount },
                   }));
 
                   localStorage.setItem(
-                    `post_${postId}_comment_${index}_liked`,
+                    `post_${postId}_comment_${commentId}_liked`,
                     newLiked.toString()
                   );
                   localStorage.setItem(
-                    `post_${postId}_comment_${index}_likes`,
+                    `post_${postId}_comment_${commentId}_likes`,
                     newCount.toString()
                   );
                 };
@@ -611,6 +617,13 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
                     (a, b) => (b.timestamp || 0) - (a.timestamp || 0)
                   );
                   setComments(updatedComments);
+
+                  // 새 댓글의 좋아요 상태 초기화 (타임스탬프 기반)
+                  const newCommentId = newComment.timestamp.toString();
+                  setCommentLikesState((prev) => ({
+                    ...prev,
+                    [newCommentId]: { liked: false, count: 0 },
+                  }));
 
                   // 댓글 수 증가
                   const newCommentsCount = commentsCount + 1;

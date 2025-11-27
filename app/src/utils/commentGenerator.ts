@@ -136,7 +136,8 @@ export function generateComments(postId: number, count: number): Comment[] {
 
     const selectedComment = COMMENT_POOL[commentIndex];
     const timeAgo = TIME_POOL[timeIndex];
-    const timestamp = timeAgoToTimestamp(timeAgo);
+    // 각 댓글마다 고유한 타임스탬프를 위해 인덱스를 추가
+    const timestamp = timeAgoToTimestamp(timeAgo) + i;
 
     // 1분 이내(60초) 댓글은 좋아요 0으로 설정
     const now = Date.now();
