@@ -35,6 +35,9 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
   const [likesCount, setLikesCount] = useState(0);
   const [commentsCount, setCommentsCount] = useState(0);
   const [viewsCount, setViewsCount] = useState(0);
+  const [commentLikesState, setCommentLikesState] = useState<{
+    [key: number]: { liked: boolean; count: number };
+  }>({});
 
   useEffect(() => {
     // localStorage 사용자 게시글 + 기본 더미 데이터 합치기
@@ -109,6 +112,21 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
       const allComments = [...userComments, ...generatedComments];
       allComments.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
       setComments(allComments);
+
+      // 댓글 좋아요 상태 초기화
+      const initialCommentLikes: { [key: number]: { liked: boolean; count: number } } = {};
+      allComments.forEach((comment, index) => {
+        const likedKey = `post_${postId}_comment_${index}_liked`;
+        const likesKey = `post_${postId}_comment_${index}_likes`;
+        const storedLiked = localStorage.getItem(likedKey);
+        const storedLikes = localStorage.getItem(likesKey);
+        
+        initialCommentLikes[index] = {
+          liked: storedLiked === 'true',
+          count: storedLikes ? parseInt(storedLikes) : comment.likes,
+        };
+      });
+      setCommentLikesState(initialCommentLikes);
 
       // 투표 옵션 초기 퍼센테이지 설정
       if (foundPost.voteOptions) {
@@ -317,33 +335,30 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
                       const currentPercentage =
                         votePercentages[idx] ?? option.percentage;
                       const isSelected = selectedVoteOption === idx;
+                      const hasVoted = selectedVoteOption !== null;
 
                       return (
                         <div
                           key={idx}
                           onClick={() => handleVoteClick(idx)}
-                          className={`relative rounded-[10px] border overflow-hidden transition-all cursor-pointer ${
-                            isSelected
-                              ? 'border-[#5A54FA]'
-                              : 'border-[#f0f0f0] hover:border-[#5A54FA]'
-                          }`}
+                          className="relative rounded-[10px] overflow-hidden transition-all cursor-pointer bg-[#f8f8f8]"
                         >
                           <div className="p-[10px]">
                             {currentPercentage > 0 && (
                               <div
-                                className="absolute h-full left-0 top-0 transition-all duration-500 ease-out"
+                                className="absolute h-full left-0 top-0 transition-all duration-500 ease-out rounded-tl-[10px] rounded-bl-[10px]"
                                 style={{
                                   width: `${currentPercentage}%`,
-                                  backgroundColor: isSelected
-                                    ? '#5A54FA'
-                                    : option.color,
+                                  backgroundColor: isSelected ? '#5A54FA' : hasVoted ? 'rgba(90, 84, 250, 0.5)' : option.color,
                                 }}
                               />
                             )}
                             <div className="relative z-10 flex items-center justify-between">
                               <p
                                 className={`font-pretendard text-[16px] transition-colors ${
-                                  currentPercentage > 0
+                                  isSelected
+                                    ? 'text-white font-semibold'
+                                    : currentPercentage > 0
                                     ? 'text-white font-semibold'
                                     : 'text-black'
                                 }`}
@@ -355,15 +370,11 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
                                   </span>
                                 )}
                               </p>
-                              <p
-                                className={`font-pretendard text-[14px] font-medium transition-colors ${
-                                  currentPercentage > 0
-                                    ? 'text-white'
-                                    : 'text-[#a4a4a4]'
-                                }`}
-                              >
-                                {currentPercentage}%
-                              </p>
+                              {isSelected && (
+                                <p className="font-pretendard text-[14px] font-medium text-white">
+                                  {currentPercentage}%
+                                </p>
+                              )}
                             </div>
                           </div>
                         </div>
@@ -432,42 +443,68 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
                 </p>
               </div>
 
-              {comments.map((comment, index) => (
-                <div
-                  key={index}
-                  className="border-b border-neutral-100 flex gap-[12px] items-start pb-[13px] pt-[12px]"
-                >
-                  <div className="bg-[rgba(0,0,0,0.2)] rounded-full size-[32px] flex items-center justify-center shrink-0">
-                    <p className="font-pretendard font-regular leading-[16px] not-italic text-[12px] text-white">
-                      {comment.initial}
-                    </p>
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex gap-[6px] items-center mb-[4px]">
-                      <p className="font-pretendard font-bold leading-[21px] not-italic text-[#151522] text-[14px]">
-                        {comment.author}
-                      </p>
-                      <p className="font-pretendard font-regular leading-[16px] not-italic text-[#999999] text-[12px]">
-                        {comment.timeAgo}
+              {comments.map((comment, index) => {
+                const commentState = commentLikesState[index] || { liked: false, count: comment.likes };
+
+                const handleCommentLike = () => {
+                  const newLiked = !commentState.liked;
+                  const newCount = newLiked ? commentState.count + 1 : commentState.count - 1;
+                  
+                  setCommentLikesState((prev) => ({
+                    ...prev,
+                    [index]: { liked: newLiked, count: newCount },
+                  }));
+                  
+                  localStorage.setItem(`post_${postId}_comment_${index}_liked`, newLiked.toString());
+                  localStorage.setItem(`post_${postId}_comment_${index}_likes`, newCount.toString());
+                };
+
+                return (
+                  <div
+                    key={index}
+                    className="border-b border-neutral-100 flex gap-[12px] items-start pb-[13px] pt-[12px]"
+                  >
+                    <div className="bg-[rgba(0,0,0,0.2)] rounded-full size-[32px] flex items-center justify-center shrink-0">
+                      <p className="font-pretendard font-regular leading-[16px] not-italic text-[12px] text-white">
+                        {comment.initial}
                       </p>
                     </div>
-                    <p className="font-pretendard font-regular leading-[24px] not-italic text-[#151522] text-[14px] mb-[4px]">
-                      {comment.content}
-                    </p>
-                    <div className="flex gap-[10px] items-center">
-                      <div className="flex gap-[4px] items-center">
-                        <Heart className="size-[14px] text-[#999999]" />
-                        <p className="font-roboto font-normal leading-[16px] text-[#999999] text-[12px]">
-                          {comment.likes}
+                    <div className="flex-1">
+                      <div className="flex gap-[6px] items-center mb-[4px]">
+                        <p className="font-pretendard font-bold leading-[21px] not-italic text-[#151522] text-[14px]">
+                          {comment.author}
+                        </p>
+                        <p className="font-pretendard font-regular leading-[16px] not-italic text-[#999999] text-[12px]">
+                          {comment.timeAgo}
                         </p>
                       </div>
-                      <p className="font-pretendard font-regular leading-[16px] not-italic text-[#999999] text-[12px]">
-                        답글
+                      <p className="font-pretendard font-regular leading-[24px] not-italic text-[#151522] text-[14px] mb-[4px]">
+                        {comment.content}
                       </p>
+                      <div className="flex gap-[10px] items-center">
+                        <button
+                          onClick={handleCommentLike}
+                          className="flex gap-[4px] items-center cursor-pointer hover:opacity-70 transition-opacity"
+                        >
+                          <Heart
+                            className={`size-[14px] ${
+                              commentState.liked
+                                ? 'fill-red-500 text-red-500'
+                                : 'text-[#999999]'
+                            }`}
+                          />
+                          <p className="font-roboto font-normal leading-[16px] text-[#999999] text-[12px]">
+                            {commentState.count}
+                          </p>
+                        </button>
+                        <p className="font-pretendard font-regular leading-[16px] not-italic text-[#999999] text-[12px]">
+                          답글
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>
