@@ -1,6 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
 import { Top, Bottom } from './Layout';
 import svgPaths from '../imports/svg-czxy8mittk';
 import { img2KLine, imgDone } from '../imports/svg-ivbnd';
@@ -25,7 +26,23 @@ const iconOthers = '/e6a38d3bd5fad0a2e488ffc45ba5ab8a4a8aef2c.png';
 const eyeLogo = '/eyelogo.png';
 
 export default function MyPage() {
+  const [nickname, setNickname] = useState('');
   const router = useRouter();
+
+  useEffect(() => {
+    const fetchNickname = async () => {
+      try {
+        const res = await fetch('/api/user/nickname');
+        if (res.ok) {
+          const data = await res.json();
+          setNickname(data.nickname);
+        }
+      } catch (error) {
+        console.error('Failed to fetch nickname:', error);
+      }
+    };
+    fetchNickname();
+  }, []);
 
   return (
     <div className="bg-[#F8FBFF] flex flex-col items-center w-full h-full overflow-hidden">
