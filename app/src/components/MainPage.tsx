@@ -109,7 +109,7 @@ export default function MainPage() {
                     <div className="bg-white h-[16px] overflow-clip relative rounded-[10px] w-[138px]">
                       <div className="absolute bg-[#5a54fa] left-0 rounded-[10px] size-[18px] top-[-1px]" />
                     </div>
-                    <p className="absolute font-pretendard font-medium leading-none left-[calc(50%-0.5px)] text-[12px] text-[rgba(12,12,12,0.2)] text-center text-nowrap top-[2px] translate-x-[-50%]">2 / 10</p>
+                    <p className="absolute font-pretendard font-medium leading-none left-[calc(50%-0.5px)] text-[12px] text-[rgba(12,12,12,0.2)] text-center text-nowrap top-[2px] translate-x-[-50%] leading-none mt-[1px]">2 / 10</p>
                   </div>
                 </div>
               </div>
@@ -118,7 +118,7 @@ export default function MainPage() {
               <div className="bg-[rgba(223,229,255,0.4)] rounded-[20px] p-[6px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.04)] shrink-0">
                 <div className="bg-white border border-[#dfe5ff] rounded-[15px] flex items-center justify-center gap-[6px] pl-[6px] pr-[20px] h-[24px]">
                   <img src={imgUndefinedChangeTheBorderTo2} alt="" className="w-[16px] h-[16px] object-cover" />
-                  <span className="font-pretendard font-normal text-[#0c0c0c] text-[14px] leading-none mt-[1px]">500</span>
+                  <span className="font-pretendard font-normal text-[#0c0c0c] text-[14px] leading-none mt-[1px]">7,777</span>
                 </div>
               </div>
             </div>
