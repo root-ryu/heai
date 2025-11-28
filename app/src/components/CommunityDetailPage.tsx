@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { Heart, MessageSquare, Bookmark, Share2, Trash2 } from 'lucide-react';
 import { Top } from './Layout';
@@ -62,6 +62,7 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
     id?: string;
   } | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const hasViewedRef = useRef(false);
 
   useEffect(() => {
     // ID를 문자열로 변환하여 비교 (API ID는 문자열일 수 있음)
@@ -215,6 +216,26 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
             setCommentsCount(mappedPost.comments);
             setViewsCount(mappedPost.views);
             
+            // 조회수 증가 로직 (API 호출)
+            // 쿨타임 없이 매번 증가 (사용자 요청)
+            // React Strict Mode로 인한 중복 호출 방지
+            if (!hasViewedRef.current) {
+              hasViewedRef.current = true;
+              try {
+                await fetch(`/api/community/posts/${postId}`, {
+                  method: 'PATCH',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({ type: 'view' }),
+                });
+                // UI 업데이트 (낙관적)
+                setViewsCount((prev) => prev + 1);
+              } catch (error) {
+                console.error('Failed to increment views:', error);
+              }
+            }
+
             // API 게시글은 localStorage 좋아요/북마크 상태만 확인 (카운트는 DB 기준)
             const storedIsLiked = localStorage.getItem(`post_${postId}_isLiked`);
             const storedBookmarked = localStorage.getItem(`post_${postId}_bookmarked`);

@@ -88,8 +88,38 @@ export async function PATCH(
   try {
     const { id } = await params;
     const body = await req.json();
-    const { increment } = body; // true for +1, false for -1
+    const { type, increment } = body; // type: 'like' | 'view', increment: boolean (for likes)
 
+    // 1. View Increment Logic
+    if (type === 'view') {
+      // 현재 조회수 가져오기
+      const { data: post, error: fetchError } = await supabase
+        .from('community')
+        .select('views')
+        .eq('id', id)
+        .single();
+
+      if (fetchError || !post) {
+        return NextResponse.json({ error: 'Post not found' }, { status: 404 });
+      }
+
+      const newViews = post.views + 1;
+
+      const { data, error } = await supabase
+        .from('community')
+        .update({ views: newViews })
+        .eq('id', id)
+        .select()
+        .single();
+
+      if (error) {
+        return NextResponse.json({ error: error.message }, { status: 500 });
+      }
+
+      return NextResponse.json(data);
+    }
+
+    // 2. Like Increment Logic (Default or explicit type='like')
     if (typeof increment !== 'boolean') {
       return NextResponse.json(
         { error: 'Invalid request body' },
@@ -97,7 +127,7 @@ export async function PATCH(
       );
     }
 
-    // 현재 좋아요 수 가져오기 (Concurrency 이슈 방지를 위해 RPC가 좋지만, 간단히 구현)
+    // 현재 좋아요 수 가져오기
     const { data: post, error: fetchError } = await supabase
       .from('community')
       .select('likes')

@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'HeAi',
     description: '나와 함께 성장하는 AI 루틴 파트너',
-    images: ['/favicon.png'],
+    images: ['/ogimg.png'],
   },
   icons: {
     icon: '/favicon.png',
