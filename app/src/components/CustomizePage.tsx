@@ -130,7 +130,7 @@ export default function CustomizePage() {
                     />
                   </div>
                   <p
-                    className="font-roboto font-semibold leading-[16px] relative shrink-0 text-[14px] text-neutral-50 text-nowrap whitespace-pre"
+                    className="font-roboto font-semibold leading-[16px] relative shrink-0 text-[14px] text-neutral-50 text-nowrap whitespace-pre leading-none mt-[1px]"
                     style={{ fontVariationSettings: "'wdth' 100" }}
                   >
                     10,000

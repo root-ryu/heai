@@ -97,14 +97,14 @@ export default function MyPage() {
                 <div className="content-stretch flex gap-[8px] items-center relative shrink-0">
                   <div className="bg-[#ebeaff] h-[25px] relative rounded-[10px] shrink-0">
                     <div className="bg-clip-padding border-0 border-[transparent] border-solid box-border content-stretch flex gap-[10px] h-[25px] items-center justify-center px-[8px] py-[2px] relative">
-                      <p className="font-pretendard font-semibold leading-[16px] not-italic relative shrink-0 text-[12px] text-black text-nowrap whitespace-pre">
+                      <p className="font-pretendard font-semibold leading-[16px] not-italic relative shrink-0 text-[12px] text-black text-nowrap whitespace-pre leading-none mt-[1px]">
                         Lv. 15
                       </p>
                     </div>
                   </div>
                   <div className="bg-[#ebeaff] h-[25px] relative rounded-[10px] shrink-0">
                     <div className="bg-clip-padding border-0 border-[transparent] border-solid box-border content-stretch flex gap-[10px] h-[25px] items-center justify-center px-[8px] py-[2px] relative">
-                      <p className="font-pretendard font-semibold leading-[16px] not-italic relative shrink-0 text-[12px] text-black text-nowrap whitespace-pre">
+                      <p className="font-pretendard font-semibold leading-[16px] not-italic relative shrink-0 text-[12px] text-black text-nowrap whitespace-pre leading-none mt-[1px]">
                         루틴 마스터
                       </p>
                     </div>
@@ -558,7 +558,7 @@ function RoutineStreakChart() {
         </p>
         <div className="content-stretch flex gap-[2px] items-start relative shrink-0">
           <p className="font-pretendard font-semibold leading-[32px] not-italic relative shrink-0 text-[#110c11] text-[20px] text-nowrap text-right whitespace-pre">
-            35day
+            35 day
           </p>
         </div>
       </div>

@@ -102,7 +102,7 @@ export default function PostCardList({
               className="rounded-[4px] px-[6px] py-[3px] flex items-center justify-center"
               style={{ backgroundColor: getCategoryBgColor() }}
             >
-              <p className="font-pretendard text-[12px] leading-[16px] text-[#ffffff] text-center">
+              <p className="font-pretendard text-[12px] leading-none mt-[1px] text-[#ffffff] text-center">
                 {post.category}
               </p>
             </div>

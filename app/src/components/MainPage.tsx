@@ -150,7 +150,7 @@ export default function MainPage() {
                       >
                         <p className={`font-roboto text-center text-nowrap ${
                           isToday 
-                            ? 'font-bold text-[#5a54fa] text-[25px]' 
+                            ? 'font-bold text-[#5a54fa] text-[25px] leading-none mt-[1px]' 
                             : 'font-medium text-[#c7c7d6] text-[12px]'
                         }`} style={{ fontVariationSettings: "'wdth' 100" }}>
                           {date.getDate()}
