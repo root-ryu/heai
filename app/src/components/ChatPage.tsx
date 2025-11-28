@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Send, Minimize2, User, Delete } from 'lucide-react';
+import { getUserNickname } from '../utils/nickname';
 
 // [타입 정의]
 interface Message {
@@ -55,6 +56,7 @@ export default function ChatPage() {
   const [inputText, setInputText] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(true);
+  const [nickname, setNickname] = useState<string>('');
 
   // 2. [UI 상태]
   const [showKeyboard, setShowKeyboard] = useState(false);
@@ -64,9 +66,42 @@ export default function ChatPage() {
   const [mounted, setMounted] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
+  // 초기 로드: 닉네임 가져오기 및 채팅 기록 복원
   useEffect(() => {
     setMounted(true);
+    const userNickname = getUserNickname();
+    setNickname(userNickname);
+
+    const savedHistory = localStorage.getItem(`chat_history_${userNickname}`);
+    if (savedHistory) {
+      try {
+        const parsedHistory = JSON.parse(savedHistory);
+        // Date 객체 복원
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const restoredMessages = parsedHistory.map((msg: any) => ({
+          ...msg,
+          timestamp: new Date(msg.timestamp),
+        }));
+        setMessages(restoredMessages);
+        // 메시지가 있으면 추천 검색어 숨김
+        if (restoredMessages.length > 1) {
+          setShowSuggestions(false);
+        }
+      } catch (e) {
+        console.error('Failed to parse chat history', e);
+        setMessages([INITIAL_MESSAGE]);
+      }
+    } else {
+      setMessages([INITIAL_MESSAGE]);
+    }
   }, []);
+
+  // 메시지 변경 시 저장
+  useEffect(() => {
+    if (mounted && nickname && messages.length > 0) {
+      localStorage.setItem(`chat_history_${nickname}`, JSON.stringify(messages));
+    }
+  }, [messages, nickname, mounted]);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -101,7 +136,7 @@ export default function ChatPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           message: messageText,
-          user_id: 'user_123',
+          user_id: nickname || 'user_123', // 닉네임 사용
         }),
       });
 
@@ -254,8 +289,12 @@ export default function ChatPage() {
               ))}
               {isTyping && (
                 <div className="flex justify-start gap-2">
-                  <div className="w-8 h-8 bg-yellow-100 rounded-full flex items-center justify-center text-sm border border-yellow-300">
-                    🐱
+                  <div className="relative w-8 h-8 shrink-0 bg-yellow-100 rounded-full border-2 border-yellow-300 flex items-center justify-center overflow-hidden">
+                    <img
+                      alt="AI Typing"
+                      className="absolute inset-0 object-cover size-full"
+                      src="/ffe30871b964849eea21498f341a536a18d0afa4.png"
+                    />
                   </div>
                   <div className="bg-white border border-gray-100 rounded-2xl rounded-tl-none px-4 py-4 shadow-sm flex items-center gap-1">
                     <div className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce delay-0" />
@@ -467,3 +506,4 @@ export default function ChatPage() {
     </>
   );
 }
+

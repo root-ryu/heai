@@ -1,0 +1,521 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { ChevronDown } from 'lucide-react';
+import { Top, Bottom } from '../Layout';
+import CommunityHeader from './CommunityHeader';
+import SearchBar from './SearchBar';
+import CategoryTabs from './CategoryTabs';
+import BookmarkButton from './BookmarkButton';
+import FloatingWriteButton from './FloatingWriteButton';
+import PostCardList from './PostCardList';
+import { COMMUNITY_POSTS, Post } from '../../data/communityPosts';
+import svgPaths from '../../imports/svg-2hkovzo4c1';
+import svgPathsGrid from '../../imports/svg-mfg8nwobt9';
+
+const CATEGORY_DATA: Record<string, { color: string; bgColor: string }> = {
+  character: {
+    color: '#FFB347',
+    bgColor: 'rgba(255,179,71,0.67)',
+  },
+  free: {
+    color: '#FF8B80',
+    bgColor: 'rgba(255,139,128,0.67)',
+  },
+  routine: {
+    color: '#22D760',
+    bgColor: 'rgba(34,215,96,0.67)',
+  },
+  tips: {
+    color: '#C8A5D8',
+    bgColor: 'rgba(200,165,216,0.67)',
+  },
+};
+
+const CATEGORY_MAP: Record<string, string> = {
+  character: '캐릭터',
+  free: '자유게시판',
+  routine: '루틴게시판',
+  tips: '꿀팁',
+};
+
+interface BoardPageProps {
+  category: 'character' | 'routine' | 'tips' | 'free';
+}
+
+export default function BoardPage({ category }: BoardPageProps) {
+  const router = useRouter();
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedSort, setSelectedSort] = useState<'날짜순' | '추천순'>('날짜순');
+  const [showSortDropdown, setShowSortDropdown] = useState(false);
+  const [viewMode, setViewMode] = useState<'list' | 'grid'>('grid');
+  const [isMounted, setIsMounted] = useState(false);
+  const [refreshKey, setRefreshKey] = useState(0);
+  const [apiPosts, setApiPosts] = useState<Post[]>([]);
+  const [bookmarkedPosts, setBookmarkedPosts] = useState<(number | string)[]>([]);
+
+  // API에서 게시글 불러오기
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const res = await fetch('/api/community/posts');
+        if (res.ok) {
+          const data = await res.json();
+          
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const mappedPosts: Post[] = data.map((item: any) => {
+            const catInfo = Object.values(CATEGORY_DATA).find((_, idx) => Object.keys(CATEGORY_DATA)[idx] === Object.keys(CATEGORY_MAP).find(key => CATEGORY_MAP[key] === item.category)) || { color: '#5A54FA', bgColor: 'rgba(90,84,250,0.67)' };
+            const timestamp = new Date(item.created_at).getTime();
+            
+            return {
+              id: item.id,
+              category: item.category,
+              categoryColor: `bg-[${catInfo.bgColor}]`,
+              categoryBgColor: catInfo.bgColor,
+              title: item.title,
+              content: item.content,
+              image: item.image,
+              views: item.views || 0,
+              likes: item.likes || 0,
+              comments: item.comments_count || 0,
+              timeAgo: '방금 전',
+              timestamp: timestamp,
+              author: item.author,
+            };
+          });
+          
+          setApiPosts(mappedPosts);
+        }
+      } catch (error) {
+        console.error('Failed to fetch posts:', error);
+      }
+    };
+
+    fetchPosts();
+  }, [refreshKey]);
+
+  useEffect(() => {
+    setIsMounted(true);
+    // localStorage에서 정렬 옵션과 뷰 모드 복원
+    const savedSort = localStorage.getItem(`${category}Page_sort`);
+    const savedView = localStorage.getItem(`${category}Page_view`);
+    if (savedSort) setSelectedSort(savedSort as '날짜순' | '추천순');
+    if (savedView) setViewMode(savedView as 'list' | 'grid');
+  }, [category]);
+
+  // 정렬 옵션 변경 시 localStorage에 저장
+  useEffect(() => {
+    if (isMounted) {
+      localStorage.setItem(`${category}Page_sort`, selectedSort);
+    }
+  }, [selectedSort, isMounted, category]);
+
+  // 뷰 모드 변경 시 localStorage에 저장
+  useEffect(() => {
+    if (isMounted) {
+      localStorage.setItem(`${category}Page_view`, viewMode);
+    }
+  }, [viewMode, isMounted, category]);
+
+  // 페이지 포커스될 때마다 새로고침
+  useEffect(() => {
+    const handleFocus = () => {
+      setRefreshKey((prev) => prev + 1);
+    };
+    window.addEventListener('focus', handleFocus);
+    return () => window.removeEventListener('focus', handleFocus);
+  }, []);
+
+  const handleBookmarkToggle = (postId: number | string, isBookmarked: boolean) => {
+    setBookmarkedPosts((prev) =>
+      isBookmarked ? [...prev, postId] : prev.filter((id) => id !== postId)
+    );
+  };
+
+  const categoryDisplayName = CATEGORY_MAP[category];
+  const categoryData = CATEGORY_DATA[category];
+  
+  // API posts와 기본 posts 합치기
+  const allPosts = [...apiPosts, ...COMMUNITY_POSTS];
+
+  // 카테고리 필터링
+  const categoryPosts = allPosts.filter(
+    (post) => post.category === categoryDisplayName
+  );
+
+  const filteredPosts =
+    searchQuery.trim() === ''
+      ? categoryPosts
+      : categoryPosts.filter((post) =>
+          post.title.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+
+  // 정렬 적용
+  const sortedPosts = [...filteredPosts].sort((a, b) => {
+    if (selectedSort === '추천순') {
+      return b.likes - a.likes;
+    }
+    // 날짜순 (최신순)
+    if (a.timestamp && b.timestamp) {
+        return b.timestamp - a.timestamp;
+    }
+    return 0; 
+  });
+
+  return (
+    <div className="bg-[#F8FBFF] flex flex-col items-center w-full h-full overflow-hidden">
+      <div className="max-w-[375px] mx-auto w-full h-full flex flex-col relative">
+        <Top />
+
+        {/* Header */}
+        <CommunityHeader title={categoryDisplayName} />
+
+        {/* Search Bar */}
+        <SearchBar value={searchQuery} onChange={setSearchQuery} />
+
+        {/* Category Tabs */}
+        <CategoryTabs activeCategory={category} />
+
+        {/* Posts List */}
+        <div className="flex-1 overflow-y-auto overflow-x-hidden w-full pb-[120px]">
+          {/* Banner */}
+          <div className="bg-white w-full px-[16px] pb-[16px] shrink-0">
+            <button
+              onClick={() => router.push('/ranking')}
+              className="bg-gradient-to-r box-border content-stretch flex flex-col from-[#c1cbff] gap-[7.995px] items-start px-[14px] py-[16px] relative rounded-[16px] shrink-0 to-[#837eff] w-full cursor-pointer"
+            >
+              <div
+                aria-hidden="true"
+                className="absolute border border-solid border-white inset-0 pointer-events-none rounded-[16px] shadow-[0px_0px_4px_-5px_rgba(0,0,0,0.1)]"
+              />
+              <div className="absolute h-[68px] left-[239px] top-[16px] w-[88px]">
+                <svg
+                  className="block size-full"
+                  fill="none"
+                  preserveAspectRatio="none"
+                  viewBox="0 0 88 68"
+                >
+                  <path
+                    d={svgPaths.p36ddec80}
+                    fill="#0C0C0C"
+                    fillOpacity="0.66"
+                    opacity="0.21"
+                  />
+                </svg>
+              </div>
+
+              {/* Banner Content */}
+              <div className="content-stretch flex flex-col gap-[4px] items-start relative shrink-0 w-full z-10">
+                <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
+                  <p className="font-pretendard font-semibold leading-[normal] not-italic relative shrink-0 text-[#040415] text-[18px] text-nowrap tracking-[-1px] whitespace-pre">
+                    이달의 막시무스
+                  </p>
+                  <svg
+                    className="relative shrink-0 size-[20px]"
+                    fill="none"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      d={svgPaths.p3d4f1c00}
+                      stroke="#F0C362"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="1.99961"
+                    />
+                    <path
+                      d="M4.16602 16.4941H15.8327"
+                      stroke="#F0C362"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="1.99961"
+                    />
+                  </svg>
+                </div>
+                <p className="font-pretendard leading-[18px] not-italic relative shrink-0 text-[#333333] text-[16px] text-nowrap whitespace-pre">
+                  가장 인기있는 막시무스에 투표하세요
+                </p>
+
+                {/* Heart Count */}
+                <div className="content-stretch flex flex-col items-start relative shrink-0 w-full">
+                  <div className="content-stretch flex items-center justify-between leading-[24px] not-italic relative shrink-0 text-nowrap text-white w-full whitespace-pre">
+                    <p className="font-pretendard relative shrink-0 text-[14px]">
+                      내 하트 수
+                    </p>
+                    <p className="font-pretendard font-semibold relative shrink-0 text-[20px]">
+                      850
+                    </p>
+                  </div>
+                  <div className="bg-[rgba(255,255,255,0.2)] h-[7.995px] relative rounded-[2.13285e+07px] shrink-0 w-full">
+                    <div className="overflow-clip rounded-[inherit] size-full">
+                      <div className="box-border content-stretch flex flex-col h-[7.995px] items-start pl-0 pr-[44.564px] py-0 relative w-full">
+                        <div className="bg-[#f0c362] h-[7.995px] rounded-[2.13285e+07px] shrink-0 w-full" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Link */}
+                <div className="content-stretch flex gap-[4px] items-center justify-center relative shrink-0">
+                  <p className="font-pretendard leading-[16px] not-italic relative shrink-0 text-[#4a5565] text-[12px] text-nowrap whitespace-pre">
+                    랭킹 바로가기
+                  </p>
+                  <svg
+                    className="relative shrink-0 size-[9px]"
+                    fill="none"
+                    viewBox="0 0 9 9"
+                  >
+                    <path
+                      d="M2 1H8V7"
+                      stroke="#4A5565"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="1.5"
+                    />
+                    <path
+                      d="M1 8L8 1"
+                      stroke="#4A5565"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="1.5"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </button>
+          </div>
+
+          {/* Section Header */}
+          <div className="bg-white w-full px-[16px] pt-[10px] pb-[10px] shrink-0 sticky top-0 z-20">
+            <div className="content-stretch flex items-center justify-between relative shrink-0 w-full">
+              <p className="font-pretendard font-medium leading-[26px] not-italic relative shrink-0 text-[18px] text-black">
+                {categoryDisplayName}
+              </p>
+              <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
+                <div className="relative">
+                  <button
+                    onClick={() => setShowSortDropdown(!showSortDropdown)}
+                    className="content-stretch flex gap-[4px] items-center relative shrink-0 cursor-pointer"
+                  >
+                    <p className="font-pretendard leading-[24px] not-italic relative shrink-0 text-[#333333] text-[14px] text-nowrap whitespace-pre">
+                      {selectedSort}
+                    </p>
+                    <ChevronDown className="w-[16px] h-[16px] text-[#333333]" />
+                  </button>
+                  {showSortDropdown && (
+                    <div className="absolute top-[100%] right-0 mt-[4px] bg-white border border-[#e0e0e0] rounded-[8px] shadow-lg z-30 min-w-[70px]">
+                      <button
+                        onClick={() => {
+                          setSelectedSort('날짜순');
+                          setShowSortDropdown(false);
+                        }}
+                        className={`w-full text-center px-[8px] py-[10px] font-pretendard text-[14px] leading-[24px] hover:bg-[#F5F5F5] rounded-t-[8px] ${
+                          selectedSort === '날짜순'
+                            ? 'text-[#5A54FA] font-semibold'
+                            : 'text-[#333333]'
+                        }`}
+                      >
+                        날짜순
+                      </button>
+                      <button
+                        onClick={() => {
+                          setSelectedSort('추천순');
+                          setShowSortDropdown(false);
+                        }}
+                        className={`w-full text-center px-[8px] py-[10px] font-pretendard text-[14px] leading-[24px] hover:bg-[#F5F5F5] rounded-b-[8px] ${
+                          selectedSort === '추천순'
+                            ? 'text-[#5A54FA] font-semibold'
+                            : 'text-[#333333]'
+                        }`}
+                      >
+                        추천순
+                      </button>
+                    </div>
+                  )}
+                </div>
+                <div className="content-stretch flex gap-[5px] items-center relative shrink-0">
+                  <button onClick={() => setViewMode('list')}>
+                    <svg
+                      className="w-[24px] h-[24px]"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M3 12H21"
+                        stroke={viewMode === 'list' ? "#5A54FA" : "#D1D1D1"}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                      />
+                      <path
+                        d="M3 6H21"
+                        stroke={viewMode === 'list' ? "#5A54FA" : "#D1D1D1"}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                      />
+                      <path
+                        d="M3 18H21"
+                        stroke={viewMode === 'list' ? "#5A54FA" : "#D1D1D1"}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                      />
+                    </svg>
+                  </button>
+                  <button onClick={() => setViewMode('grid')}>
+                    <svg
+                      className="w-[24px] h-[24px]"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d={svgPaths.p1753300}
+                        stroke={viewMode === 'grid' ? "#5A54FA" : "#D1D1D1"}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="1.5"
+                      />
+                      <path
+                        d={svgPaths.p272d7180}
+                        stroke={viewMode === 'grid' ? "#5A54FA" : "#D1D1D1"}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="1.5"
+                      />
+                      <path
+                        d={svgPaths.p1e2bc680}
+                        stroke={viewMode === 'grid' ? "#5A54FA" : "#D1D1D1"}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="1.5"
+                      />
+                      <path
+                        d={svgPaths.p2f4d7400}
+                        stroke={viewMode === 'grid' ? "#5A54FA" : "#D1D1D1"}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="1.5"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {viewMode === 'list' ? (
+            <div className="flex flex-col gap-[10px] pb-[20px]">
+              {sortedPosts.map((post) => (
+                <PostCardList
+                  key={`${post.id}-${refreshKey}-${post.timestamp || 'dummy'}`}
+                  post={post}
+                  isBookmarked={bookmarkedPosts.includes(post.id)}
+                  onBookmarkToggle={handleBookmarkToggle}
+                />
+              ))}
+            </div>
+          ) : (
+            <div className="bg-[#F8FBFF] w-full px-[16px] pb-[16px] pt-[8px]">
+              <div className="grid grid-cols-2 gap-[8px]">
+                {sortedPosts.map((post) => {
+                  const storedLikes = isMounted
+                    ? localStorage.getItem(`post_${post.id}_likes`)
+                    : null;
+                  const storedComments = isMounted
+                    ? localStorage.getItem(`post_${post.id}_commentsCount`)
+                    : null;
+                  const displayLikes = storedLikes
+                    ? parseInt(storedLikes)
+                    : post.likes;
+                  const displayComments = storedComments
+                    ? parseInt(storedComments)
+                    : post.comments;
+
+                  return (
+                    <div
+                      key={`${post.id}-${refreshKey}`}
+                      className="bg-white h-[210px] overflow-clip relative rounded-[20px] shrink-0 cursor-pointer hover:opacity-90 transition-opacity"
+                      onClick={() => router.push(`/community/${post.id}`)}
+                    >
+                      {/* Character Image */}
+                      <div className="absolute h-[108px] left-[calc(50%+2.5px)] top-[11px] translate-x-[-50%] w-[90px]">
+                        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                          <img
+                            alt=""
+                            className="absolute h-[125.12%] left-0 max-w-none top-[-13.28%] w-full"
+                            src={post.image}
+                          />
+                        </div>
+                      </div>
+
+                      {/* Content */}
+                      <div className="absolute bg-white box-border content-stretch flex flex-col gap-[4px] items-start left-0 overflow-clip px-[14px] py-[11px] top-[122px] w-[140px]">
+                        <div className="content-stretch flex flex-col items-start not-italic relative shrink-0 text-black w-full">
+                          <p className="font-medium leading-[21px] relative shrink-0 text-[14px] w-full truncate">
+                            {post.title}
+                          </p>
+                          <p className="font-normal leading-[16px] relative shrink-0 text-[12px] w-full">
+                            ID : {post.author}
+                          </p>
+                        </div>
+                        <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
+                          <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
+                            <svg
+                              className="relative shrink-0 size-[16px]"
+                              fill="none"
+                              viewBox="0 0 16 16"
+                            >
+                              <path
+                                d={svgPathsGrid.p39507bc0}
+                                stroke="#5D5D5D"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
+                            </svg>
+                            <p className="font-pretendard leading-[16px] not-italic relative shrink-0 text-[#5e5e5e] text-[12px] text-nowrap whitespace-pre">
+                              {displayLikes}
+                            </p>
+                          </div>
+                          <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
+                            <div className="flex items-center justify-center relative shrink-0">
+                              <div className="flex-none rotate-[180deg] scale-y-[-100%]">
+                                <svg
+                                  className="relative size-[14px]"
+                                  fill="none"
+                                  viewBox="0 0 14 14"
+                                >
+                                  <path
+                                    d={svgPathsGrid.p2a722600}
+                                    fill="#5E5E5E"
+                                  />
+                                </svg>
+                              </div>
+                            </div>
+                            <p className="font-pretendard leading-[16px] not-italic relative shrink-0 text-[#5e5e5e] text-[12px] text-nowrap whitespace-pre">
+                              댓글 {displayComments}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Bookmark */}
+                      <BookmarkButton
+                        postId={post.id}
+                        className="absolute h-[26px] left-[130px] top-[8px] w-[28px]"
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+        </div>
+
+        <FloatingWriteButton />
+
+        <Bottom />
+      </div>
+    </div>
+  );
+}
