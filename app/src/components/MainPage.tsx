@@ -90,7 +90,7 @@ export default function MainPage() {
         `}</style>
         
         {/* Top Section */}
-        <div className="flex flex-col gap-[24px] items-center overflow-clip rounded-[10px] w-full max-w-[343px]">
+        <div className="flex flex-col gap-[24px] items-center rounded-[10px] w-full max-w-[343px]">
           {/* Level & Calendar */}
           <div className="flex flex-col gap-[10px] items-start w-full">
             <div className="box-border flex gap-[30px] items-center justify-center px-[2px] py-0 w-full">
