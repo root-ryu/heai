@@ -56,6 +56,7 @@ export default function ChatPage() {
   const [inputText, setInputText] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(true);
+  const [isHelpOpen, setIsHelpOpen] = useState(false);
   const [nickname, setNickname] = useState<string>('');
 
   // 2. [UI 상태]
@@ -83,10 +84,10 @@ export default function ChatPage() {
           timestamp: new Date(msg.timestamp),
         }));
         setMessages(restoredMessages);
-        // 메시지가 있으면 추천 검색어 숨김
-        if (restoredMessages.length > 1) {
-          setShowSuggestions(false);
-        }
+        // 메시지가 있어도 추천 검색어 표시 (사용자가 원할 수 있음)
+        // if (restoredMessages.length > 1) {
+        //   setShowSuggestions(false);
+        // }
       } catch (e) {
         console.error('Failed to parse chat history', e);
         setMessages([INITIAL_MESSAGE]);
@@ -204,7 +205,7 @@ export default function ChatPage() {
         <div className="w-full max-w-[375px] mx-auto pointer-events-auto animate-slide-up-from-bottom">
           {/* 메인 채팅 영역 */}
           <div
-            className={`bg-neutral-50 flex flex-col rounded-t-[30px] shadow-2xl overflow-hidden transition-all h-[92svh] w-full`}
+            className={`bg-neutral-50 flex flex-col rounded-t-[30px] shadow-2xl overflow-hidden transition-all h-[92svh] w-full relative`}
           >
             {/* Header */}
             <div className="bg-[#FFFFFF] w-full px-4 py-4 flex items-center justify-between shadow-lg rounded-t-[30px] z-10">
@@ -303,21 +304,53 @@ export default function ChatPage() {
                   </div>
                 </div>
               )}
-              {showSuggestions && (
-                <div className="w-full pt-2 flex flex-wrap gap-2">
-                  {SUGGESTED_KEYWORDS.map((keyword) => (
-                    <button
-                      key={keyword}
-                      onClick={() => handleSend(keyword)}
-                      className="px-3 py-2 rounded-[5000px] bg-[rgba(255,247,228,0.6)] text-[rgba(148,44,34,0.8)] border border-[rgba(148,44,34,0.8)] hover:bg-[rgba(148,44,34,0.8)] hover:text-white transition-all active:scale-95 text-[12px] font-medium"
-                    >
-                      {keyword}
-                    </button>
-                  ))}
-                </div>
-              )}
               <div ref={messagesEndRef} />
             </div>
+
+
+
+            {/* Floating Suggestions Toggle & List */}
+            {/* Floating Suggestions Toggle & List */}
+            <div className="absolute bottom-[80px] left-0 right-0 px-4 z-30 flex items-end gap-2 pointer-events-none">
+              {/* Chips List (Toggled) */}
+              {isHelpOpen && (
+                <div className="flex-1 min-w-0 overflow-x-auto scrollbar-hide pointer-events-auto animate-fade-in-left">
+                  <div className="flex gap-2 w-max px-1">
+                    {SUGGESTED_KEYWORDS.map((keyword) => (
+                      <button
+                        key={keyword}
+                        onClick={() => {
+                          handleSend(keyword);
+                          setIsHelpOpen(false);
+                        }}
+                        className="shrink-0 px-3 py-2 rounded-[20px] bg-[rgba(255,247,228,0.95)] text-[rgba(148,44,34,1)] border border-[rgba(148,44,34,0.3)] shadow-sm hover:bg-[rgba(148,44,34,0.1)] transition-all active:scale-95 text-[13px] font-medium backdrop-blur-sm whitespace-nowrap"
+                      >
+                        {keyword}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Toggle Button */}
+              <button
+                onClick={() => setIsHelpOpen(!isHelpOpen)}
+                className="ml-auto size-[40px] rounded-full bg-[#5A54FA] shadow-lg flex items-center justify-center hover:bg-[#4a44ea] transition-all active:scale-95 pointer-events-auto shrink-0"
+              >
+                {isHelpOpen ? (
+                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                  </svg>
+                ) : (
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                  </svg>
+                )}
+              </button>
+            </div>
+
 
             {/* Input (키보드 없을 때) */}
             {!showKeyboard && (
@@ -499,6 +532,7 @@ export default function ChatPage() {
                   </button>
                 </div>
               </div>
+
             </div>
           </div>
         )}

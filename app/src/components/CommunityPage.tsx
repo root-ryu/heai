@@ -8,6 +8,7 @@ import CategoryTabs from './community/CategoryTabs';
 import PostCardList from './community/PostCardList';
 import FloatingWriteButton from './community/FloatingWriteButton';
 import { COMMUNITY_POSTS, type Post } from '../data/communityPosts';
+import { CATEGORY_DATA, CATEGORY_MAP } from '../utils/constants';
 
 const POSTS: Post[] = COMMUNITY_POSTS;
 
@@ -30,16 +31,14 @@ export default function CommunityPage({ category = 'all' }: CommunityPageProps) 
           const data = await res.json();
           
           // 카테고리 색상 매핑
-          const categoryInfo: Record<string, { color: string; bgColor: string }> = {
-            '캐릭터': { color: '#FFB347', bgColor: 'rgba(255,179,71,0.67)' },
-            '자유게시판': { color: '#FF8B80', bgColor: 'rgba(255,139,128,0.67)' },
-            '루틴게시판': { color: '#22D760', bgColor: 'rgba(34,215,96,0.67)' },
-            '꿀팁': { color: '#C8A5D8', bgColor: 'rgba(200,165,216,0.67)' },
-          };
+          // 카테고리 색상 매핑
+          const categoryInfo = CATEGORY_DATA;
 
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const mappedPosts: Post[] = data.map((item: any) => {
-            const catInfo = categoryInfo[item.category] || { color: '#5A54FA', bgColor: 'rgba(90,84,250,0.67)' };
+            // CATEGORY_MAP의 키(영문)를 찾아 CATEGORY_DATA에서 색상 정보를 가져옴
+            const categoryKey = Object.keys(CATEGORY_MAP).find(key => CATEGORY_MAP[key] === item.category);
+            const catInfo = categoryKey ? CATEGORY_DATA[categoryKey] : { color: '#5A54FA', bgColor: 'rgba(90,84,250,0.67)' };
             const timestamp = new Date(item.created_at).getTime();
             
             return {
@@ -88,12 +87,7 @@ export default function CommunityPage({ category = 'all' }: CommunityPageProps) 
   const allPosts = [...apiPosts, ...POSTS];
 
   // 카테고리 필터링
-  const categoryMap: Record<string, string> = {
-    character: '캐릭터',
-    free: '자유게시판',
-    routine: '루틴게시판',
-    tips: '꿀팁',
-  };
+  const categoryMap = CATEGORY_MAP;
 
   const filteredByCategory = category === 'all' 
     ? allPosts 
