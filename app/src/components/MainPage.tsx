@@ -93,7 +93,7 @@ export default function MainPage() {
         <div className="flex flex-col gap-[24px] items-center rounded-[10px] w-full max-w-[343px]">
           {/* Level & Calendar */}
           <div className="flex flex-col gap-[10px] items-start w-full">
-            <div className="box-border flex gap-[30px] items-center justify-center px-[2px] py-0 w-full">
+            <div className="box-border flex items-center justify-between px-[2px] py-0 w-full">
               {/* Level Progress */}
               <div className="bg-[rgba(223,229,255,0.4)] h-[32px] overflow-clip relative rounded-[20px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.04)] w-[221px] shrink-0">
                 <div className="absolute flex gap-[8px] items-center left-[8.5px] top-[4px]">
@@ -116,7 +116,7 @@ export default function MainPage() {
 
               {/* Points */}
               <div className="bg-[rgba(223,229,255,0.4)] rounded-[20px] p-[6px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.04)] shrink-0">
-                <div className="bg-white border border-[#dfe5ff] rounded-[15px] flex items-center justify-center gap-[6px] pl-[6px] pr-[20px] h-[24px]">
+                <div className="bg-white border border-[#dfe5ff] rounded-[15px] flex items-center justify-center gap-[6px] px-[10px] h-[24px]">
                   <img src={imgUndefinedChangeTheBorderTo2} alt="" className="w-[16px] h-[16px] object-cover" />
                   <span className="font-pretendard font-normal text-[#0c0c0c] text-[14px] leading-none mt-[1px]">7,777</span>
                 </div>

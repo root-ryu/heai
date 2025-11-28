@@ -39,6 +39,30 @@ function getTimeAgoString(timestamp: number): string {
   return `${days}일 전`;
 }
 
+// 텍스트 내 URL을 링크로 변환하는 함수
+function renderContentWithLinks(content: string) {
+  const urlRegex = /(https?:\/\/[^\s]+)/g;
+  const parts = content.split(urlRegex);
+
+  return parts.map((part, index) => {
+    if (part.match(urlRegex)) {
+      return (
+        <a
+          key={index}
+          href={part}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-500 hover:underline break-all"
+          onClick={(e) => e.stopPropagation()} // 부모 클릭 이벤트 방지
+        >
+          {part}
+        </a>
+      );
+    }
+    return part;
+  });
+}
+
 export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
   const router = useRouter();
   const [post, setPost] = useState<Post | null>(null);
@@ -756,8 +780,8 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
               {/* Post Content */}
               <div className="px-[16px] py-[18px]">
                 {post.content && (
-                  <p className="font-pretendard font-regular leading-[24px] not-italic text-[#151522] text-[14px] whitespace-pre-wrap mb-[12px]">
-                    {post.content}
+                  <p className="font-pretendard font-regular leading-[24px] not-italic text-[#151522] text-[14px] whitespace-pre-wrap mb-[12px] select-text">
+                    {renderContentWithLinks(post.content)}
                   </p>
                 )}
 
