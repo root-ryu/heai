@@ -118,7 +118,7 @@ export default function MainPage() {
               <div className="bg-[rgba(223,229,255,0.4)] rounded-[20px] p-[6px] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.04)] shrink-0">
                 <div className="bg-white border border-[#dfe5ff] rounded-[15px] flex items-center justify-center gap-[6px] pl-[6px] pr-[20px] h-[24px]">
                   <img src={imgUndefinedChangeTheBorderTo2} alt="" className="w-[16px] h-[16px] object-cover" />
-                  <span className="font-roboto font-normal text-[#0c0c0c] text-[14px] pt-[1px]">500</span>
+                  <span className="font-roboto font-normal font-weight-400 text-[#0c0c0c] text-[14px] leading-none mt-[1px]">500</span>
                 </div>
               </div>
             </div>
@@ -392,7 +392,7 @@ export default function MainPage() {
           {/* Premium Banner */}
           <div 
             onClick={() => router.push('/ranking')}
-            className="bg-[#ffeaf7] h-[138px] overflow-hidden relative w-[375px] ml-[-14px] cursor-pointer hover:opacity-90 transition-opacity"
+            className="bg-[#ffeaf7] h-[138px] overflow-hidden relative w-[375px] mx-[-16px] cursor-pointer hover:opacity-90 transition-opacity"
           >
             {/* Left Image (x=18, y=1, w=134, h=136) */}
             <div className="absolute left-[18px] top-[1px] w-[134px] h-[136px]">
