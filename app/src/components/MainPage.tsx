@@ -67,7 +67,7 @@ export default function MainPage() {
             {/* Logo */}
             <button
               onClick={scrollToTop}
-              className="h-[22px] relative w-[84px] cursor-pointer hover:opacity-80 transition-opacity"
+              className="h-[22px] relative w-[84px] cursor-pointer active:opacity-80"
             >
               <div className="flex items-center h-full">
                 <img
@@ -124,8 +124,7 @@ export default function MainPage() {
         <PullToRefresh>
           {/* Scrollable Content */}
           <div
-            data-scroll-container
-            className="box-border flex flex-col gap-[34px] items-center overflow-x-clip overflow-y-auto px-[14px] py-0 pb-[120px] w-full flex-1 scrollbar-hide"
+            className="box-border flex flex-col gap-[34px] items-center overflow-x-clip px-[14px] py-0 pb-[120px] w-full flex-1 scrollbar-hide"
           >
             <style>{`
           .scrollbar-hide::-webkit-scrollbar {
@@ -313,14 +312,23 @@ export default function MainPage() {
                             </p>
                           </div>
                           <button
-                            onClick={() => toggleRoutine('water')}
+                            onTouchEnd={(e) => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              toggleRoutine('water');
+                            }}
+                            onMouseDown={(e) => {
+                              e.stopPropagation();
+                              toggleRoutine('water');
+                            }}
                             className={`${
                               routines.water ? 'bg-[#5a54fa]' : 'bg-white'
                             } h-[21px] relative rounded-[5px] w-[20px] border-2 ${
                               routines.water
                                 ? 'border-[#5a54fa]'
                                 : 'border-[#e6e6e6]'
-                            } transition-colors`}
+                            } outline-none select-none`}
+                            style={{ touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}
                           >
                             {routines.water && (
                               <div className="absolute inset-0 flex items-center justify-center">
@@ -364,14 +372,23 @@ export default function MainPage() {
                             </p>
                           </div>
                           <button
-                            onClick={() => toggleRoutine('meditation')}
+                            onTouchEnd={(e) => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              toggleRoutine('meditation');
+                            }}
+                            onMouseDown={(e) => {
+                              e.stopPropagation();
+                              toggleRoutine('meditation');
+                            }}
                             className={`${
                               routines.meditation ? 'bg-[#5a54fa]' : 'bg-white'
                             } h-[21px] relative rounded-[5px] w-[20px] border-2 ${
                               routines.meditation
                                 ? 'border-[#5a54fa]'
                                 : 'border-[#e6e6e6]'
-                            } transition-colors`}
+                            } outline-none select-none`}
+                            style={{ touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}
                           >
                             {routines.meditation && (
                               <div className="absolute inset-0 flex items-center justify-center">
@@ -414,14 +431,23 @@ export default function MainPage() {
                             </p>
                           </div>
                           <button
-                            onClick={() => toggleRoutine('sleep')}
+                            onTouchEnd={(e) => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              toggleRoutine('sleep');
+                            }}
+                            onMouseDown={(e) => {
+                              e.stopPropagation();
+                              toggleRoutine('sleep');
+                            }}
                             className={`${
                               routines.sleep ? 'bg-[#5a54fa]' : 'bg-white'
                             } h-[21px] relative rounded-[5px] w-[20px] border-2 ${
                               routines.sleep
                                 ? 'border-[#5a54fa]'
                                 : 'border-[#e6e6e6]'
-                            } transition-colors`}
+                            } outline-none select-none`}
+                            style={{ touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}
                           >
                             {routines.sleep && (
                               <div className="absolute inset-0 flex items-center justify-center">

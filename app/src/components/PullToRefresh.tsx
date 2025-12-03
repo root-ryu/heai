@@ -54,6 +54,12 @@ export default function PullToRefresh({
       // 이미 새로고침 중이면 무시
       if (isRefreshing) return;
 
+      // 버튼, 체크박스 등 인터랙티브 요소 터치 시 무시
+      const target = e.target as HTMLElement;
+      if (target.closest('button, input, a, [role="button"]')) {
+        return;
+      }
+
       // 스크롤이 맨 위일 때만 시작
       if (container.scrollTop > 5) return;
 
@@ -123,6 +129,7 @@ export default function PullToRefresh({
   return (
     <div
       ref={containerRef}
+      data-scroll-container
       className={`relative w-full overflow-y-auto overflow-x-hidden ${className}`}
       style={{ WebkitOverflowScrolling: 'touch' }}
     >
