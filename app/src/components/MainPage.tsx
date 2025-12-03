@@ -67,7 +67,9 @@ function RoutineButton({ active, onClick, children }: RoutineButtonProps) {
       onClick={onClick}
       style={{ WebkitTapHighlightColor: 'transparent' }}
       className={`touch-manipulation outline-none h-[21px] relative rounded-[5px] w-[20px] border-2 ${
-        active ? '!bg-[#5a54fa] !border-[#5a54fa]' : '!bg-white !border-[#e6e6e6]'
+        active
+          ? '!bg-[#5a54fa] !border-[#5a54fa]'
+          : '!bg-white !border-[#e6e6e6]'
       }`}
     >
       {children}
@@ -83,13 +85,25 @@ export default function MainPage() {
     sleep: false,
   });
 
-  const toggleRoutine = useCallback((routine: 'water' | 'meditation' | 'sleep') => {
-    setRoutines((prev) => ({ ...prev, [routine]: !prev[routine] }));
-  }, []);
+  const toggleRoutine = useCallback(
+    (routine: 'water' | 'meditation' | 'sleep') => {
+      setRoutines((prev) => ({ ...prev, [routine]: !prev[routine] }));
+    },
+    []
+  );
 
-  const handleWaterClick = useCallback(() => toggleRoutine('water'), [toggleRoutine]);
-  const handleMeditationClick = useCallback(() => toggleRoutine('meditation'), [toggleRoutine]);
-  const handleSleepClick = useCallback(() => toggleRoutine('sleep'), [toggleRoutine]);
+  const handleWaterClick = useCallback(
+    () => toggleRoutine('water'),
+    [toggleRoutine]
+  );
+  const handleMeditationClick = useCallback(
+    () => toggleRoutine('meditation'),
+    [toggleRoutine]
+  );
+  const handleSleepClick = useCallback(
+    () => toggleRoutine('sleep'),
+    [toggleRoutine]
+  );
 
   const scrollToTop = () => {
     // 여러 가능한 스크롤 컨테이너를 시도
