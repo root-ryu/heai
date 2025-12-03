@@ -44,9 +44,17 @@ export default function MainPage() {
   };
 
   const scrollToTop = () => {
-    const scrollContainer = document.querySelector('.scrollbar-hide');
+    // 여러 가능한 스크롤 컨테이너를 시도
+    const scrollContainer = 
+      document.querySelector('[data-scroll-container]') ||
+      document.querySelector('.scrollbar-hide') ||
+      document.querySelector('.overflow-y-auto');
+    
     if (scrollContainer) {
       scrollContainer.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      // fallback: window 스크롤
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
@@ -59,7 +67,7 @@ export default function MainPage() {
             {/* Logo */}
             <button
               onClick={scrollToTop}
-              className="h-[22.196px] relative w-[84.306px] cursor-pointer hover:opacity-80 transition-opacity"
+              className="h-[22px] relative w-[84px] cursor-pointer hover:opacity-80 transition-opacity"
             >
               <div className="flex items-center h-full">
                 <img
@@ -115,7 +123,10 @@ export default function MainPage() {
         </div>
         <PullToRefresh>
           {/* Scrollable Content */}
-          <div className="box-border flex flex-col gap-[34px] items-center overflow-x-clip overflow-y-auto px-[14px] py-0 pb-[120px] w-full flex-1 scrollbar-hide">
+          <div 
+            data-scroll-container
+            className="box-border flex flex-col gap-[34px] items-center overflow-x-clip overflow-y-auto px-[14px] py-0 pb-[120px] w-full flex-1 scrollbar-hide"
+          >
             <style>{`
           .scrollbar-hide::-webkit-scrollbar {
             display: none;
