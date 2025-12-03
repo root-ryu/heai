@@ -110,7 +110,7 @@
   /* 버튼, 링크 등 인터랙티브 요소 터치 효과 제거 */
   button,
   a,
-  [role="button"] {
+  [role='button'] {
     -webkit-tap-highlight-color: transparent;
     outline: none;
   }
@@ -120,10 +120,10 @@
     *:hover {
       opacity: inherit !important;
     }
-    
+
     button:hover,
     a:hover,
-    [role="button"]:hover {
+    [role='button']:hover {
       opacity: inherit !important;
       background-color: inherit;
     }
