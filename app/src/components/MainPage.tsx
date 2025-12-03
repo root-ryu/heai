@@ -310,12 +310,8 @@ export default function MainPage() {
                             </p>
                           </div>
                           <button
-                            onTouchEnd={(e) => {
+                            onPointerDown={(e) => {
                               e.preventDefault();
-                              e.stopPropagation();
-                              toggleRoutine('water');
-                            }}
-                            onMouseDown={(e) => {
                               e.stopPropagation();
                               toggleRoutine('water');
                             }}
@@ -325,10 +321,11 @@ export default function MainPage() {
                               routines.water
                                 ? 'border-[#5a54fa]'
                                 : 'border-[#e6e6e6]'
-                            } outline-none select-none`}
+                            } outline-none select-none cursor-pointer`}
                             style={{
                               touchAction: 'manipulation',
                               WebkitTapHighlightColor: 'transparent',
+                              WebkitUserSelect: 'none',
                             }}
                           >
                             {routines.water && (
@@ -373,12 +370,8 @@ export default function MainPage() {
                             </p>
                           </div>
                           <button
-                            onTouchEnd={(e) => {
+                            onPointerDown={(e) => {
                               e.preventDefault();
-                              e.stopPropagation();
-                              toggleRoutine('meditation');
-                            }}
-                            onMouseDown={(e) => {
                               e.stopPropagation();
                               toggleRoutine('meditation');
                             }}
@@ -388,10 +381,11 @@ export default function MainPage() {
                               routines.meditation
                                 ? 'border-[#5a54fa]'
                                 : 'border-[#e6e6e6]'
-                            } outline-none select-none`}
+                            } outline-none select-none cursor-pointer`}
                             style={{
                               touchAction: 'manipulation',
                               WebkitTapHighlightColor: 'transparent',
+                              WebkitUserSelect: 'none',
                             }}
                           >
                             {routines.meditation && (
@@ -435,12 +429,8 @@ export default function MainPage() {
                             </p>
                           </div>
                           <button
-                            onTouchEnd={(e) => {
+                            onPointerDown={(e) => {
                               e.preventDefault();
-                              e.stopPropagation();
-                              toggleRoutine('sleep');
-                            }}
-                            onMouseDown={(e) => {
                               e.stopPropagation();
                               toggleRoutine('sleep');
                             }}
@@ -450,10 +440,11 @@ export default function MainPage() {
                               routines.sleep
                                 ? 'border-[#5a54fa]'
                                 : 'border-[#e6e6e6]'
-                            } outline-none select-none`}
+                            } outline-none select-none cursor-pointer`}
                             style={{
                               touchAction: 'manipulation',
                               WebkitTapHighlightColor: 'transparent',
+                              WebkitUserSelect: 'none',
                             }}
                           >
                             {routines.sleep && (
