@@ -46,8 +46,18 @@ export async function DELETE(
       return NextResponse.json({ error: deleteError.message }, { status: 500 });
     }
 
-    // 3. 게시글의 댓글 수 감소 (선택사항, 트리거로 처리 가능)
-    // 여기서는 일단 성공 응답만 반환
+    // 3. 게시글의 댓글 수를 실제 댓글 개수로 업데이트
+    const { count, error: countError } = await supabase
+      .from('comments')
+      .select('*', { count: 'exact', head: true })
+      .eq('post_id', comment.post_id);
+
+    if (!countError && count !== null) {
+      await supabase
+        .from('community')
+        .update({ comments_count: count })
+        .eq('id', comment.post_id);
+    }
 
     return NextResponse.json({ message: 'Comment deleted successfully' });
   } catch (error: unknown) {

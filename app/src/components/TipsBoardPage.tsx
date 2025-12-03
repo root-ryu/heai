@@ -10,6 +10,7 @@ import CategoryTabs from './community/CategoryTabs';
 import BookmarkButton from './community/BookmarkButton';
 import FloatingWriteButton from './community/FloatingWriteButton';
 import { COMMUNITY_POSTS, Post } from '../data/communityPosts';
+import { getDisplayCounts } from '../utils/postUtils';
 import svgPaths from '../imports/svg-2hkovzo4c1';
 import svgPathsGrid from '../imports/svg-mfg8nwobt9';
 
@@ -351,24 +352,14 @@ export default function TipsBoardPage() {
           {viewMode === 'list' ? (
             <div className="flex flex-col">
               {sortedPosts.map((post) => {
-                const storedLikes = isMounted
-                  ? localStorage.getItem(`post_${post.id}_likes`)
-                  : null;
-                const storedComments = isMounted
-                  ? localStorage.getItem(`post_${post.id}_commentsCount`)
-                  : null;
-                const storedViews = isMounted
-                  ? localStorage.getItem(`post_${post.id}_views`)
-                  : null;
-                const displayLikes = storedLikes
-                  ? parseInt(storedLikes)
-                  : post.likes;
-                const displayComments = storedComments
-                  ? parseInt(storedComments)
-                  : post.comments;
-                const displayViews = storedViews
-                  ? parseInt(storedViews)
-                  : post.views;
+                const counts = getDisplayCounts(
+                  post.id,
+                  { likes: post.likes, comments: post.comments, views: post.views },
+                  isMounted
+                );
+                const displayLikes = counts.likes;
+                const displayComments = counts.comments;
+                const displayViews = counts.views;
 
                 return (
                   <div
@@ -492,22 +483,13 @@ export default function TipsBoardPage() {
             <div className="bg-[#F8FBFF] w-full px-[16px] pb-[16px] pt-[8px]">
               <div className="grid grid-cols-2 gap-[8px]">
                 {sortedPosts.map((post) => {
-                  const storedLikes = isMounted
-                    ? localStorage.getItem(`post_${post.id}_likes`)
-                    : null;
-                  const storedComments = isMounted
-                    ? localStorage.getItem(`post_${post.id}_commentsCount`)
-                    : null;
-                  const storedViews = isMounted
-                    ? localStorage.getItem(`post_${post.id}_views`)
-                    : null;
-                  const displayLikes = storedLikes
-                    ? parseInt(storedLikes)
-                    : post.likes;
-                  const displayComments = storedComments
-                    ? parseInt(storedComments)
-                    : post.comments;
-
+                  const counts = getDisplayCounts(
+                    post.id,
+                    { likes: post.likes, comments: post.comments, views: post.views },
+                    isMounted
+                  );
+                  const displayLikes = counts.likes;
+                  const displayComments = counts.comments;
 
                   return (
                     <div

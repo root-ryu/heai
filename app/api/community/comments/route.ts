@@ -14,7 +14,7 @@ export async function GET(req: Request) {
       .from('comments')
       .select('*')
       .eq('post_id', postId)
-      .order('created_at', { ascending: true }); // 댓글은 보통 작성순
+      .order('created_at', { ascending: false }); // 최신순 정렬
 
     if (error) {
       console.error('Error fetching comments:', error);
@@ -56,17 +56,17 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
-    // 게시글의 댓글 수 증가 (선택사항, 트리거로 처리할 수도 있음)
-    // 여기서는 간단하게 클라이언트에서 처리하거나 별도 업데이트
-    // 하지만 데이터 무결성을 위해 서버에서 처리하는게 좋음
-    const { error: updateError } = await supabase.rpc('increment_comments_count', { post_id: postId });
-    
-    // RPC가 없으면 직접 업데이트 시도 (Concurrency 이슈 있을 수 있음)
-    if (updateError) {
-       // RPC 실패시 (함수 없을 확률 높음) 직접 카운트 쿼리해서 업데이트 하거나 무시
-       // 여기서는 일단 무시하고 클라이언트에서 처리하도록 유도하거나, 
-       // 별도로 count를 가져와서 +1 하는 방식은 race condition 위험.
-       // 일단 댓글 생성 성공만 반환.
+    // 게시글의 댓글 수를 실제 댓글 개수로 업데이트
+    const { count, error: countError } = await supabase
+      .from('comments')
+      .select('*', { count: 'exact', head: true })
+      .eq('post_id', postId);
+
+    if (!countError && count !== null) {
+      await supabase
+        .from('community')
+        .update({ comments_count: count })
+        .eq('id', postId);
     }
 
     return NextResponse.json(data);

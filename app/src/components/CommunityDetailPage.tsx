@@ -225,7 +225,34 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
             setPost(mappedPost);
             setLikesCount(mappedPost.likes);
             setCommentsCount(mappedPost.comments);
-            setViewsCount(mappedPost.views);
+
+            // API 게시글 조회수 증가
+            // Strict Mode에서 useEffect가 2번 실행되는 것만 방지 (100ms 내 중복 호출 차단)
+            const lastCallKey = `__lastViewCall_${postId}`;
+            const lastCall = parseInt(localStorage.getItem(lastCallKey) || '0');
+            const now = Date.now();
+            
+            if (now - lastCall > 200) {
+              localStorage.setItem(lastCallKey, now.toString());
+              
+              try {
+                const viewRes = await fetch(`/api/community/posts/${postId}`, {
+                  method: 'PATCH',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ type: 'view' }),
+                });
+                if (viewRes.ok) {
+                  const updatedPost = await viewRes.json();
+                  setViewsCount(updatedPost.views);
+                } else {
+                  setViewsCount(mappedPost.views);
+                }
+              } catch {
+                setViewsCount(mappedPost.views);
+              }
+            } else {
+              setViewsCount(mappedPost.views);
+            }
 
             // API 게시글은 localStorage 좋아요/북마크 상태만 확인 (카운트는 DB 기준)
             const storedIsLiked = localStorage.getItem(
@@ -245,7 +272,7 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
               const commentsData = await commentsRes.json();
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
               const mappedComments: Comment[] = commentsData.map((c: any) => ({
-                id: c.id, // ID 저장 (삭제 시 필요)
+                id: String(c.id), // ID를 문자열로 통일 (삭제 시 필요)
                 author: c.author,
                 initial: c.initial || c.author.charAt(0),
                 content: c.content,
@@ -253,6 +280,7 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
                 timeAgo: getTimeAgoString(new Date(c.created_at).getTime()),
                 timestamp: new Date(c.created_at).getTime(),
               }));
+              // API에서 이미 최신순 정렬되어 옴
               setComments(mappedComments);
               setCommentsCount(mappedComments.length);
 
@@ -261,8 +289,8 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
                 [key: string]: { liked: boolean; count: number };
               } = {};
               mappedComments.forEach((comment) => {
-                const commentId = comment.id || comment.timestamp?.toString();
-                if (!commentId) return;
+                const commentId = String(comment.id || comment.timestamp);
+                if (!commentId || commentId === 'undefined') return;
 
                 const likedKey = `post_${postId}_comment_${commentId}_liked`;
                 const likesKey = `post_${postId}_comment_${commentId}_likes`;
@@ -463,18 +491,15 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
 
           if (res.ok) {
             const updatedComments = comments.filter(
-              (c) => c.id !== deleteTarget.id
+              (c) => String(c.id) !== String(deleteTarget.id)
             );
             setComments(updatedComments);
+            // 실제 댓글 수로 업데이트 (API에서 이미 DB에 반영됨)
             setCommentsCount(updatedComments.length);
-            localStorage.setItem(
-              `post_${postId}_commentsCount`,
-              updatedComments.length.toString()
-            );
 
             setCommentLikesState((prev) => {
               const newState = { ...prev };
-              delete newState[deleteTarget.id!];
+              delete newState[String(deleteTarget.id)];
               return newState;
             });
           } else {
@@ -524,7 +549,7 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
       (p) => String(p.id) === String(postId)
     );
     const comment = comments.find(
-      (c) => c.id === commentId || c.timestamp?.toString() === commentId
+      (c) => String(c.id) === commentId || c.timestamp?.toString() === commentId
     );
 
     if (!isDummyPost && comment && comment.id) {
@@ -603,7 +628,7 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
         if (res.ok) {
           const newCommentData = await res.json();
           const newComment: Comment = {
-            id: newCommentData.id,
+            id: String(newCommentData.id), // ID를 문자열로 통일
             author: newCommentData.author,
             initial: newCommentData.initial || newCommentData.author.charAt(0),
             content: newCommentData.content,
@@ -612,12 +637,14 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
             timestamp: new Date(newCommentData.created_at).getTime(),
           };
 
-          setComments([newComment, ...comments]);
-          setCommentsCount(commentsCount + 1);
-          localStorage.setItem(
-            `post_${postId}_commentsCount`,
-            (commentsCount + 1).toString()
-          );
+          // 최신 댓글이 맨 위로 (API에서 최신순 정렬)
+          const updatedComments = [newComment, ...comments];
+          setComments(updatedComments);
+          
+          // 실제 댓글 수로 업데이트 (API에서 이미 DB에 반영됨)
+          const newCount = updatedComments.length;
+          setCommentsCount(newCount);
+          
           setCommentInput('');
           const textarea = document.querySelector('textarea');
           if (textarea) textarea.style.height = 'auto';
@@ -894,9 +921,9 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
                 </p>
               </div>
 
-              {comments.map((comment, index) => {
-                const commentId = comment.id || comment.timestamp?.toString();
-                if (!commentId) return null;
+              {comments.map((comment) => {
+                const commentId = String(comment.id || comment.timestamp);
+                if (!commentId || commentId === 'undefined') return null;
 
                 const commentState = commentLikesState[commentId] || {
                   liked: false,

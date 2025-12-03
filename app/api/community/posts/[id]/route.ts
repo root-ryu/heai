@@ -8,7 +8,7 @@ export async function GET(
   try {
     const { id } = await params;
 
-    const { data, error } = await supabase
+    const { data: post, error } = await supabase
       .from('community')
       .select('*')
       .eq('id', id)
@@ -19,7 +19,16 @@ export async function GET(
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
-    return NextResponse.json(data);
+    // 실제 댓글 수 가져오기
+    const { count } = await supabase
+      .from('comments')
+      .select('*', { count: 'exact', head: true })
+      .eq('post_id', id);
+
+    return NextResponse.json({
+      ...post,
+      comments_count: count ?? post.comments_count ?? 0,
+    });
   } catch (error) {
     console.error('Unexpected error:', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });

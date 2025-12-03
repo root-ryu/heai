@@ -3,7 +3,8 @@ import { supabase } from '../../../lib/supabaseClient';
 
 export async function GET() {
   try {
-    const { data, error } = await supabase
+    // 게시글 목록 가져오기
+    const { data: posts, error } = await supabase
       .from('community')
       .select('*')
       .order('created_at', { ascending: false });
@@ -13,7 +14,22 @@ export async function GET() {
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
-    return NextResponse.json(data);
+    // 각 게시글의 실제 댓글 수를 가져와서 업데이트
+    const postsWithActualCounts = await Promise.all(
+      posts.map(async (post) => {
+        const { count } = await supabase
+          .from('comments')
+          .select('*', { count: 'exact', head: true })
+          .eq('post_id', post.id);
+
+        return {
+          ...post,
+          comments_count: count ?? post.comments_count ?? 0,
+        };
+      })
+    );
+
+    return NextResponse.json(postsWithActualCounts);
   } catch (error) {
     console.error('Unexpected error:', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });

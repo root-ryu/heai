@@ -51,25 +51,27 @@ export default function PostCardList({
   const [displayViews, setDisplayViews] = useState(post.views);
 
   useEffect(() => {
-    // localStorage에서 해당 게시글의 좋아요/댓글 수 불러오기
-    const storedLikes = localStorage.getItem(`post_${post.id}_likes`);
-    const storedComments = localStorage.getItem(
-      `post_${post.id}_commentsCount`
-    );
+    // 더미 게시글 ID 목록 (communityPosts.ts에 하드코딩된 것들)
+    const DUMMY_POST_IDS = [1, 2, 3, 4, 5, 6, 7, 101, 102, 103, 104, 105, 106, 201, 202, 301, 302];
+    const numId = typeof post.id === 'string' ? parseInt(String(post.id)) : post.id;
+    const isDummy = DUMMY_POST_IDS.includes(numId);
+    
+    if (!isDummy) {
+      // API 게시글은 DB에서 가져온 값 그대로 사용
+      setDisplayLikes(post.likes);
+      setDisplayComments(post.comments);
+      setDisplayViews(post.views);
+    } else {
+      // 더미 게시글은 localStorage에서 불러오기
+      const storedLikes = localStorage.getItem(`post_${post.id}_likes`);
+      const storedComments = localStorage.getItem(`post_${post.id}_commentsCount`);
+      const storedViews = localStorage.getItem(`post_${post.id}_views`);
 
-    if (storedLikes) {
-      setDisplayLikes(parseInt(storedLikes));
+      if (storedLikes) setDisplayLikes(parseInt(storedLikes));
+      if (storedComments) setDisplayComments(parseInt(storedComments));
+      if (storedViews) setDisplayViews(parseInt(storedViews));
     }
-    if (storedComments) {
-      setDisplayComments(parseInt(storedComments));
-    }
-
-    // 조회수 불러오기
-    const storedViews = localStorage.getItem(`post_${post.id}_views`);
-    if (storedViews) {
-      setDisplayViews(parseInt(storedViews));
-    }
-  }, [post.id]);
+  }, [post.id, post.likes, post.comments, post.views]);
   // categoryColor를 bg-[rgba(...)] 형식에서 실제 색상 값으로 변환
   const getCategoryBgColor = () => {
     if (post.categoryBgColor) return post.categoryBgColor;
