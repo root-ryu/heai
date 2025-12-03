@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import PullToRefresh from './PullToRefresh';
 import { Heart, MessageSquare, Bookmark, Share2, Trash2 } from 'lucide-react';
 import { Top } from './Layout';
 import { generateComments } from '../utils/commentGenerator';
@@ -720,7 +721,7 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
             {post.category}
           </p>
         </div>
-
+      <PullToRefresh>
         {/* Scrollable Content */}
         <div className="flex-1 overflow-y-auto overflow-x-hidden w-full pb-[120px]">
           <div className="flex flex-col gap-[12px]">
@@ -964,6 +965,7 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
             </div>
           </div>
         </div>
+      </PullToRefresh>
 
         {/* Comment Input Section */}
         <div className="bg-white border-t border-[#f0f0f0] px-[16px] py-[12px] shrink-0">

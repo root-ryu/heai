@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { Top, Bottom } from './Layout';
-
+import PullToRefresh from './PullToRefresh';
 export default function BookmarkPage() {
   const router = useRouter();
 
@@ -35,7 +35,7 @@ export default function BookmarkPage() {
             </p>
           </div>
         </div>
-
+      <PullToRefresh>
         {/* Empty State */}
         <div className="flex-1 flex items-center justify-center">
           <div className="text-center">
@@ -44,7 +44,7 @@ export default function BookmarkPage() {
             </p>
           </div>
         </div>
-
+      </PullToRefresh>
         <Bottom />
       </div>
     </div>

@@ -110,8 +110,8 @@ export default function CharacterPage() {
   });
 
   return (
-    <div className="bg-[#F8FBFF] flex flex-col items-center w-full h-full overflow-hidden">
-      <div className="max-w-[375px] mx-auto w-full h-full flex flex-col relative">
+    <div className="bg-[#F8FBFF] flex flex-col items-center w-full h-full">
+      <div className="max-w-[375px] mx-auto w-full h-full flex flex-col relative overflow-hidden">
         <Top />
 
         {/* Header */}
@@ -122,9 +122,8 @@ export default function CharacterPage() {
 
         {/* Category Tabs */}
         <CategoryTabs activeCategory="character" />
-
         {/* Posts List */}
-        <div className="flex-1 overflow-y-auto overflow-x-hidden w-full pb-[120px]">
+        <div className="flex-1 min-h-0 overflow-y-auto pb-[120px]">
           {/* Banner */}
           <div className="bg-white w-full px-[16px] pb-[16px] shrink-0">
             <button
@@ -509,7 +508,6 @@ export default function CharacterPage() {
                   const displayComments = storedComments
                     ? parseInt(storedComments)
                     : post.comments;
-
 
                   return (
                     <div

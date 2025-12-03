@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
+import PullToRefresh from './PullToRefresh';
 import { Top, Bottom } from './Layout';
 import svgPaths from '../imports/svg-czxy8mittk';
 import { img2KLine, imgDone } from '../imports/svg-ivbnd';
@@ -64,7 +65,7 @@ export default function MyPage() {
             마이페이지
           </p>
         </div>
-
+        <PullToRefresh>
         {/* Scrollable Content */}
         <div className="flex-1 overflow-y-auto overflow-x-hidden w-full pb-[120px]">
           {/* Profile Section */}
@@ -349,7 +350,7 @@ export default function MyPage() {
             </button>
           </div>
         </div>
-
+        </PullToRefresh>
         <Bottom />
       </div>
     </div>

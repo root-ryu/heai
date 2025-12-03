@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { Top, Bottom } from './Layout';
-
+import PullToRefresh from './PullToRefresh';
 export default function CalendarPage() {
   const router = useRouter();
 
@@ -35,7 +35,7 @@ export default function CalendarPage() {
             </p>
           </div>
         </div>
-
+      <PullToRefresh>
         <div className="flex-1 overflow-y-auto overflow-x-hidden w-full">
           <div className="flex items-center justify-center p-8">
             <p className="font-pretendard font-medium text-[16px] text-[#a4a4a4]">
@@ -43,7 +43,7 @@ export default function CalendarPage() {
             </p>
           </div>
         </div>
-
+`      </PullToRefresh> 
         <Bottom />
       </div>
     </div>

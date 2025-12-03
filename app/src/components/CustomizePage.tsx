@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Top, Bottom } from './Layout';
-
+import PullToRefresh from './PullToRefresh';
 const img336584700 = '/7ead42acac65dca5bdba700634d9e214cb5b6134.png';
 const imgCoin = '/69ca96a63edd25007467149baddca65583cdf3d9.png';
 const imgImage316 = '/08da22f7bd9696bb50d1ab29ce01b9781cfd82cb.png';
@@ -103,6 +103,7 @@ export default function CustomizePage() {
           </div>
         </div>
 
+        <PullToRefresh>
         {/* Content */}
         <div className="flex-1 overflow-y-auto overflow-x-hidden w-full pb-[120px]">
           <div className="box-border content-stretch flex flex-col gap-[20px] items-center overflow-clip px-0 py-[10px] w-full">
@@ -228,7 +229,7 @@ export default function CustomizePage() {
             </div>
           </div>
         </div>
-
+        </PullToRefresh>
         <Bottom />
       </div>
     </div>

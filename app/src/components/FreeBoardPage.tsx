@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Top, Bottom } from './Layout';
+import PullToRefresh from './PullToRefresh';
 import CommunityHeader from './community/CommunityHeader';
 import SearchBar from './community/SearchBar';
 import CategoryTabs from './community/CategoryTabs';
@@ -74,6 +75,7 @@ export default function FreeBoardPage() {
         {/* Category Tabs */}
         <CategoryTabs activeCategory="free" />
 
+        <PullToRefresh>
         {/* Posts List */}
         <div className="flex-1 overflow-y-auto overflow-x-hidden w-full pb-[120px]">
           <div className="flex flex-col gap-[10px] pb-[20px]">
@@ -87,7 +89,7 @@ export default function FreeBoardPage() {
             ))}
           </div>
         </div>
-
+        </PullToRefresh>
         <FloatingWriteButton />
 
         <Bottom />
