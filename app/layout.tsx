@@ -49,9 +49,7 @@ export default function RootLayout({
         <div className="h-svh flex justify-center bg-gray-100 m-0 p-0 overflow-hidden">
           <div className="w-full h-svh bg-white shadow-2xl relative overflow-hidden">
             {/* Pull to Refresh 래퍼 */}
-            <PullToRefresh>
-              {children}
-            </PullToRefresh>
+            <PullToRefresh>{children}</PullToRefresh>
           </div>
         </div>
       </body>

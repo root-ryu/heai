@@ -7,7 +7,10 @@ interface PullToRefreshProps {
   onRefresh?: () => Promise<void>;
 }
 
-export default function PullToRefresh({ children, onRefresh }: PullToRefreshProps) {
+export default function PullToRefresh({
+  children,
+  onRefresh,
+}: PullToRefreshProps) {
   const [pullDistance, setPullDistance] = useState(0);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [isPulling, setIsPulling] = useState(false);
@@ -25,7 +28,7 @@ export default function PullToRefresh({ children, onRefresh }: PullToRefreshProp
       // 스크롤이 맨 위에 있을 때만 pull-to-refresh 활성화
       const scrollableParent = findScrollableParent(e.target as HTMLElement);
       if (scrollableParent && scrollableParent.scrollTop > 0) return;
-      
+
       startY.current = e.touches[0].clientY;
       setIsPulling(true);
     };
@@ -82,11 +85,16 @@ export default function PullToRefresh({ children, onRefresh }: PullToRefreshProp
     };
 
     // 스크롤 가능한 부모 요소 찾기
-    const findScrollableParent = (element: HTMLElement | null): HTMLElement | null => {
+    const findScrollableParent = (
+      element: HTMLElement | null
+    ): HTMLElement | null => {
       while (element) {
         const style = window.getComputedStyle(element);
         const overflowY = style.overflowY;
-        if ((overflowY === 'auto' || overflowY === 'scroll') && element.scrollHeight > element.clientHeight) {
+        if (
+          (overflowY === 'auto' || overflowY === 'scroll') &&
+          element.scrollHeight > element.clientHeight
+        ) {
           return element;
         }
         element = element.parentElement;
@@ -94,8 +102,12 @@ export default function PullToRefresh({ children, onRefresh }: PullToRefreshProp
       return null;
     };
 
-    container.addEventListener('touchstart', handleTouchStart, { passive: true });
-    container.addEventListener('touchmove', handleTouchMove, { passive: false });
+    container.addEventListener('touchstart', handleTouchStart, {
+      passive: true,
+    });
+    container.addEventListener('touchmove', handleTouchMove, {
+      passive: false,
+    });
     container.addEventListener('touchend', handleTouchEnd, { passive: true });
 
     return () => {
