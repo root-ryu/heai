@@ -123,9 +123,7 @@ export default function MainPage() {
         </div>
         <PullToRefresh>
           {/* Scrollable Content */}
-          <div
-            className="box-border flex flex-col gap-[34px] items-center overflow-x-clip px-[14px] py-0 pb-[120px] w-full flex-1 scrollbar-hide"
-          >
+          <div className="box-border flex flex-col gap-[34px] items-center overflow-x-clip px-[14px] py-0 pb-[120px] w-full flex-1 scrollbar-hide">
             <style>{`
           .scrollbar-hide::-webkit-scrollbar {
             display: none;
@@ -328,7 +326,10 @@ export default function MainPage() {
                                 ? 'border-[#5a54fa]'
                                 : 'border-[#e6e6e6]'
                             } outline-none select-none`}
-                            style={{ touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}
+                            style={{
+                              touchAction: 'manipulation',
+                              WebkitTapHighlightColor: 'transparent',
+                            }}
                           >
                             {routines.water && (
                               <div className="absolute inset-0 flex items-center justify-center">
@@ -388,7 +389,10 @@ export default function MainPage() {
                                 ? 'border-[#5a54fa]'
                                 : 'border-[#e6e6e6]'
                             } outline-none select-none`}
-                            style={{ touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}
+                            style={{
+                              touchAction: 'manipulation',
+                              WebkitTapHighlightColor: 'transparent',
+                            }}
                           >
                             {routines.meditation && (
                               <div className="absolute inset-0 flex items-center justify-center">
@@ -447,7 +451,10 @@ export default function MainPage() {
                                 ? 'border-[#5a54fa]'
                                 : 'border-[#e6e6e6]'
                             } outline-none select-none`}
-                            style={{ touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}
+                            style={{
+                              touchAction: 'manipulation',
+                              WebkitTapHighlightColor: 'transparent',
+                            }}
                           >
                             {routines.sleep && (
                               <div className="absolute inset-0 flex items-center justify-center">
