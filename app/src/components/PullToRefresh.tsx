@@ -94,7 +94,16 @@ export default function PullToRefresh({
       }
     };
 
-    const handleTouchEnd = () => {
+    const handleTouchEnd = (e: TouchEvent) => {
+      // 버튼, 체크박스 등 인터랙티브 요소 터치 시 무시
+      const target = e.target as HTMLElement;
+      if (target.closest('button, input, a, [role="button"]')) {
+        isPullingRef.current = false;
+        setPullDistance(0);
+        pullDistanceRef.current = 0;
+        return;
+      }
+
       if (!isPullingRef.current) return;
       isPullingRef.current = false;
 

@@ -310,23 +310,14 @@ export default function MainPage() {
                             </p>
                           </div>
                           <button
-                            onPointerDown={(e) => {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              toggleRoutine('water');
-                            }}
+                            onClick={() => toggleRoutine('water')}
                             className={`${
                               routines.water ? 'bg-[#5a54fa]' : 'bg-white'
                             } h-[21px] relative rounded-[5px] w-[20px] border-2 ${
                               routines.water
                                 ? 'border-[#5a54fa]'
                                 : 'border-[#e6e6e6]'
-                            } outline-none select-none cursor-pointer`}
-                            style={{
-                              touchAction: 'manipulation',
-                              WebkitTapHighlightColor: 'transparent',
-                              WebkitUserSelect: 'none',
-                            }}
+                            }`}
                           >
                             {routines.water && (
                               <div className="absolute inset-0 flex items-center justify-center">
@@ -370,23 +361,14 @@ export default function MainPage() {
                             </p>
                           </div>
                           <button
-                            onPointerDown={(e) => {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              toggleRoutine('meditation');
-                            }}
+                            onClick={() => toggleRoutine('meditation')}
                             className={`${
                               routines.meditation ? 'bg-[#5a54fa]' : 'bg-white'
                             } h-[21px] relative rounded-[5px] w-[20px] border-2 ${
                               routines.meditation
                                 ? 'border-[#5a54fa]'
                                 : 'border-[#e6e6e6]'
-                            } outline-none select-none cursor-pointer`}
-                            style={{
-                              touchAction: 'manipulation',
-                              WebkitTapHighlightColor: 'transparent',
-                              WebkitUserSelect: 'none',
-                            }}
+                            }`}
                           >
                             {routines.meditation && (
                               <div className="absolute inset-0 flex items-center justify-center">
@@ -429,23 +411,14 @@ export default function MainPage() {
                             </p>
                           </div>
                           <button
-                            onPointerDown={(e) => {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              toggleRoutine('sleep');
-                            }}
+                            onClick={() => toggleRoutine('sleep')}
                             className={`${
                               routines.sleep ? 'bg-[#5a54fa]' : 'bg-white'
                             } h-[21px] relative rounded-[5px] w-[20px] border-2 ${
                               routines.sleep
                                 ? 'border-[#5a54fa]'
                                 : 'border-[#e6e6e6]'
-                            } outline-none select-none cursor-pointer`}
-                            style={{
-                              touchAction: 'manipulation',
-                              WebkitTapHighlightColor: 'transparent',
-                              WebkitUserSelect: 'none',
-                            }}
+                            }`}
                           >
                             {routines.sleep && (
                               <div className="absolute inset-0 flex items-center justify-center">
