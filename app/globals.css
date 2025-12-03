@@ -100,4 +100,32 @@
     user-select: none;
     -webkit-user-select: none;
   }
+
+  /* 모바일 탭 하이라이트 및 터치 효과 제거 */
+  * {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+  }
+
+  /* 버튼, 링크 등 인터랙티브 요소 터치 효과 제거 */
+  button,
+  a,
+  [role="button"] {
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+  }
+
+  /* 터치 디바이스에서만 hover 효과 비활성화 */
+  @media (hover: none) and (pointer: coarse) {
+    *:hover {
+      opacity: inherit !important;
+    }
+    
+    button:hover,
+    a:hover,
+    [role="button"]:hover {
+      opacity: inherit !important;
+      background-color: inherit;
+    }
+  }
 }
