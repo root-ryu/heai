@@ -1,13 +1,12 @@
 'use client';
 
-import { useState, useEffect, useRef, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Heart, MessageSquare, Bookmark, Share2, Trash2 } from 'lucide-react';
 import { Top } from './Layout';
 import { generateComments } from '../utils/commentGenerator';
 import { COMMUNITY_POSTS, type Post } from '../data/communityPosts';
 import { getUserNickname } from '../utils/nickname';
-import { CATEGORY_DATA } from '../utils/constants';
 import svgPaths from '../imports/svg-jjl4gh5igk';
 
 interface PostDetailPageProps {
@@ -40,30 +39,6 @@ function getTimeAgoString(timestamp: number): string {
   return `${days}일 전`;
 }
 
-// 텍스트 내 URL을 링크로 변환하는 함수
-function renderContentWithLinks(content: string) {
-  const urlRegex = /(https?:\/\/[^\s]+)/g;
-  const parts = content.split(urlRegex);
-
-  return parts.map((part, index) => {
-    if (part.match(urlRegex)) {
-      return (
-        <a
-          key={index}
-          href={part}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-blue-500 hover:underline break-all"
-          onClick={(e) => e.stopPropagation()} // 부모 클릭 이벤트 방지
-        >
-          {part}
-        </a>
-      );
-    }
-    return part;
-  });
-}
-
 export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
   const router = useRouter();
   const [post, setPost] = useState<Post | null>(null);
@@ -87,20 +62,10 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
     id?: string;
   } | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const hasViewedRef = useRef(false);
-
-  const foundDummyPost = useMemo(() => COMMUNITY_POSTS.find((p: Post) => String(p.id) === String(postId)), [postId]);
-  
-  const generatedComments = useMemo(() => {
-    if (foundDummyPost) {
-      return generateComments(postId, foundDummyPost.comments);
-    }
-    return [];
-  }, [postId, foundDummyPost]);
 
   useEffect(() => {
     // ID를 문자열로 변환하여 비교 (API ID는 문자열일 수 있음)
-    // const foundDummyPost = COMMUNITY_POSTS.find((p: Post) => String(p.id) === String(postId)); // Moved to top level
+    const foundDummyPost = COMMUNITY_POSTS.find((p: Post) => String(p.id) === String(postId));
 
     if (foundDummyPost) {
       const foundPost = foundDummyPost;
@@ -157,8 +122,8 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
         setViewsCount(currentViews);
       }
 
-      // 게시글의 댓글 수에 맞춰 댓글 생성 (Memoized at top level)
-      // const generatedComments = ...
+      // 게시글의 댓글 수에 맞춰 댓글 생성
+      const generatedComments = generateComments(postId, foundPost.comments);
 
       // localStorage에서 사용자가 작성한 댓글 불러오기
       const storedComments = localStorage.getItem(`post_${postId}_comments`);
@@ -220,7 +185,13 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
             const data = await res.json();
             
             // 카테고리 색상 매핑 (CommunityPage와 동일)
-            const catInfo = CATEGORY_DATA[data.category] || { color: '#5A54FA', bgColor: 'rgba(90,84,250,0.67)' };
+            const categoryInfo: Record<string, { color: string; bgColor: string }> = {
+              '캐릭터': { color: '#FFB347', bgColor: 'rgba(255,179,71,0.67)' },
+              '자유게시판': { color: '#FF8B80', bgColor: 'rgba(255,139,128,0.67)' },
+              '루틴게시판': { color: '#22D760', bgColor: 'rgba(34,215,96,0.67)' },
+              '꿀팁': { color: '#C8A5D8', bgColor: 'rgba(200,165,216,0.67)' },
+            };
+            const catInfo = categoryInfo[data.category] || { color: '#5A54FA', bgColor: 'rgba(90,84,250,0.67)' };
             const timestamp = new Date(data.created_at).getTime();
 
             const mappedPost: Post = {
@@ -244,26 +215,6 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
             setCommentsCount(mappedPost.comments);
             setViewsCount(mappedPost.views);
             
-            // 조회수 증가 로직 (API 호출)
-            // 쿨타임 없이 매번 증가 (사용자 요청)
-            // React Strict Mode로 인한 중복 호출 방지
-            if (!hasViewedRef.current) {
-              hasViewedRef.current = true;
-              try {
-                await fetch(`/api/community/posts/${postId}`, {
-                  method: 'PATCH',
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify({ type: 'view' }),
-                });
-                // UI 업데이트 (낙관적)
-                setViewsCount((prev) => prev + 1);
-              } catch (error) {
-                console.error('Failed to increment views:', error);
-              }
-            }
-
             // API 게시글은 localStorage 좋아요/북마크 상태만 확인 (카운트는 DB 기준)
             const storedIsLiked = localStorage.getItem(`post_${postId}_isLiked`);
             const storedBookmarked = localStorage.getItem(`post_${postId}_bookmarked`);
@@ -554,61 +505,54 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
     }
   };
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  // ... (existing code)
-
   const handleCommentSubmit = async () => {
-    if (!commentInput.trim() || isSubmitting) return;
+    if (!commentInput.trim()) return;
 
-    setIsSubmitting(true);
-    try {
-      const isDummyPost = COMMUNITY_POSTS.some(p => String(p.id) === String(postId));
+    const isDummyPost = COMMUNITY_POSTS.some(p => String(p.id) === String(postId));
 
-      if (isDummyPost) {
-        // ... (existing dummy post logic)
-        const nickname = getUserNickname();
-        const newComment: Comment = {
-          author: nickname,
-          initial: nickname.charAt(0),
-          content: commentInput,
-          likes: 0,
-          timeAgo: '방금 전',
-          timestamp: Date.now(),
-        };
+    if (isDummyPost) {
+      const nickname = getUserNickname();
+      const newComment: Comment = {
+        author: nickname,
+        initial: nickname.charAt(0),
+        content: commentInput,
+        likes: 0,
+        timeAgo: '방금 전',
+        timestamp: Date.now(),
+      };
 
-        const updatedComments = [newComment, ...comments];
-        updatedComments.sort(
-          (a, b) => (b.timestamp || 0) - (a.timestamp || 0)
-        );
-        setComments(updatedComments);
+      const updatedComments = [newComment, ...comments];
+      updatedComments.sort(
+        (a, b) => (b.timestamp || 0) - (a.timestamp || 0)
+      );
+      setComments(updatedComments);
 
-        const newCommentId = newComment.timestamp!.toString();
-        setCommentLikesState((prev) => ({
-          ...prev,
-          [newCommentId]: { liked: false, count: 0 },
-        }));
+      const newCommentId = newComment.timestamp!.toString();
+      setCommentLikesState((prev) => ({
+        ...prev,
+        [newCommentId]: { liked: false, count: 0 },
+      }));
 
-        const newCommentsCount = commentsCount + 1;
-        setCommentsCount(newCommentsCount);
+      const newCommentsCount = commentsCount + 1;
+      setCommentsCount(newCommentsCount);
 
-        const userComments = updatedComments.filter(
-          (c) => c.author === nickname
-        );
-        localStorage.setItem(
-          `post_${postId}_comments`,
-          JSON.stringify(userComments)
-        );
-        localStorage.setItem(
-          `post_${postId}_commentsCount`,
-          newCommentsCount.toString()
-        );
+      const userComments = updatedComments.filter(
+        (c) => c.author === nickname
+      );
+      localStorage.setItem(
+        `post_${postId}_comments`,
+        JSON.stringify(userComments)
+      );
+      localStorage.setItem(
+        `post_${postId}_commentsCount`,
+        newCommentsCount.toString()
+      );
 
-        setCommentInput('');
-        const textarea = document.querySelector('textarea');
-        if (textarea) textarea.style.height = 'auto';
-      } else {
-        // ... (existing API logic)
+      setCommentInput('');
+      const textarea = document.querySelector('textarea');
+      if (textarea) textarea.style.height = 'auto';
+    } else {
+      try {
         const res = await fetch('/api/community/comments', {
           method: 'POST',
           headers: {
@@ -645,24 +589,12 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
         } else {
           alert('댓글 작성에 실패했습니다.');
         }
+      } catch (error) {
+        console.error('Error posting comment:', error);
+        alert('오류가 발생했습니다.');
       }
-    } catch (error) {
-      console.error('Error posting comment:', error);
-      alert('오류가 발생했습니다.');
-    } finally {
-      setIsSubmitting(false);
     }
   };
-
-  // ... (existing code)
-
-            <button
-              onClick={handleCommentSubmit}
-              disabled={!commentInput.trim() || isSubmitting}
-              className="bg-[#5A54FA] text-white rounded-[20px] px-[20px] py-[10px] font-pretendard font-medium text-[14px] disabled:bg-[#F5F5F5] disabled:text-[#a4a4a4] transition-colors shrink-0"
-            >
-              {isSubmitting ? '등록 중...' : '등록'}
-            </button>
 
   if (isLoading) {
     return (
@@ -803,8 +735,8 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
               {/* Post Content */}
               <div className="px-[16px] py-[18px]">
                 {post.content && (
-                  <p className="font-pretendard font-regular leading-[24px] not-italic text-[#151522] text-[14px] whitespace-pre-wrap mb-[12px] select-text">
-                    {renderContentWithLinks(post.content)}
+                  <p className="font-pretendard font-regular leading-[24px] not-italic text-[#151522] text-[14px] whitespace-pre-wrap mb-[12px]">
+                    {post.content}
                   </p>
                 )}
 
