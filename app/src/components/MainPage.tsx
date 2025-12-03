@@ -38,7 +38,7 @@ interface RoutineButtonProps {
 }
 
 function RoutineButton({ active, onClick, children }: RoutineButtonProps) {
-  const btnRef = useRef<HTMLButtonElement>(null);
+  const btnRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const btn = btnRef.current;
@@ -74,7 +74,6 @@ function RoutineButton({ active, onClick, children }: RoutineButtonProps) {
       isTap = false;
     };
 
-    // passive: false로 설정하여 preventDefault 호출 가능하게 함
     btn.addEventListener('touchstart', onTouchStart, { passive: false });
     btn.addEventListener('touchmove', onTouchMove, { passive: false });
     btn.addEventListener('touchend', onTouchEnd, { passive: false });
@@ -87,17 +86,19 @@ function RoutineButton({ active, onClick, children }: RoutineButtonProps) {
   }, [onClick]);
 
   return (
-    <button
+    <div
+      role="button"
       ref={btnRef}
       onClick={onClick}
-      className={`outline-none ${
+      style={{ WebkitTapHighlightColor: 'transparent' }}
+      className={`cursor-pointer touch-manipulation outline-none ${
         active ? 'bg-[#5a54fa]' : 'bg-white'
       } h-[21px] relative rounded-[5px] w-[20px] border-2 ${
         active ? 'border-[#5a54fa]' : 'border-[#e6e6e6]'
       }`}
     >
       {children}
-    </button>
+    </div>
   );
 }
 
