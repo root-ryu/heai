@@ -45,11 +45,11 @@ export default function MainPage() {
 
   const scrollToTop = () => {
     // 여러 가능한 스크롤 컨테이너를 시도
-    const scrollContainer = 
+    const scrollContainer =
       document.querySelector('[data-scroll-container]') ||
       document.querySelector('.scrollbar-hide') ||
       document.querySelector('.overflow-y-auto');
-    
+
     if (scrollContainer) {
       scrollContainer.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
@@ -123,7 +123,7 @@ export default function MainPage() {
         </div>
         <PullToRefresh>
           {/* Scrollable Content */}
-          <div 
+          <div
             data-scroll-container
             className="box-border flex flex-col gap-[34px] items-center overflow-x-clip overflow-y-auto px-[14px] py-0 pb-[120px] w-full flex-1 scrollbar-hide"
           >
