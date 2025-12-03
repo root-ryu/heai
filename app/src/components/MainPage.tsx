@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { Bottom } from './Layout';
 import PullToRefresh from './PullToRefresh';
@@ -38,33 +38,12 @@ interface RoutineButtonProps {
 }
 
 function RoutineButton({ active, onClick, children }: RoutineButtonProps) {
-  const btnRef = useRef<HTMLButtonElement>(null);
-
-  useEffect(() => {
-    const btn = btnRef.current;
-    if (!btn) return;
-
-    const handleTouch = (e: TouchEvent) => {
-      e.stopPropagation();
-    };
-
-    // PullToRefresh 등 상위 요소로의 터치 이벤트 전파를 막아 간섭 방지
-    // passive: false로 설정하여 이벤트 처리를 확실하게 함
-    btn.addEventListener('touchstart', handleTouch, { passive: false });
-    btn.addEventListener('touchmove', handleTouch, { passive: false });
-    btn.addEventListener('touchend', handleTouch, { passive: false });
-
-    return () => {
-      btn.removeEventListener('touchstart', handleTouch);
-      btn.removeEventListener('touchmove', handleTouch);
-      btn.removeEventListener('touchend', handleTouch);
-    };
-  }, []);
-
   return (
     <button
-      ref={btnRef}
-      onClick={onClick}
+      onClick={(e) => {
+        e.stopPropagation();
+        onClick();
+      }}
       style={{ WebkitTapHighlightColor: 'transparent' }}
       className={`touch-manipulation outline-none h-[21px] relative rounded-[5px] w-[20px] border-2 ${
         active
