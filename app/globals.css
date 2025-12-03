@@ -120,7 +120,7 @@
     *:hover {
       opacity: inherit !important;
     }
-    
+
     /* 주의: background-color: inherit는 요소의 배경색이 부모와 다를 경우 문제를 일으킬 수 있음 */
     /* 필요한 경우에만 개별 컴포넌트에서 active:bg-transparent 등을 사용 권장 */
   }

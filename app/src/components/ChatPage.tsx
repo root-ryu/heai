@@ -106,7 +106,10 @@ export default function ChatPage() {
   // 메시지 변경 시 저장
   useEffect(() => {
     if (mounted && nickname && messages.length > 0) {
-      localStorage.setItem(`chat_history_${nickname}`, JSON.stringify(messages));
+      localStorage.setItem(
+        `chat_history_${nickname}`,
+        JSON.stringify(messages)
+      );
     }
   }, [messages, nickname, mounted]);
 
@@ -313,8 +316,6 @@ export default function ChatPage() {
               <div ref={messagesEndRef} />
             </div>
 
-
-
             {/* Floating Suggestions Toggle & List */}
             {/* Floating Suggestions Toggle & List */}
             <div className="absolute bottom-[80px] left-0 right-0 px-4 z-30 flex items-end gap-2 pointer-events-none">
@@ -344,19 +345,36 @@ export default function ChatPage() {
                 className="ml-auto size-[40px] rounded-full bg-[#5A54FA] shadow-lg flex items-center justify-center hover:bg-[#4a44ea] transition-all active:scale-95 pointer-events-auto shrink-0"
               >
                 {isHelpOpen ? (
-                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="white"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
                     <line x1="18" y1="6" x2="6" y2="18"></line>
                     <line x1="6" y1="6" x2="18" y2="18"></line>
                   </svg>
                 ) : (
-                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg
+                    width="28"
+                    height="28"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="white"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
                     <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
                     <line x1="12" y1="17" x2="12.01" y2="17"></line>
                   </svg>
                 )}
               </button>
             </div>
-
 
             {/* Input (키보드 없을 때) */}
             {!showKeyboard && (
@@ -384,7 +402,7 @@ export default function ChatPage() {
                     <Send className="w-4 h-4" />
                   </button>
                 </div>
-              </div>  
+              </div>
             )}
           </div>
         </div>
@@ -538,7 +556,6 @@ export default function ChatPage() {
                   </button>
                 </div>
               </div>
-
             </div>
           </div>
         )}
@@ -546,4 +563,3 @@ export default function ChatPage() {
     </>
   );
 }
-
