@@ -52,10 +52,13 @@ export default function PostCardList({
 
   useEffect(() => {
     // 더미 게시글 ID 목록 (communityPosts.ts에 하드코딩된 것들)
-    const DUMMY_POST_IDS = [1, 2, 3, 4, 5, 6, 7, 101, 102, 103, 104, 105, 106, 201, 202, 301, 302];
-    const numId = typeof post.id === 'string' ? parseInt(String(post.id)) : post.id;
+    const DUMMY_POST_IDS = [
+      1, 2, 3, 4, 5, 6, 7, 101, 102, 103, 104, 105, 106, 201, 202, 301, 302,
+    ];
+    const numId =
+      typeof post.id === 'string' ? parseInt(String(post.id)) : post.id;
     const isDummy = DUMMY_POST_IDS.includes(numId);
-    
+
     if (!isDummy) {
       // API 게시글은 DB에서 가져온 값 그대로 사용
       setDisplayLikes(post.likes);
@@ -64,7 +67,9 @@ export default function PostCardList({
     } else {
       // 더미 게시글은 localStorage에서 불러오기
       const storedLikes = localStorage.getItem(`post_${post.id}_likes`);
-      const storedComments = localStorage.getItem(`post_${post.id}_commentsCount`);
+      const storedComments = localStorage.getItem(
+        `post_${post.id}_commentsCount`
+      );
       const storedViews = localStorage.getItem(`post_${post.id}_views`);
 
       if (storedLikes) setDisplayLikes(parseInt(storedLikes));

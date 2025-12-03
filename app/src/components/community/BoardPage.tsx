@@ -24,13 +24,17 @@ interface BoardPageProps {
 export default function BoardPage({ category }: BoardPageProps) {
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedSort, setSelectedSort] = useState<'날짜순' | '추천순'>('날짜순');
+  const [selectedSort, setSelectedSort] = useState<'날짜순' | '추천순'>(
+    '날짜순'
+  );
   const [showSortDropdown, setShowSortDropdown] = useState(false);
   const [viewMode, setViewMode] = useState<'list' | 'grid'>('grid');
   const [isMounted, setIsMounted] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
   const [apiPosts, setApiPosts] = useState<Post[]>([]);
-  const [bookmarkedPosts, setBookmarkedPosts] = useState<(number | string)[]>([]);
+  const [bookmarkedPosts, setBookmarkedPosts] = useState<(number | string)[]>(
+    []
+  );
 
   // API에서 게시글 불러오기
   useEffect(() => {
@@ -39,12 +43,18 @@ export default function BoardPage({ category }: BoardPageProps) {
         const res = await fetch('/api/community/posts');
         if (res.ok) {
           const data = await res.json();
-          
+
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const mappedPosts: Post[] = data.map((item: any) => {
-            const catInfo = Object.values(CATEGORY_DATA).find((_, idx) => Object.keys(CATEGORY_DATA)[idx] === Object.keys(CATEGORY_MAP).find(key => CATEGORY_MAP[key] === item.category)) || { color: '#5A54FA', bgColor: 'rgba(90,84,250,0.67)' };
+            const catInfo = Object.values(CATEGORY_DATA).find(
+              (_, idx) =>
+                Object.keys(CATEGORY_DATA)[idx] ===
+                Object.keys(CATEGORY_MAP).find(
+                  (key) => CATEGORY_MAP[key] === item.category
+                )
+            ) || { color: '#5A54FA', bgColor: 'rgba(90,84,250,0.67)' };
             const timestamp = new Date(item.created_at).getTime();
-            
+
             return {
               id: item.id,
               category: item.category,
@@ -61,7 +71,7 @@ export default function BoardPage({ category }: BoardPageProps) {
               author: item.author,
             };
           });
-          
+
           setApiPosts(mappedPosts);
         }
       } catch (error) {
@@ -104,7 +114,10 @@ export default function BoardPage({ category }: BoardPageProps) {
     return () => window.removeEventListener('focus', handleFocus);
   }, []);
 
-  const handleBookmarkToggle = (postId: number | string, isBookmarked: boolean) => {
+  const handleBookmarkToggle = (
+    postId: number | string,
+    isBookmarked: boolean
+  ) => {
     setBookmarkedPosts((prev) =>
       isBookmarked ? [...prev, postId] : prev.filter((id) => id !== postId)
     );
@@ -112,7 +125,7 @@ export default function BoardPage({ category }: BoardPageProps) {
 
   const categoryDisplayName = CATEGORY_MAP[category];
   const categoryData = CATEGORY_DATA[category];
-  
+
   // API posts와 기본 posts 합치기
   const allPosts = [...apiPosts, ...COMMUNITY_POSTS];
 
@@ -135,9 +148,9 @@ export default function BoardPage({ category }: BoardPageProps) {
     }
     // 날짜순 (최신순)
     if (a.timestamp && b.timestamp) {
-        return b.timestamp - a.timestamp;
+      return b.timestamp - a.timestamp;
     }
-    return 0; 
+    return 0;
   });
 
   return (
@@ -319,21 +332,21 @@ export default function BoardPage({ category }: BoardPageProps) {
                     >
                       <path
                         d="M3 12H21"
-                        stroke={viewMode === 'list' ? "#5A54FA" : "#D1D1D1"}
+                        stroke={viewMode === 'list' ? '#5A54FA' : '#D1D1D1'}
                         strokeLinecap="round"
                         strokeLinejoin="round"
                         strokeWidth="2"
                       />
                       <path
                         d="M3 6H21"
-                        stroke={viewMode === 'list' ? "#5A54FA" : "#D1D1D1"}
+                        stroke={viewMode === 'list' ? '#5A54FA' : '#D1D1D1'}
                         strokeLinecap="round"
                         strokeLinejoin="round"
                         strokeWidth="2"
                       />
                       <path
                         d="M3 18H21"
-                        stroke={viewMode === 'list' ? "#5A54FA" : "#D1D1D1"}
+                        stroke={viewMode === 'list' ? '#5A54FA' : '#D1D1D1'}
                         strokeLinecap="round"
                         strokeLinejoin="round"
                         strokeWidth="2"
@@ -348,28 +361,28 @@ export default function BoardPage({ category }: BoardPageProps) {
                     >
                       <path
                         d={svgPaths.p1753300}
-                        stroke={viewMode === 'grid' ? "#5A54FA" : "#D1D1D1"}
+                        stroke={viewMode === 'grid' ? '#5A54FA' : '#D1D1D1'}
                         strokeLinecap="round"
                         strokeLinejoin="round"
                         strokeWidth="1.5"
                       />
                       <path
                         d={svgPaths.p272d7180}
-                        stroke={viewMode === 'grid' ? "#5A54FA" : "#D1D1D1"}
+                        stroke={viewMode === 'grid' ? '#5A54FA' : '#D1D1D1'}
                         strokeLinecap="round"
                         strokeLinejoin="round"
                         strokeWidth="1.5"
                       />
                       <path
                         d={svgPaths.p1e2bc680}
-                        stroke={viewMode === 'grid' ? "#5A54FA" : "#D1D1D1"}
+                        stroke={viewMode === 'grid' ? '#5A54FA' : '#D1D1D1'}
                         strokeLinecap="round"
                         strokeLinejoin="round"
                         strokeWidth="1.5"
                       />
                       <path
                         d={svgPaths.p2f4d7400}
-                        stroke={viewMode === 'grid' ? "#5A54FA" : "#D1D1D1"}
+                        stroke={viewMode === 'grid' ? '#5A54FA' : '#D1D1D1'}
                         strokeLinecap="round"
                         strokeLinejoin="round"
                         strokeWidth="1.5"
@@ -398,7 +411,11 @@ export default function BoardPage({ category }: BoardPageProps) {
                 {sortedPosts.map((post) => {
                   const counts = getDisplayCounts(
                     post.id,
-                    { likes: post.likes, comments: post.comments, views: post.views },
+                    {
+                      likes: post.likes,
+                      comments: post.comments,
+                      views: post.views,
+                    },
                     isMounted
                   );
                   const displayLikes = counts.likes;

@@ -24,7 +24,10 @@ export async function GET(req: Request) {
     return NextResponse.json(data);
   } catch (error) {
     console.error('Unexpected error:', error);
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    return NextResponse.json(
+      { error: 'Internal Server Error' },
+      { status: 500 }
+    );
   }
 }
 
@@ -34,7 +37,10 @@ export async function POST(req: Request) {
     const { postId, author, content, initial } = body;
 
     if (!postId || !author || !content) {
-      return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+      return NextResponse.json(
+        { error: 'Missing required fields' },
+        { status: 400 }
+      );
     }
 
     const { data, error } = await supabase
@@ -72,7 +78,8 @@ export async function POST(req: Request) {
     return NextResponse.json(data);
   } catch (error: unknown) {
     console.error('Unexpected error:', error);
-    const message = error instanceof Error ? error.message : 'Internal Server Error';
+    const message =
+      error instanceof Error ? error.message : 'Internal Server Error';
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }

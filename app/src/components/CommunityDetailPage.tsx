@@ -231,10 +231,10 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
             const lastCallKey = `__lastViewCall_${postId}`;
             const lastCall = parseInt(localStorage.getItem(lastCallKey) || '0');
             const now = Date.now();
-            
+
             if (now - lastCall > 200) {
               localStorage.setItem(lastCallKey, now.toString());
-              
+
               try {
                 const viewRes = await fetch(`/api/community/posts/${postId}`, {
                   method: 'PATCH',
@@ -640,11 +640,11 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
           // 최신 댓글이 맨 위로 (API에서 최신순 정렬)
           const updatedComments = [newComment, ...comments];
           setComments(updatedComments);
-          
+
           // 실제 댓글 수로 업데이트 (API에서 이미 DB에 반영됨)
           const newCount = updatedComments.length;
           setCommentsCount(newCount);
-          
+
           setCommentInput('');
           const textarea = document.querySelector('textarea');
           if (textarea) textarea.style.height = 'auto';
@@ -748,251 +748,251 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
             {post.category}
           </p>
         </div>
-      <PullToRefresh>
-        {/* Scrollable Content */}
-        <div className="flex-1 overflow-y-auto overflow-x-hidden w-full pb-[120px]">
-          <div className="flex flex-col gap-[12px]">
-            {/* Post Header & Content */}
-            <div className="bg-white">
-              {/* Post Header */}
-              <div className="border-b border-neutral-100 px-[16px] py-[18px]">
-                <div className="flex items-start justify-between mb-[18px]">
-                  <p className="font-pretendard font-bold leading-[27px] not-italic text-[#040415] text-[20px] flex-1">
-                    {post.title}
-                  </p>
-                  {post.author === getUserNickname() && (
-                    <button
-                      onClick={handleDeletePost}
-                      className="ml-[8px] text-[#999999] hover:text-red-500 transition-colors"
-                    >
-                      <Trash2 className="size-[20px]" />
-                    </button>
-                  )}
-                </div>
-                <div className="flex gap-[12px] items-center">
-                  <div className="bg-[rgba(0,0,0,0.2)] rounded-full size-[40px] flex items-center justify-center">
-                    <p className="font-pretendard font-regular leading-[16px] not-italic text-[12px] text-white">
-                      {post.author.charAt(0)}
+        <PullToRefresh>
+          {/* Scrollable Content */}
+          <div className="flex-1 overflow-y-auto overflow-x-hidden w-full pb-[120px]">
+            <div className="flex flex-col gap-[12px]">
+              {/* Post Header & Content */}
+              <div className="bg-white">
+                {/* Post Header */}
+                <div className="border-b border-neutral-100 px-[16px] py-[18px]">
+                  <div className="flex items-start justify-between mb-[18px]">
+                    <p className="font-pretendard font-bold leading-[27px] not-italic text-[#040415] text-[20px] flex-1">
+                      {post.title}
                     </p>
+                    {post.author === getUserNickname() && (
+                      <button
+                        onClick={handleDeletePost}
+                        className="ml-[8px] text-[#999999] hover:text-red-500 transition-colors"
+                      >
+                        <Trash2 className="size-[20px]" />
+                      </button>
+                    )}
                   </div>
-                  <div className="flex flex-col">
-                    <p className="font-pretendard font-bold leading-[21px] not-italic text-[#151522] text-[14px]">
-                      {post.author}
-                    </p>
-                    <div className="flex gap-[8px] items-center text-[#999999]">
-                      <p className="font-pretendard font-regular leading-[16px] not-italic text-[12px]">
-                        {post.timestamp
-                          ? getTimeAgoString(post.timestamp)
-                          : post.timeAgo}
+                  <div className="flex gap-[12px] items-center">
+                    <div className="bg-[rgba(0,0,0,0.2)] rounded-full size-[40px] flex items-center justify-center">
+                      <p className="font-pretendard font-regular leading-[16px] not-italic text-[12px] text-white">
+                        {post.author.charAt(0)}
                       </p>
-                      <p className="font-arial font-regular text-[11px]">|</p>
-                      <p className="font-pretendard font-regular leading-[16px] not-italic text-[12px]">
-                        조회 {viewsCount.toLocaleString()}
+                    </div>
+                    <div className="flex flex-col">
+                      <p className="font-pretendard font-bold leading-[21px] not-italic text-[#151522] text-[14px]">
+                        {post.author}
                       </p>
+                      <div className="flex gap-[8px] items-center text-[#999999]">
+                        <p className="font-pretendard font-regular leading-[16px] not-italic text-[12px]">
+                          {post.timestamp
+                            ? getTimeAgoString(post.timestamp)
+                            : post.timeAgo}
+                        </p>
+                        <p className="font-arial font-regular text-[11px]">|</p>
+                        <p className="font-pretendard font-regular leading-[16px] not-italic text-[12px]">
+                          조회 {viewsCount.toLocaleString()}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              {/* Post Content */}
-              <div className="px-[16px] py-[18px]">
-                {post.content && (
-                  <p className="font-pretendard font-regular leading-[24px] not-italic text-[#151522] text-[14px] whitespace-pre-wrap mb-[12px]">
-                    {post.content}
-                  </p>
-                )}
+                {/* Post Content */}
+                <div className="px-[16px] py-[18px]">
+                  {post.content && (
+                    <p className="font-pretendard font-regular leading-[24px] not-italic text-[#151522] text-[14px] whitespace-pre-wrap mb-[12px]">
+                      {post.content}
+                    </p>
+                  )}
 
-                {/* Vote Section */}
-                {post.hasVote && post.voteOptions && (
-                  <div className="flex flex-col gap-[8px] mb-[12px]">
-                    {post.voteOptions.map((option, idx) => {
-                      const currentPercentage =
-                        votePercentages[idx] ?? option.percentage;
-                      const isSelected = selectedVoteOption === idx;
-                      const hasVoted = selectedVoteOption !== null;
+                  {/* Vote Section */}
+                  {post.hasVote && post.voteOptions && (
+                    <div className="flex flex-col gap-[8px] mb-[12px]">
+                      {post.voteOptions.map((option, idx) => {
+                        const currentPercentage =
+                          votePercentages[idx] ?? option.percentage;
+                        const isSelected = selectedVoteOption === idx;
+                        const hasVoted = selectedVoteOption !== null;
 
-                      return (
-                        <div
-                          key={idx}
-                          onClick={() => handleVoteClick(idx)}
-                          className="relative rounded-[10px] overflow-hidden transition-all cursor-pointer bg-[#f8f8f8]"
-                        >
-                          <div className="p-[10px]">
-                            {currentPercentage > 0 && (
-                              <div
-                                className="absolute h-full left-0 top-0 transition-all duration-500 ease-out rounded-tl-[10px] rounded-bl-[10px]"
-                                style={{
-                                  width: `${currentPercentage}%`,
-                                  backgroundColor: isSelected
-                                    ? '#5A54FA'
-                                    : hasVoted
-                                    ? 'rgba(90, 84, 250, 0.5)'
-                                    : option.color,
-                                }}
-                              />
-                            )}
-                            <div className="relative z-10 flex items-center justify-between">
-                              <p
-                                className={`font-pretendard text-[16px] transition-colors ${
-                                  isSelected
-                                    ? 'text-white font-semibold'
-                                    : currentPercentage > 0
-                                    ? 'text-white font-semibold'
-                                    : 'text-black'
-                                }`}
-                              >
-                                {option.text}
-                                {isSelected && (
-                                  <span className="ml-[6px] text-[14px]">
-                                    ✓
-                                  </span>
-                                )}
-                              </p>
-                              {isSelected && (
-                                <p className="font-pretendard text-[14px] font-medium text-white">
-                                  {currentPercentage}%
-                                </p>
+                        return (
+                          <div
+                            key={idx}
+                            onClick={() => handleVoteClick(idx)}
+                            className="relative rounded-[10px] overflow-hidden transition-all cursor-pointer bg-[#f8f8f8]"
+                          >
+                            <div className="p-[10px]">
+                              {currentPercentage > 0 && (
+                                <div
+                                  className="absolute h-full left-0 top-0 transition-all duration-500 ease-out rounded-tl-[10px] rounded-bl-[10px]"
+                                  style={{
+                                    width: `${currentPercentage}%`,
+                                    backgroundColor: isSelected
+                                      ? '#5A54FA'
+                                      : hasVoted
+                                      ? 'rgba(90, 84, 250, 0.5)'
+                                      : option.color,
+                                  }}
+                                />
                               )}
+                              <div className="relative z-10 flex items-center justify-between">
+                                <p
+                                  className={`font-pretendard text-[16px] transition-colors ${
+                                    isSelected
+                                      ? 'text-white font-semibold'
+                                      : currentPercentage > 0
+                                      ? 'text-white font-semibold'
+                                      : 'text-black'
+                                  }`}
+                                >
+                                  {option.text}
+                                  {isSelected && (
+                                    <span className="ml-[6px] text-[14px]">
+                                      ✓
+                                    </span>
+                                  )}
+                                </p>
+                                {isSelected && (
+                                  <p className="font-pretendard text-[14px] font-medium text-white">
+                                    {currentPercentage}%
+                                  </p>
+                                )}
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                )}
+                        );
+                      })}
+                    </div>
+                  )}
 
-                {post.image && (
-                  <div className="w-full rounded-[8px] overflow-hidden">
-                    <img
-                      src={post.image}
-                      alt=""
-                      className="w-full h-auto object-contain"
-                    />
-                  </div>
-                )}
+                  {post.image && (
+                    <div className="w-full rounded-[8px] overflow-hidden">
+                      <img
+                        src={post.image}
+                        alt=""
+                        className="w-full h-auto object-contain"
+                      />
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
 
-            {/* Action Icons */}
-            <div className="bg-white border-t border-b border-neutral-100 px-[36px] py-[18px]">
-              <div className="flex items-center justify-between">
-                <button
-                  onClick={handleLikeToggle}
-                  className="flex gap-[8px] items-center cursor-pointer hover:opacity-70 transition-opacity"
-                >
-                  <Heart
-                    className={`size-[20px] ${
-                      isLiked ? 'fill-red-500 text-red-500' : 'text-[#686873]'
-                    }`}
-                  />
-                  <p className="font-roboto font-normal leading-[21px] text-[#686873] text-[14px]">
-                    {likesCount}
-                  </p>
-                </button>
-                <div className="flex gap-[8px] items-center">
-                  <MessageSquare className="size-[20px] text-[#686873]" />
-                  <p className="font-roboto font-normal leading-[21px] text-[#686873] text-[14px]">
-                    {commentsCount}
+              {/* Action Icons */}
+              <div className="bg-white border-t border-b border-neutral-100 px-[36px] py-[18px]">
+                <div className="flex items-center justify-between">
+                  <button
+                    onClick={handleLikeToggle}
+                    className="flex gap-[8px] items-center cursor-pointer hover:opacity-70 transition-opacity"
+                  >
+                    <Heart
+                      className={`size-[20px] ${
+                        isLiked ? 'fill-red-500 text-red-500' : 'text-[#686873]'
+                      }`}
+                    />
+                    <p className="font-roboto font-normal leading-[21px] text-[#686873] text-[14px]">
+                      {likesCount}
+                    </p>
+                  </button>
+                  <div className="flex gap-[8px] items-center">
+                    <MessageSquare className="size-[20px] text-[#686873]" />
+                    <p className="font-roboto font-normal leading-[21px] text-[#686873] text-[14px]">
+                      {commentsCount}
+                    </p>
+                  </div>
+                  <button
+                    onClick={handleBookmarkToggle}
+                    className="cursor-pointer hover:opacity-70 transition-opacity"
+                  >
+                    <Bookmark
+                      className={`size-[20px] ${
+                        isBookmarked
+                          ? 'fill-[#5A54FA] text-[#5A54FA]'
+                          : 'text-[#686873]'
+                      }`}
+                    />
+                  </button>
+                  <button className="flex gap-[8px] items-center cursor-pointer hover:opacity-70 transition-opacity">
+                    <Share2 className="size-[20px] text-[#686873]" />
+                  </button>
+                </div>
+              </div>
+
+              {/* Comments Section */}
+              <div className="bg-white px-[16px] pb-[20px]">
+                <div className="pb-[10px] pt-[18px]">
+                  <p className="font-pretendard font-bold leading-[24px] not-italic text-[#040415] text-[16px]">
+                    댓글 {commentsCount}
                   </p>
                 </div>
-                <button
-                  onClick={handleBookmarkToggle}
-                  className="cursor-pointer hover:opacity-70 transition-opacity"
-                >
-                  <Bookmark
-                    className={`size-[20px] ${
-                      isBookmarked
-                        ? 'fill-[#5A54FA] text-[#5A54FA]'
-                        : 'text-[#686873]'
-                    }`}
-                  />
-                </button>
-                <button className="flex gap-[8px] items-center cursor-pointer hover:opacity-70 transition-opacity">
-                  <Share2 className="size-[20px] text-[#686873]" />
-                </button>
-              </div>
-            </div>
 
-            {/* Comments Section */}
-            <div className="bg-white px-[16px] pb-[20px]">
-              <div className="pb-[10px] pt-[18px]">
-                <p className="font-pretendard font-bold leading-[24px] not-italic text-[#040415] text-[16px]">
-                  댓글 {commentsCount}
-                </p>
-              </div>
+                {comments.map((comment) => {
+                  const commentId = String(comment.id || comment.timestamp);
+                  if (!commentId || commentId === 'undefined') return null;
 
-              {comments.map((comment) => {
-                const commentId = String(comment.id || comment.timestamp);
-                if (!commentId || commentId === 'undefined') return null;
+                  const commentState = commentLikesState[commentId] || {
+                    liked: false,
+                    count: comment.likes,
+                  };
 
-                const commentState = commentLikesState[commentId] || {
-                  liked: false,
-                  count: comment.likes,
-                };
+                  // 동적 시간 계산
+                  const displayTime = comment.timestamp
+                    ? getTimeAgoString(comment.timestamp)
+                    : comment.timeAgo;
 
-                // 동적 시간 계산
-                const displayTime = comment.timestamp
-                  ? getTimeAgoString(comment.timestamp)
-                  : comment.timeAgo;
-
-                return (
-                  <div
-                    key={commentId}
-                    className="border-b border-neutral-100 flex gap-[12px] items-start pb-[13px] pt-[12px]"
-                  >
-                    <div className="bg-[rgba(0,0,0,0.2)] rounded-full size-[32px] flex items-center justify-center shrink-0">
-                      <p className="font-pretendard font-regular leading-[16px] not-italic text-[12px] text-white">
-                        {comment.initial}
-                      </p>
-                    </div>
-                    <div className="flex-1">
-                      <div className="flex gap-[6px] items-center mb-[4px]">
-                        <p className="font-pretendard font-bold leading-[21px] not-italic text-[#151522] text-[14px]">
-                          {comment.author}
+                  return (
+                    <div
+                      key={commentId}
+                      className="border-b border-neutral-100 flex gap-[12px] items-start pb-[13px] pt-[12px]"
+                    >
+                      <div className="bg-[rgba(0,0,0,0.2)] rounded-full size-[32px] flex items-center justify-center shrink-0">
+                        <p className="font-pretendard font-regular leading-[16px] not-italic text-[12px] text-white">
+                          {comment.initial}
                         </p>
-                        <p className="font-pretendard font-regular leading-[16px] not-italic text-[#999999] text-[12px]">
-                          {displayTime}
-                        </p>
-                        {comment.author === getUserNickname() && (
-                          <button
-                            onClick={() => handleDeleteComment(commentId)}
-                            className="ml-auto text-[#999999] hover:text-red-500 transition-colors"
-                          >
-                            <Trash2 className="size-[16px]" />
-                          </button>
-                        )}
                       </div>
-                      <p className="font-pretendard font-regular leading-[24px] not-italic text-[#151522] text-[14px] mb-[4px]">
-                        {comment.content}
-                      </p>
-                      <div className="flex gap-[10px] items-center">
-                        <button
-                          onClick={() => handleCommentLikeToggle(commentId)}
-                          className="flex gap-[4px] items-center cursor-pointer hover:opacity-70 transition-opacity"
-                        >
-                          <Heart
-                            className={`size-[14px] ${
-                              commentState.liked
-                                ? 'fill-red-500 text-red-500'
-                                : 'text-[#999999]'
-                            }`}
-                          />
-                          <p className="font-roboto font-normal leading-[16px] text-[#999999] text-[12px]">
-                            {commentState.count}
+                      <div className="flex-1">
+                        <div className="flex gap-[6px] items-center mb-[4px]">
+                          <p className="font-pretendard font-bold leading-[21px] not-italic text-[#151522] text-[14px]">
+                            {comment.author}
                           </p>
-                        </button>
-                        <p className="font-pretendard font-regular leading-[16px] not-italic text-[#999999] text-[12px]">
-                          답글
+                          <p className="font-pretendard font-regular leading-[16px] not-italic text-[#999999] text-[12px]">
+                            {displayTime}
+                          </p>
+                          {comment.author === getUserNickname() && (
+                            <button
+                              onClick={() => handleDeleteComment(commentId)}
+                              className="ml-auto text-[#999999] hover:text-red-500 transition-colors"
+                            >
+                              <Trash2 className="size-[16px]" />
+                            </button>
+                          )}
+                        </div>
+                        <p className="font-pretendard font-regular leading-[24px] not-italic text-[#151522] text-[14px] mb-[4px]">
+                          {comment.content}
                         </p>
+                        <div className="flex gap-[10px] items-center">
+                          <button
+                            onClick={() => handleCommentLikeToggle(commentId)}
+                            className="flex gap-[4px] items-center cursor-pointer hover:opacity-70 transition-opacity"
+                          >
+                            <Heart
+                              className={`size-[14px] ${
+                                commentState.liked
+                                  ? 'fill-red-500 text-red-500'
+                                  : 'text-[#999999]'
+                              }`}
+                            />
+                            <p className="font-roboto font-normal leading-[16px] text-[#999999] text-[12px]">
+                              {commentState.count}
+                            </p>
+                          </button>
+                          <p className="font-pretendard font-regular leading-[16px] not-italic text-[#999999] text-[12px]">
+                            답글
+                          </p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </div>
           </div>
-        </div>
-      </PullToRefresh>
+        </PullToRefresh>
 
         {/* Comment Input Section */}
         <div className="bg-white border-t border-[#f0f0f0] px-[16px] py-[12px] shrink-0">

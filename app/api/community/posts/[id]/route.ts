@@ -31,7 +31,10 @@ export async function GET(
     });
   } catch (error) {
     console.error('Unexpected error:', error);
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    return NextResponse.json(
+      { error: 'Internal Server Error' },
+      { status: 500 }
+    );
   }
 }
 
@@ -44,7 +47,10 @@ export async function DELETE(
     const { author } = await req.json(); // 요청 본문에서 작성자 정보 받기
 
     if (!author) {
-      return NextResponse.json({ error: 'Author is required' }, { status: 400 });
+      return NextResponse.json(
+        { error: 'Author is required' },
+        { status: 400 }
+      );
     }
 
     // 1. 게시글 조회하여 작성자 확인
@@ -67,10 +73,7 @@ export async function DELETE(
     }
 
     // 3. 삭제 진행
-    const { error } = await supabase
-      .from('community')
-      .delete()
-      .eq('id', id);
+    const { error } = await supabase.from('community').delete().eq('id', id);
 
     if (error) {
       console.error('Error deleting post:', error);
@@ -80,15 +83,11 @@ export async function DELETE(
     return NextResponse.json({ message: 'Post deleted successfully' });
   } catch (error: unknown) {
     console.error('Unexpected error:', error);
-    const message = error instanceof Error ? error.message : 'Internal Server Error';
-    return NextResponse.json(
-      { error: message },
-      { status: 500 }
-    );
+    const message =
+      error instanceof Error ? error.message : 'Internal Server Error';
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }
-
-
 
 export async function PATCH(
   req: Request,
@@ -164,10 +163,8 @@ export async function PATCH(
     return NextResponse.json(data);
   } catch (error: unknown) {
     console.error('Unexpected error:', error);
-    const message = error instanceof Error ? error.message : 'Internal Server Error';
-    return NextResponse.json(
-      { error: message },
-      { status: 500 }
-    );
+    const message =
+      error instanceof Error ? error.message : 'Internal Server Error';
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }

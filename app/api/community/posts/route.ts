@@ -32,7 +32,10 @@ export async function GET() {
     return NextResponse.json(postsWithActualCounts);
   } catch (error) {
     console.error('Unexpected error:', error);
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    return NextResponse.json(
+      { error: 'Internal Server Error' },
+      { status: 500 }
+    );
   }
 }
 
@@ -58,7 +61,9 @@ export async function POST(req: Request) {
           likes: 0,
           comments_count: 0,
           // 클라이언트 timestamp가 있으면 그것을 사용, 없으면 현재 시간
-          created_at: timestamp ? new Date(timestamp).toISOString() : new Date().toISOString(),
+          created_at: timestamp
+            ? new Date(timestamp).toISOString()
+            : new Date().toISOString(),
         },
       ])
       .select()
@@ -66,13 +71,17 @@ export async function POST(req: Request) {
 
     if (error) {
       console.error('Error creating post:', error);
-      return NextResponse.json({ error: error.message, details: error }, { status: 500 });
+      return NextResponse.json(
+        { error: error.message, details: error },
+        { status: 500 }
+      );
     }
 
     return NextResponse.json(data);
   } catch (error: unknown) {
     console.error('Unexpected error:', error);
-    const message = error instanceof Error ? error.message : 'Internal Server Error';
+    const message =
+      error instanceof Error ? error.message : 'Internal Server Error';
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }

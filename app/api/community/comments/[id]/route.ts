@@ -62,11 +62,9 @@ export async function DELETE(
     return NextResponse.json({ message: 'Comment deleted successfully' });
   } catch (error: unknown) {
     console.error('Unexpected error:', error);
-    const message = error instanceof Error ? error.message : 'Internal Server Error';
-    return NextResponse.json(
-      { error: message },
-      { status: 500 }
-    );
+    const message =
+      error instanceof Error ? error.message : 'Internal Server Error';
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }
 
@@ -97,7 +95,9 @@ export async function PATCH(
       return NextResponse.json({ error: 'Comment not found' }, { status: 404 });
     }
 
-    const newLikes = increment ? comment.likes + 1 : Math.max(0, comment.likes - 1);
+    const newLikes = increment
+      ? comment.likes + 1
+      : Math.max(0, comment.likes - 1);
 
     const { data, error } = await supabase
       .from('comments')
@@ -114,10 +114,8 @@ export async function PATCH(
     return NextResponse.json(data);
   } catch (error: unknown) {
     console.error('Unexpected error:', error);
-    const message = error instanceof Error ? error.message : 'Internal Server Error';
-    return NextResponse.json(
-      { error: message },
-      { status: 500 }
-    );
+    const message =
+      error instanceof Error ? error.message : 'Internal Server Error';
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }

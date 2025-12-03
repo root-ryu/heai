@@ -356,7 +356,11 @@ export default function RoutineBoardPage() {
               {sortedPosts.map((post) => {
                 const counts = getDisplayCounts(
                   post.id,
-                  { likes: post.likes, comments: post.comments, views: post.views },
+                  {
+                    likes: post.likes,
+                    comments: post.comments,
+                    views: post.views,
+                  },
                   isMounted
                 );
                 const displayLikes = counts.likes;
@@ -487,7 +491,11 @@ export default function RoutineBoardPage() {
                 {sortedPosts.map((post) => {
                   const counts = getDisplayCounts(
                     post.id,
-                    { likes: post.likes, comments: post.comments, views: post.views },
+                    {
+                      likes: post.likes,
+                      comments: post.comments,
+                      views: post.views,
+                    },
                     isMounted
                   );
                   const displayLikes = counts.likes;
