@@ -99,8 +99,9 @@ export default function PostCardList({
     <div className="bg-white w-full">
       {/* Post Content */}
       <div
-        className="px-[20px] py-[16px] cursor-pointer hover:bg-neutral-50 transition-colors"
+        className="px-[20px] py-[16px] cursor-pointer hover:bg-neutral-50 transition-colors active:bg-transparent"
         onClick={handlePostClick}
+        style={{ WebkitTapHighlightColor: 'transparent' }}
       >
         <div className="w-[335px] mx-auto">
           {/* Category and Bookmark */}

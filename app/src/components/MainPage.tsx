@@ -47,8 +47,8 @@ function RoutineButton({ active, onClick, children }: RoutineButtonProps) {
       style={{ WebkitTapHighlightColor: 'transparent' }}
       className={`touch-manipulation outline-none h-[21px] relative rounded-[5px] w-[20px] border-2 ${
         active
-          ? '!bg-[#5a54fa] !border-[#5a54fa]'
-          : '!bg-white !border-[#e6e6e6]'
+          ? 'bg-[#5a54fa] border-[#5a54fa]'
+          : 'bg-white border-[#e6e6e6]'
       }`}
     >
       {children}

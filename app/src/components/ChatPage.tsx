@@ -13,13 +13,13 @@ interface Message {
   timestamp: Date;
 }
 
-// [초기 메시지]
-const INITIAL_MESSAGE: Message = {
+// [초기 메시지 생성 함수]
+const getInitialMessage = (): Message => ({
   id: '0',
   text: '안냥! 👋 저는 당신의 AI펫 최양갱 이다냥.\n어떤 건강 고민이 있냥? 다 들어주겠다냥!',
   sender: 'ai',
   timestamp: new Date(),
-};
+});
 
 const SUGGESTED_KEYWORDS = [
   '오늘의 추천 운동',
@@ -52,7 +52,7 @@ const KEYS_EN_ROW_3 = ['!', '?', '+', '=', '/', '.', ','];
 export default function ChatPage() {
   // 1. [기능/로직]
   const router = useRouter();
-  const [messages, setMessages] = useState<Message[]>([INITIAL_MESSAGE]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [inputText, setInputText] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(true);
@@ -83,17 +83,23 @@ export default function ChatPage() {
           ...msg,
           timestamp: new Date(msg.timestamp),
         }));
-        setMessages(restoredMessages);
+
+        // 저장된 대화가 초기 메시지 하나뿐이라면, 현재 시간으로 갱신 (방금 들어온 것처럼)
+        if (restoredMessages.length === 1 && restoredMessages[0].id === '0') {
+          setMessages([getInitialMessage()]);
+        } else {
+          setMessages(restoredMessages);
+        }
         // 메시지가 있어도 추천 검색어 표시 (사용자가 원할 수 있음)
         // if (restoredMessages.length > 1) {
         //   setShowSuggestions(false);
         // }
       } catch (e) {
         console.error('Failed to parse chat history', e);
-        setMessages([INITIAL_MESSAGE]);
+        setMessages([getInitialMessage()]);
       }
     } else {
-      setMessages([INITIAL_MESSAGE]);
+      setMessages([getInitialMessage()]);
     }
   }, []);
 
