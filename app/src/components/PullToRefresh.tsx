@@ -99,8 +99,10 @@ export default function PullToRefresh({
       const target = e.target as HTMLElement;
       if (target.closest('button, input, a, [role="button"]')) {
         isPullingRef.current = false;
-        setPullDistance(0);
-        pullDistanceRef.current = 0;
+        if (pullDistanceRef.current !== 0) {
+          setPullDistance(0);
+          pullDistanceRef.current = 0;
+        }
         return;
       }
 

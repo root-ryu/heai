@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Bottom } from './Layout';
 import PullToRefresh from './PullToRefresh';
@@ -30,6 +30,76 @@ const imgBannerStarLarge = '/banner_star_large.png';
 const imgBannerStarSmall = '/banner_star_small.png';
 const imgCharacterBgEffect = '/character_bg_effect.png';
 const imgPreicon = '/preicon.png';
+
+interface RoutineButtonProps {
+  active: boolean;
+  onClick: () => void;
+  children?: React.ReactNode;
+}
+
+function RoutineButton({ active, onClick, children }: RoutineButtonProps) {
+  const btnRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    const btn = btnRef.current;
+    if (!btn) return;
+
+    let startX = 0;
+    let startY = 0;
+    let isTap = false;
+
+    const onTouchStart = (e: TouchEvent) => {
+      e.stopPropagation(); // PullToRefresh 방지
+      isTap = true;
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+    };
+
+    const onTouchMove = (e: TouchEvent) => {
+      e.stopPropagation(); // PullToRefresh 방지
+      if (!isTap) return;
+      const x = e.touches[0].clientX;
+      const y = e.touches[0].clientY;
+      if (Math.abs(x - startX) > 10 || Math.abs(y - startY) > 10) {
+        isTap = false;
+      }
+    };
+
+    const onTouchEnd = (e: TouchEvent) => {
+      e.stopPropagation(); // PullToRefresh 방지
+      if (isTap) {
+        if (e.cancelable) e.preventDefault(); // 고스트 클릭 및 포커스 문제 방지
+        onClick(); // 즉시 실행
+      }
+      isTap = false;
+    };
+
+    // passive: false로 설정하여 preventDefault 호출 가능하게 함
+    btn.addEventListener('touchstart', onTouchStart, { passive: false });
+    btn.addEventListener('touchmove', onTouchMove, { passive: false });
+    btn.addEventListener('touchend', onTouchEnd, { passive: false });
+
+    return () => {
+      btn.removeEventListener('touchstart', onTouchStart);
+      btn.removeEventListener('touchmove', onTouchMove);
+      btn.removeEventListener('touchend', onTouchEnd);
+    };
+  }, [onClick]);
+
+  return (
+    <button
+      ref={btnRef}
+      onClick={onClick}
+      className={`outline-none ${
+        active ? 'bg-[#5a54fa]' : 'bg-white'
+      } h-[21px] relative rounded-[5px] w-[20px] border-2 ${
+        active ? 'border-[#5a54fa]' : 'border-[#e6e6e6]'
+      }`}
+    >
+      {children}
+    </button>
+  );
+}
 
 export default function MainPage() {
   const router = useRouter();
@@ -309,15 +379,9 @@ export default function MainPage() {
                               물 마시기
                             </p>
                           </div>
-                          <button
+                          <RoutineButton
+                            active={routines.water}
                             onClick={() => toggleRoutine('water')}
-                            className={`${
-                              routines.water ? 'bg-[#5a54fa]' : 'bg-white'
-                            } h-[21px] relative rounded-[5px] w-[20px] border-2 ${
-                              routines.water
-                                ? 'border-[#5a54fa]'
-                                : 'border-[#e6e6e6]'
-                            }`}
                           >
                             {routines.water && (
                               <div className="absolute inset-0 flex items-center justify-center">
@@ -336,7 +400,7 @@ export default function MainPage() {
                                 </svg>
                               </div>
                             )}
-                          </button>
+                          </RoutineButton>
                         </div>
                       </div>
 
@@ -360,15 +424,9 @@ export default function MainPage() {
                               명상
                             </p>
                           </div>
-                          <button
+                          <RoutineButton
+                            active={routines.meditation}
                             onClick={() => toggleRoutine('meditation')}
-                            className={`${
-                              routines.meditation ? 'bg-[#5a54fa]' : 'bg-white'
-                            } h-[21px] relative rounded-[5px] w-[20px] border-2 ${
-                              routines.meditation
-                                ? 'border-[#5a54fa]'
-                                : 'border-[#e6e6e6]'
-                            }`}
                           >
                             {routines.meditation && (
                               <div className="absolute inset-0 flex items-center justify-center">
@@ -387,7 +445,7 @@ export default function MainPage() {
                                 </svg>
                               </div>
                             )}
-                          </button>
+                          </RoutineButton>
                         </div>
                       </div>
 
@@ -410,15 +468,9 @@ export default function MainPage() {
                               잠자기
                             </p>
                           </div>
-                          <button
+                          <RoutineButton
+                            active={routines.sleep}
                             onClick={() => toggleRoutine('sleep')}
-                            className={`${
-                              routines.sleep ? 'bg-[#5a54fa]' : 'bg-white'
-                            } h-[21px] relative rounded-[5px] w-[20px] border-2 ${
-                              routines.sleep
-                                ? 'border-[#5a54fa]'
-                                : 'border-[#e6e6e6]'
-                            }`}
                           >
                             {routines.sleep && (
                               <div className="absolute inset-0 flex items-center justify-center">
@@ -437,7 +489,7 @@ export default function MainPage() {
                                 </svg>
                               </div>
                             )}
-                          </button>
+                          </RoutineButton>
                         </div>
                       </div>
                     </div>
