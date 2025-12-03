@@ -47,7 +47,7 @@ export default function MainPage() {
     <div className="bg-[#F8FBFF] flex flex-col items-center w-full h-full overflow-hidden">
       <div className="max-w-[375px] mx-auto w-full h-full flex flex-col">
       {/* Header */}
-      <div className="bg-neutral-50 h-[48px] overflow-clip relative w-full shrink-0">
+      <div className="bg-[#F8FBFF] h-[48px] overflow-clip relative w-full shrink-0">
         <div className="absolute box-border flex items-center justify-between left-1/2 pl-[4px] pr-0 py-0 top-[11px] translate-x-[-50%] w-[343px]">
           {/* Logo */}
           <button 
