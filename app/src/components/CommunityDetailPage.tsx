@@ -65,7 +65,9 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
 
   useEffect(() => {
     // ID를 문자열로 변환하여 비교 (API ID는 문자열일 수 있음)
-    const foundDummyPost = COMMUNITY_POSTS.find((p: Post) => String(p.id) === String(postId));
+    const foundDummyPost = COMMUNITY_POSTS.find(
+      (p: Post) => String(p.id) === String(postId)
+    );
 
     if (foundDummyPost) {
       const foundPost = foundDummyPost;
@@ -183,15 +185,24 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
           const res = await fetch(`/api/community/posts/${postId}`);
           if (res.ok) {
             const data = await res.json();
-            
+
             // 카테고리 색상 매핑 (CommunityPage와 동일)
-            const categoryInfo: Record<string, { color: string; bgColor: string }> = {
-              '캐릭터': { color: '#FFB347', bgColor: 'rgba(255,179,71,0.67)' },
-              '자유게시판': { color: '#FF8B80', bgColor: 'rgba(255,139,128,0.67)' },
-              '루틴게시판': { color: '#22D760', bgColor: 'rgba(34,215,96,0.67)' },
-              '꿀팁': { color: '#C8A5D8', bgColor: 'rgba(200,165,216,0.67)' },
+            const categoryInfo: Record<
+              string,
+              { color: string; bgColor: string }
+            > = {
+              캐릭터: { color: '#FFB347', bgColor: 'rgba(255,179,71,0.67)' },
+              자유게시판: {
+                color: '#FF8B80',
+                bgColor: 'rgba(255,139,128,0.67)',
+              },
+              루틴게시판: { color: '#22D760', bgColor: 'rgba(34,215,96,0.67)' },
+              꿀팁: { color: '#C8A5D8', bgColor: 'rgba(200,165,216,0.67)' },
             };
-            const catInfo = categoryInfo[data.category] || { color: '#5A54FA', bgColor: 'rgba(90,84,250,0.67)' };
+            const catInfo = categoryInfo[data.category] || {
+              color: '#5A54FA',
+              bgColor: 'rgba(90,84,250,0.67)',
+            };
             const timestamp = new Date(data.created_at).getTime();
 
             const mappedPost: Post = {
@@ -214,15 +225,21 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
             setLikesCount(mappedPost.likes);
             setCommentsCount(mappedPost.comments);
             setViewsCount(mappedPost.views);
-            
+
             // API 게시글은 localStorage 좋아요/북마크 상태만 확인 (카운트는 DB 기준)
-            const storedIsLiked = localStorage.getItem(`post_${postId}_isLiked`);
-            const storedBookmarked = localStorage.getItem(`post_${postId}_bookmarked`);
+            const storedIsLiked = localStorage.getItem(
+              `post_${postId}_isLiked`
+            );
+            const storedBookmarked = localStorage.getItem(
+              `post_${postId}_bookmarked`
+            );
             setIsLiked(storedIsLiked === 'true');
             setIsBookmarked(storedBookmarked === 'true');
-            
+
             // 댓글 불러오기
-            const commentsRes = await fetch(`/api/community/comments?postId=${postId}`);
+            const commentsRes = await fetch(
+              `/api/community/comments?postId=${postId}`
+            );
             if (commentsRes.ok) {
               const commentsData = await commentsRes.json();
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -243,18 +260,18 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
                 [key: string]: { liked: boolean; count: number };
               } = {};
               mappedComments.forEach((comment) => {
-                 const commentId = comment.id || comment.timestamp?.toString();
-                 if (!commentId) return;
-                 
-                 const likedKey = `post_${postId}_comment_${commentId}_liked`;
-                 const likesKey = `post_${postId}_comment_${commentId}_likes`;
-                 const storedLiked = localStorage.getItem(likedKey);
-                 const storedLikes = localStorage.getItem(likesKey);
+                const commentId = comment.id || comment.timestamp?.toString();
+                if (!commentId) return;
 
-                 initialCommentLikes[commentId] = {
-                   liked: storedLiked === 'true',
-                   count: storedLikes ? parseInt(storedLikes) : comment.likes,
-                 };
+                const likedKey = `post_${postId}_comment_${commentId}_liked`;
+                const likesKey = `post_${postId}_comment_${commentId}_likes`;
+                const storedLiked = localStorage.getItem(likedKey);
+                const storedLikes = localStorage.getItem(likesKey);
+
+                initialCommentLikes[commentId] = {
+                  liked: storedLiked === 'true',
+                  count: storedLikes ? parseInt(storedLikes) : comment.likes,
+                };
               });
               setCommentLikesState(initialCommentLikes);
             }
@@ -320,7 +337,9 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
     localStorage.setItem(`post_${postId}_isLiked`, newIsLiked.toString());
     localStorage.setItem(`post_${postId}_likes`, newLikesCount.toString());
 
-    const isDummyPost = COMMUNITY_POSTS.some(p => String(p.id) === String(postId));
+    const isDummyPost = COMMUNITY_POSTS.some(
+      (p) => String(p.id) === String(postId)
+    );
 
     if (!isDummyPost) {
       try {
@@ -356,7 +375,9 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
   const confirmDelete = async () => {
     if (!deleteTarget) return;
 
-    const isDummyPost = COMMUNITY_POSTS.some(p => String(p.id) === String(postId));
+    const isDummyPost = COMMUNITY_POSTS.some(
+      (p) => String(p.id) === String(postId)
+    );
 
     if (deleteTarget.type === 'post') {
       if (isDummyPost) {
@@ -399,7 +420,9 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
         );
         setComments(updatedComments);
 
-        const userComments = updatedComments.filter((c) => c.author === getUserNickname());
+        const userComments = updatedComments.filter(
+          (c) => c.author === getUserNickname()
+        );
         localStorage.setItem(
           `post_${postId}_comments`,
           JSON.stringify(userComments)
@@ -412,8 +435,12 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
           newCommentsCount.toString()
         );
 
-        localStorage.removeItem(`post_${postId}_comment_${deleteTarget.id}_liked`);
-        localStorage.removeItem(`post_${postId}_comment_${deleteTarget.id}_likes`);
+        localStorage.removeItem(
+          `post_${postId}_comment_${deleteTarget.id}_liked`
+        );
+        localStorage.removeItem(
+          `post_${postId}_comment_${deleteTarget.id}_likes`
+        );
 
         setCommentLikesState((prev) => {
           const newState = { ...prev };
@@ -422,31 +449,36 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
         });
       } else {
         try {
-          const res = await fetch(`/api/community/comments/${deleteTarget.id}`, {
-            method: 'DELETE',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ author: getUserNickname() }),
-          });
+          const res = await fetch(
+            `/api/community/comments/${deleteTarget.id}`,
+            {
+              method: 'DELETE',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ author: getUserNickname() }),
+            }
+          );
 
           if (res.ok) {
-            const updatedComments = comments.filter(c => c.id !== deleteTarget.id);
+            const updatedComments = comments.filter(
+              (c) => c.id !== deleteTarget.id
+            );
             setComments(updatedComments);
             setCommentsCount(updatedComments.length);
             localStorage.setItem(
               `post_${postId}_commentsCount`,
               updatedComments.length.toString()
             );
-            
+
             setCommentLikesState((prev) => {
               const newState = { ...prev };
               delete newState[deleteTarget.id!];
               return newState;
             });
           } else {
-             // Alert removed as requested
-             console.error('Failed to delete comment');
+            // Alert removed as requested
+            console.error('Failed to delete comment');
           }
         } catch (error) {
           console.error('Error deleting comment:', error);
@@ -487,11 +519,15 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
       newCount.toString()
     );
 
-    const isDummyPost = COMMUNITY_POSTS.some(p => String(p.id) === String(postId));
-    const comment = comments.find(c => c.id === commentId || c.timestamp?.toString() === commentId);
+    const isDummyPost = COMMUNITY_POSTS.some(
+      (p) => String(p.id) === String(postId)
+    );
+    const comment = comments.find(
+      (c) => c.id === commentId || c.timestamp?.toString() === commentId
+    );
 
     if (!isDummyPost && comment && comment.id) {
-       try {
+      try {
         await fetch(`/api/community/comments/${comment.id}`, {
           method: 'PATCH',
           headers: {
@@ -508,7 +544,9 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
   const handleCommentSubmit = async () => {
     if (!commentInput.trim()) return;
 
-    const isDummyPost = COMMUNITY_POSTS.some(p => String(p.id) === String(postId));
+    const isDummyPost = COMMUNITY_POSTS.some(
+      (p) => String(p.id) === String(postId)
+    );
 
     if (isDummyPost) {
       const nickname = getUserNickname();
@@ -522,9 +560,7 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
       };
 
       const updatedComments = [newComment, ...comments];
-      updatedComments.sort(
-        (a, b) => (b.timestamp || 0) - (a.timestamp || 0)
-      );
+      updatedComments.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
       setComments(updatedComments);
 
       const newCommentId = newComment.timestamp!.toString();
@@ -536,9 +572,7 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
       const newCommentsCount = commentsCount + 1;
       setCommentsCount(newCommentsCount);
 
-      const userComments = updatedComments.filter(
-        (c) => c.author === nickname
-      );
+      const userComments = updatedComments.filter((c) => c.author === nickname);
       localStorage.setItem(
         `post_${postId}_comments`,
         JSON.stringify(userComments)
