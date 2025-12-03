@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { Bottom } from './Layout';
 import PullToRefresh from './PullToRefresh';
@@ -38,67 +38,40 @@ interface RoutineButtonProps {
 }
 
 function RoutineButton({ active, onClick, children }: RoutineButtonProps) {
-  const btnRef = useRef<HTMLDivElement>(null);
+  const btnRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const btn = btnRef.current;
     if (!btn) return;
 
-    let startX = 0;
-    let startY = 0;
-    let isTap = false;
-
-    const onTouchStart = (e: TouchEvent) => {
-      e.stopPropagation(); // PullToRefresh 방지
-      isTap = true;
-      startX = e.touches[0].clientX;
-      startY = e.touches[0].clientY;
+    const handleTouch = (e: TouchEvent) => {
+      e.stopPropagation();
     };
 
-    const onTouchMove = (e: TouchEvent) => {
-      e.stopPropagation(); // PullToRefresh 방지
-      if (!isTap) return;
-      const x = e.touches[0].clientX;
-      const y = e.touches[0].clientY;
-      if (Math.abs(x - startX) > 10 || Math.abs(y - startY) > 10) {
-        isTap = false;
-      }
-    };
-
-    const onTouchEnd = (e: TouchEvent) => {
-      e.stopPropagation(); // PullToRefresh 방지
-      if (isTap) {
-        if (e.cancelable) e.preventDefault(); // 고스트 클릭 및 포커스 문제 방지
-        onClick(); // 즉시 실행
-      }
-      isTap = false;
-    };
-
-    btn.addEventListener('touchstart', onTouchStart, { passive: false });
-    btn.addEventListener('touchmove', onTouchMove, { passive: false });
-    btn.addEventListener('touchend', onTouchEnd, { passive: false });
+    // PullToRefresh 등 상위 요소로의 터치 이벤트 전파를 막아 간섭 방지
+    // passive: false로 설정하여 이벤트 처리를 확실하게 함
+    btn.addEventListener('touchstart', handleTouch, { passive: false });
+    btn.addEventListener('touchmove', handleTouch, { passive: false });
+    btn.addEventListener('touchend', handleTouch, { passive: false });
 
     return () => {
-      btn.removeEventListener('touchstart', onTouchStart);
-      btn.removeEventListener('touchmove', onTouchMove);
-      btn.removeEventListener('touchend', onTouchEnd);
+      btn.removeEventListener('touchstart', handleTouch);
+      btn.removeEventListener('touchmove', handleTouch);
+      btn.removeEventListener('touchend', handleTouch);
     };
-  }, [onClick]);
+  }, []);
 
   return (
-    <div
-      role="button"
+    <button
       ref={btnRef}
       onClick={onClick}
       style={{ WebkitTapHighlightColor: 'transparent' }}
-      className={`cursor-pointer touch-manipulation outline-none ${
-        active ? 'bg-[#5a54fa]' : 'bg-white'
-      } h-[21px] relative rounded-[5px] w-[20px] border-2 ${
-        active ? 'border-[#5a54fa]' : 'border-[#e6e6e6]'
+      className={`touch-manipulation outline-none h-[21px] relative rounded-[5px] w-[20px] border-2 ${
+        active ? '!bg-[#5a54fa] !border-[#5a54fa]' : '!bg-white !border-[#e6e6e6]'
       }`}
     >
       {children}
-    </div>
+    </button>
   );
 }
 
@@ -110,9 +83,13 @@ export default function MainPage() {
     sleep: false,
   });
 
-  const toggleRoutine = (routine: 'water' | 'meditation' | 'sleep') => {
+  const toggleRoutine = useCallback((routine: 'water' | 'meditation' | 'sleep') => {
     setRoutines((prev) => ({ ...prev, [routine]: !prev[routine] }));
-  };
+  }, []);
+
+  const handleWaterClick = useCallback(() => toggleRoutine('water'), [toggleRoutine]);
+  const handleMeditationClick = useCallback(() => toggleRoutine('meditation'), [toggleRoutine]);
+  const handleSleepClick = useCallback(() => toggleRoutine('sleep'), [toggleRoutine]);
 
   const scrollToTop = () => {
     // 여러 가능한 스크롤 컨테이너를 시도
@@ -382,7 +359,7 @@ export default function MainPage() {
                           </div>
                           <RoutineButton
                             active={routines.water}
-                            onClick={() => toggleRoutine('water')}
+                            onClick={handleWaterClick}
                           >
                             {routines.water && (
                               <div className="absolute inset-0 flex items-center justify-center">
@@ -427,7 +404,7 @@ export default function MainPage() {
                           </div>
                           <RoutineButton
                             active={routines.meditation}
-                            onClick={() => toggleRoutine('meditation')}
+                            onClick={handleMeditationClick}
                           >
                             {routines.meditation && (
                               <div className="absolute inset-0 flex items-center justify-center">
@@ -471,7 +448,7 @@ export default function MainPage() {
                           </div>
                           <RoutineButton
                             active={routines.sleep}
-                            onClick={() => toggleRoutine('sleep')}
+                            onClick={handleSleepClick}
                           >
                             {routines.sleep && (
                               <div className="absolute inset-0 flex items-center justify-center">
