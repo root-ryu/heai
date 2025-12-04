@@ -139,8 +139,9 @@ export default function CommunityPage({ category = 'all' }: CommunityPageProps) 
           </div>
         </div>
 
-        <FloatingWriteButton />
       </PullToRefresh>
+
+      <FloatingWriteButton />
         <Bottom />
       </div>
     </div>
