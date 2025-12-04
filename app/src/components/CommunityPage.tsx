@@ -17,9 +17,13 @@ interface CommunityPageProps {
   category?: 'all' | 'character' | 'free' | 'routine' | 'tips';
 }
 
-export default function CommunityPage({ category = 'all' }: CommunityPageProps) {
+export default function CommunityPage({
+  category = 'all',
+}: CommunityPageProps) {
   const [searchQuery, setSearchQuery] = useState('');
-  const [bookmarkedPosts, setBookmarkedPosts] = useState<(number | string)[]>([]);
+  const [bookmarkedPosts, setBookmarkedPosts] = useState<(number | string)[]>(
+    []
+  );
   const [apiPosts, setApiPosts] = useState<Post[]>([]);
   const [refreshKey, setRefreshKey] = useState(0);
 
@@ -30,7 +34,7 @@ export default function CommunityPage({ category = 'all' }: CommunityPageProps) 
         const res = await fetch('/api/community/posts');
         if (res.ok) {
           const data = await res.json();
-          
+
           // 카테고리 색상 매핑
           // 카테고리 색상 매핑
           const categoryInfo = CATEGORY_DATA;
@@ -38,10 +42,14 @@ export default function CommunityPage({ category = 'all' }: CommunityPageProps) 
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const mappedPosts: Post[] = data.map((item: any) => {
             // CATEGORY_MAP의 키(영문)를 찾아 CATEGORY_DATA에서 색상 정보를 가져옴
-            const categoryKey = Object.keys(CATEGORY_MAP).find(key => CATEGORY_MAP[key] === item.category);
-            const catInfo = categoryKey ? CATEGORY_DATA[categoryKey] : { color: '#5A54FA', bgColor: 'rgba(90,84,250,0.67)' };
+            const categoryKey = Object.keys(CATEGORY_MAP).find(
+              (key) => CATEGORY_MAP[key] === item.category
+            );
+            const catInfo = categoryKey
+              ? CATEGORY_DATA[categoryKey]
+              : { color: '#5A54FA', bgColor: 'rgba(90,84,250,0.67)' };
             const timestamp = new Date(item.created_at).getTime();
-            
+
             return {
               id: item.id,
               category: item.category,
@@ -58,7 +66,7 @@ export default function CommunityPage({ category = 'all' }: CommunityPageProps) 
               author: item.author,
             };
           });
-          
+
           setApiPosts(mappedPosts);
         }
       } catch (error) {
@@ -77,7 +85,10 @@ export default function CommunityPage({ category = 'all' }: CommunityPageProps) 
     window.addEventListener('focus', handleFocus);
     return () => window.removeEventListener('focus', handleFocus);
   }, []);
-  const handleBookmarkToggle = (postId: number | string, isBookmarked: boolean) => {
+  const handleBookmarkToggle = (
+    postId: number | string,
+    isBookmarked: boolean
+  ) => {
     setBookmarkedPosts((prev) =>
       isBookmarked ? [...prev, postId] : prev.filter((id) => id !== postId)
     );
@@ -90,9 +101,10 @@ export default function CommunityPage({ category = 'all' }: CommunityPageProps) 
   // 카테고리 필터링
   const categoryMap = CATEGORY_MAP;
 
-  const filteredByCategory = category === 'all' 
-    ? allPosts 
-    : allPosts.filter(post => post.category === categoryMap[category]);
+  const filteredByCategory =
+    category === 'all'
+      ? allPosts
+      : allPosts.filter((post) => post.category === categoryMap[category]);
 
   // 검색어로 필터링
   const searchedPosts =
@@ -124,24 +136,23 @@ export default function CommunityPage({ category = 'all' }: CommunityPageProps) 
         {/* Category Tabs */}
         <CategoryTabs activeCategory={category} />
 
-      <PullToRefresh>
-        {/* Posts List */}
-        <div className="flex-1 overflow-y-auto overflow-x-hidden w-full pb-[120px]">
-          <div className="flex flex-col gap-[10px] pb-[20px]">
-            {searchedPosts.map((post) => (
-              <PostCardList
-                key={`${post.id}-${refreshKey}-${post.timestamp || 'dummy'}`}
-                post={post}
-                isBookmarked={bookmarkedPosts.includes(post.id)}
-                onBookmarkToggle={handleBookmarkToggle}
-              />
-            ))}
+        <PullToRefresh>
+          {/* Posts List */}
+          <div className="flex-1 overflow-y-auto overflow-x-hidden w-full pb-[120px]">
+            <div className="flex flex-col gap-[10px] pb-[20px]">
+              {searchedPosts.map((post) => (
+                <PostCardList
+                  key={`${post.id}-${refreshKey}-${post.timestamp || 'dummy'}`}
+                  post={post}
+                  isBookmarked={bookmarkedPosts.includes(post.id)}
+                  onBookmarkToggle={handleBookmarkToggle}
+                />
+              ))}
+            </div>
           </div>
-        </div>
+        </PullToRefresh>
 
-      </PullToRefresh>
-
-      <FloatingWriteButton />
+        <FloatingWriteButton />
         <Bottom />
       </div>
     </div>
