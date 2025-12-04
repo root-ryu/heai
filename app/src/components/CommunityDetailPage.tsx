@@ -748,9 +748,9 @@ export default function CommunityDetailPage({ postId }: PostDetailPageProps) {
             {post.category}
           </p>
         </div>
-        <PullToRefresh>
+        <PullToRefresh className="flex-1">
           {/* Scrollable Content */}
-          <div className="flex-1 overflow-y-auto overflow-x-hidden w-full pb-[120px]">
+          <div className="w-full pb-[120px]">
             <div className="flex flex-col gap-[12px]">
               {/* Post Header & Content */}
               <div className="bg-white">

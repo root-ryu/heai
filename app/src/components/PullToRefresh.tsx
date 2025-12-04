@@ -56,7 +56,7 @@ export default function PullToRefresh({
 
       // 버튼, 체크박스 등 인터랙티브 요소 터치 시 무시
       const target = e.target as HTMLElement;
-      if (target.closest('button, input, a, [role="button"]')) {
+      if (target.closest('button, input, textarea, a, [role="button"]')) {
         return;
       }
 
@@ -69,6 +69,15 @@ export default function PullToRefresh({
 
     const handleTouchMove = (e: TouchEvent) => {
       if (!isPullingRef.current || isRefreshing) return;
+
+      // 텍스트 선택 중이면 무시
+      const selection = window.getSelection();
+      if (selection && selection.toString().length > 0) {
+        isPullingRef.current = false;
+        setPullDistance(0);
+        pullDistanceRef.current = 0;
+        return;
+      }
 
       // 스크롤이 맨 위가 아니면 초기화
       if (container.scrollTop > 5) {
